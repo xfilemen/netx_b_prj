@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import './base.css';
+import './css/base.css';
 
 export default function HomePage() {
   const [users, setUsers] = useState([]);
