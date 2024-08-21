@@ -15,7 +15,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <h1>User List</h1>
+      <h1>hi</h1>
       <ul>
         {users.map((user) => (
           <li key={user.id}>
