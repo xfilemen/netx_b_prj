@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import './css/base.css';
 
 export default function HomePage() {
   const [users, setUsers] = useState([]);
@@ -16,7 +15,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <h1>김성환 천재</h1>
+      <h1>김성환</h1>
       <ul>
         {users.map((user) => (
           <li key={user.id}>
