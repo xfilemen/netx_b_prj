@@ -14,6 +14,15 @@ export default function HomePage() {
   }, []);
 
   return (
-    
+    <div>
+      <h1>김성환 천재</h1>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>
+            {user.name} - {user.email}-{user.age}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
