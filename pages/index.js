@@ -1,21 +1,29 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { useState, useEffect } from 'react';
+import './css/base.css';
 
-import Detail from "./routes/detail";
-import Home from "./routes/home";
+export default function HomePage() {
+  const [users, setUsers] = useState([]);
 
-function App() {
+  useEffect(() => {
+    async function fetchUsers() {
+      const response = await fetch('/api/getUsers');
+      const data = await response.json();
+      setUsers(data);
+    }
+
+    fetchUsers();
+  }, []);
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/movie" element={<Detail />} />
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </Router>
+    <div>
+      <h1>김성환 천재</h1>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>
+            {user.name} - {user.email}-{user.age}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
-
-export default App;
