@@ -1,9 +1,9 @@
 import './styles/reset.css';
-import Main from './Main';
+import Index from './index';
 
 function App() {
     return (
-        <Main />
+        <Index />
     );
 }
 
