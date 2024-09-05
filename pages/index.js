@@ -4,7 +4,7 @@ import styles from './css/main.module.css';
 export default function Home() {
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>김성환 천재12</h1>
+      <h1 className={styles.title}>유현님 바보</h1>
     </div>
   );
 }
