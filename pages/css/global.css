@@ -1,8 +1,0 @@
-/* CSS 리셋 */
-*, *::before, *::after{margin:0;padding:0;box-sizing:border-box;}
-  
-/* 기타 글로벌 스타일 */
-body{font-family:Arial, sans-serif;line-height:1.5;}
-
-.container{padding:0 2rem;}  
-.title{color:blue;font-size:2rem;}
