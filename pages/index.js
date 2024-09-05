@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import styles from './css/main.module.css';
+import './css/reset.css';
+import Main from './pages/Main'; // 컴포넌트 임포트
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>유현님 바보</h1>
-    </div>
-  );
+function App() {
+    return (
+        <Main />
+    );
 }
+
+export default App;
