@@ -1,4 +1,4 @@
-import './css/reset.css';
+import './styles/reset.css';
 import Main from './Main';
 
 function App() {
