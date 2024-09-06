@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from './styles/main.module.css';
-import loginImage from './public/images/login/loginbg.png';
-import Image from 'next/image'; 
+import loginImage from './images/login/loginbg.png';
 
 export default function LoginPage() {
   return (
