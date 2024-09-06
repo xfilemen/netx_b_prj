@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from './styles/main.module.css';
+import loginImage from './public/images/login/loginbg.png';
 import Image from 'next/image'; 
 
 export default function LoginPage() {
@@ -7,7 +8,7 @@ export default function LoginPage() {
     <div className={styles.container}>
       <div className={styles.loginbg}>
         <Image 
-          src="/images/loginbg.png" // 이미지 경로
+          src={loginImage} // 이미지 경로
           alt="로그인 페이지"
         />
       </div>
