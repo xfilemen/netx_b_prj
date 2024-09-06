@@ -6,7 +6,7 @@ export default function LoginPage() {
   return (
     <div className={styles.container}>
       <div>
-        <Image
+        <Image 
           src={loginImage} // 이미지 경로
           alt="로그인 페이지"
           width={500}
