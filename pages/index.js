@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from './styles/main.module.css';
-import loginImage from './images/loginbg.png'; // 이미지 파일 경로
+import loginImage from './pages/images/loginbg.png';
 
 export default function LoginPage() {
   return (
