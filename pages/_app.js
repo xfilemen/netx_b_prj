@@ -1,9 +1,9 @@
 import './styles/reset.css';
-import Home from './LoginPage';
+import Index from './index';
 
 function App() {
     return (
-        <Home />
+        <Index />
     );
 }
 
