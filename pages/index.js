@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from './styles/main.module.css';
-import loginImage from './images/login/loginbg.png';
+import loginImage from '/images/login/loginbg.png';
 
 export default function LoginPage() {
   return (
