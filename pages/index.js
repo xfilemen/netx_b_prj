@@ -9,6 +9,8 @@ export default function Home() {
         <Image
           src={loginImage} // 이미지 경로
           alt="로그인 페이지"
+          width={500}
+          height={300}
         />
       </div>
     </div>
