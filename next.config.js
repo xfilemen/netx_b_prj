@@ -3,7 +3,7 @@ const nextConfig = {
     return [
       {
         source: "/",
-        destination: "/_app",
+        destination: "/index",
         permanent: true,
       },
     ];
