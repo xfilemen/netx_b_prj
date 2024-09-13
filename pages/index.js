@@ -9,7 +9,7 @@ export default function LoginPage() {
       <div className={styles.loginbg}>
         <Link href="/detail">
           <Image 
-            src="/images/login/loginbg.png" // 이미지 경로
+            src="/images/login/loginbg.png"
             alt="로그인 페이지"
           />
         </Link>
