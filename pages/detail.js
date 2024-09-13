@@ -1,11 +1,8 @@
-import { useState, useEffect } from 'react';
-import styles from './styles/main.module.css';
-import Image from 'next/image';
-
-export default function LoginPage() {
+export default function DeteilPage() {
   return (
-    <div className={styles.container}>
-      <div>디테일</div>
+    <div>
+      <h1>Deteil Page</h1>
+      <p>This is the deteil page.</p>
     </div>
   );
 }
