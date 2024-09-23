@@ -1,4 +1,4 @@
-import styles from './pages/styles/detail.module.css';
+import styles from '/pages/styles/detail.module.css';
 import Image from 'next/image';
 
 export default function HeaderPage() {
@@ -9,10 +9,11 @@ export default function HeaderPage() {
           <Image 
               src="/images/detail/diware_logo_img.png"
               alt="DIware"
+              width={91}
+              height={22}
             />
         </h1>
-      </div>      
-      <p>This is the deteil page.</p>
+      </div>
     </div>
   );
 }
