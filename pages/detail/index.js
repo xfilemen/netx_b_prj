@@ -1,5 +1,5 @@
-import styles from './styles/detail.module.css';
-import Header from './header';
+import styles from './pages/styles/detail.module.css';
+import Header from './pages/header';
 
 export default function RegularPage() {
   return (
