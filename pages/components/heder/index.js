@@ -1,4 +1,4 @@
-import styles from '../styles/detail.module.css';
+import styles from './pages/styles/detail.module.css';
 import Image from 'next/image';
 
 export default function HeaderPage() {
