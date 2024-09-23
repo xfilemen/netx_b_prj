@@ -1,5 +1,6 @@
 import styles from '/pages/styles/detail.module.css';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function HeaderPage() {
   return (
@@ -13,7 +14,14 @@ export default function HeaderPage() {
               height={22}
             />
         </h1>
-      </div>
+        <div className={styles.navigation}>
+          <ul>
+            <li><Link href={'/'}>정규 인력 요청·내역</Link></li>
+            <li><Link href={'/'}>BP인력 요청·내역</Link></li>
+            <li><Link href={'/'}>정규 인력 요청·내역</Link></li>
+          </ul>
+        </div>
+      </div>      
     </div>
   );
 }
