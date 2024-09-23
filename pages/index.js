@@ -7,7 +7,7 @@ export default function LoginPage() {
   return (
     <div className={styles.container}>
       <div className={styles.loginbg}>
-        <Link href="/detail" onclick="">
+        <Link href="/detail">
           <Image 
             src="/images/login/loginbg.png"
             alt="로그인 페이지"
