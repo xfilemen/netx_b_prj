@@ -1,10 +1,10 @@
-import './styles/reset.css';
-import Index from './index';
+// import './styles/reset.css';
+// import Index from './index';
 
-function App() {
-    return (
-        <Index />
-    );
-}
+// function App() {
+//     return (
+//         <Index />
+//     );
+// }
 
-export default App;
+// export default App;
