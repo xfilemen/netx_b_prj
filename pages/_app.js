@@ -1,4 +1,4 @@
-import './styles/reset.css';
+import '/pages/styles/reset.css';
 import Index from './index';
 
 function App({ Component, pageProps }) {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import styles from './styles/main.module.css';
+import styles from '/pages/styles/main.module.css';
 import Image from 'next/image';
 
 export default function LoginPage() { 
