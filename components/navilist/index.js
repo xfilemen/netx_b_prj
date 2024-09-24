@@ -1,3 +1,4 @@
+import styles from '/pages/styles/detail.module.css';
 import React, { Component } from 'react';
 import Link from 'next/link';
 
@@ -19,7 +20,7 @@ class NaviList extends Component {
     return (
       <ul>
         {items.map((item, index) => (
-          <li key={index} onClick={() => this.handleToggle(index)} className={this.state.selectedIdx === index ? 'on' : ''}><Link href={''}>{item}</Link></li>
+          <li key={index} onClick={() => this.handleToggle(index)} className={`${styles.listItem} ${this.state.selectedIdx === index ? styles.on : ''}`}><Link href={''}>{item}</Link></li>
         ))}        
       </ul>
     );
