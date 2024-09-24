@@ -5,22 +5,22 @@ class NaviList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOn: false,
+      selectedIdx: 0,
     };
   }
 
-  handleToggle = () => {
-    this.setState((prevState) => ({
-      isOn: !prevState.isOn,
-    }));
+  handleToggle = (index) => {
+    this.setState({ selectedIdx: index });
   };
 
   render() {
+    const items = ['정규 인력 요청·내역', 'BP인력 요청·내역', '공지사항'];
+
     return (
       <ul>
-        <li onClick={this.handleToggle} className={this.state.isOn ? 'on' : ''}><Link href={''}>정규 인력 요청·내역</Link></li>
-        <li onClick={this.handleToggle} className={this.state.isOn ? 'on' : ''}><Link href={''}>BP인력 요청·내역</Link></li>
-        <li onClick={this.handleToggle} className={this.state.isOn ? 'on' : ''}><Link href={''}>정규 인력 요청·내역</Link></li>
+        {items.map((item, index) => (
+          <li key={index} onClick={() => this.handleToggle(index)} className={this.state.selectedIdx === index ? 'on' : ''}><Link href={''}>{item}</Link></li>
+        ))}        
       </ul>
     );
   }
