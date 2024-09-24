@@ -7,4 +7,6 @@
 .header .navigation li.on{color:#006FCD;border-bottom:2px solid #006FCD}
 
 /* detail */
-.topbanner{text-align:center;background-color:#006fcd;}
+.content{display:block}
+.content .topbanner{text-align:center;background-color:#006fcd;}
+.wrap{height:500px;}
