@@ -1,5 +1,5 @@
 import styles from '/pages/styles/detail.module.css';
-import Header from '/pages/components/header';
+import Header from '/components/header';
 import Image from 'next/image';
 
 export default function RegularPage() {
