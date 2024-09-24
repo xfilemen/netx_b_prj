@@ -1,13 +1,23 @@
 import styles from '/pages/styles/detail.module.css';
 import Header from '/pages/components/header';
+import Image from 'next/image';
 
 export default function RegularPage() {
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
+      <div>
         <Header />
       </div>      
-      <p>This is the deteil page.</p>
+      <div className={styles.content}>
+        <div className={styles.topbanner}>
+          <Image 
+            src="/images/detail/detail_top_banner.png"
+            alt=""
+            width={1440}
+            height={150}
+          />
+        </div>
+      </div>
     </div>
   );
 }
