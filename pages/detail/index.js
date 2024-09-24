@@ -7,12 +7,12 @@ export default function RegularPage() {
     <div className={styles.container}>
       <div>
         <Header />
-      </div>      
+      </div>
       <div className={styles.content}>
         <div className={styles.topbanner}>
           <Image 
-            src="/images/detail/detail_top_banner.png"
-            alt=""
+            src="/images/detail/TopVisual.png"
+            alt="효율적인 인력배치 언제든 문의하세요"
             width={1440}
             height={150}
           />
