@@ -10,11 +10,11 @@
 .content{display:block;}
 .content .topbanner{text-align:center;background-color:#006fcd;}
 .content .wrap{width:1440px;margin:0 auto;}
-.content .wrap .left_section{width:475px;height:100%;float:left;padding:50px 24px 91px;background-color:#F7F8FC;border-right:1px solid #DFDFDF;}
+.content .wrap .left_section{width:475px;height:1000px;float:left;padding:50px 24px 91px;background-color:#F7F8FC;border-right:1px solid #DFDFDF;}
 .content .wrap .left_section .title{overflow:hidden;}
-.content .wrap .left_section .title h2{float:left;font-size:18px;font-weight:700}
-
-
-
+.content .wrap .left_section .title h2{float:left;font-size:18px;font-weight:700;height:42px;line-height:42px;}
+.content .wrap .left_section .title .btn{float:right;}
+.content .wrap .left_section .title .btn button{min-width:80px;}
+.content .wrap .left_section .title .btn button::before{content:"";display:block;float:left;width:20px;height:20px;background:url('/images/ico/option_ico.png');background-size:20px;}
 .content .wrap .right_section{width:965px;float:right;}
 .wrap{overflow:hidden;}
