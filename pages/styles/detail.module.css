@@ -7,6 +7,14 @@
 .header .navigation li.on{color:#006FCD;border-bottom:2px solid #006FCD}
 
 /* detail */
-.content{display:block}
+.content{display:block;}
 .content .topbanner{text-align:center;background-color:#006fcd;}
-.wrap{height:500px;}
+.content .wrap{width:1440px;margin:0 auto;}
+.content .wrap .left_section{width:475px;height:100%;float:left;padding:50px 24px 91px;background-color:#F7F8FC;border-right:1px solid #DFDFDF;}
+.content .wrap .left_section .title{overflow:hidden;}
+.content .wrap .left_section .title h2{float:left;font-size:18px;font-weight:700}
+
+
+
+.content .wrap .right_section{width:965px;float:right;}
+.wrap{overflow:hidden;}
