@@ -1,4 +1,5 @@
 import styles from '/pages/styles/detail.module.css';
+import ReqList from '/components/content/regReqList.js';
 import Image from 'next/image';
 
 export default function RegularPage() {
@@ -21,7 +22,7 @@ export default function RegularPage() {
               </div>
             </div>
             <div className={styles.item_list}>
-              
+              <ReqList />
             </div>
           </div>
           <div className={styles.right_section}>
