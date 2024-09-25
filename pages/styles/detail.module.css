@@ -18,3 +18,18 @@
 .content .wrap .left_section .title .btn button::before{content:"";display:block;float:left;width:20px;height:20px;background:url('/images/ico/option_ico.png');background-size:20px;}
 .content .wrap .right_section{width:965px;float:right;}
 .wrap{overflow:hidden;}
+
+/* 정규인력 요청 리스트 */
+.content .wrap .left_section .list_items{margin-top:24px;}
+.content .wrap .left_section .list_items li{display:block;overflow:hidden;font-size:15px;font-weight:600;background-color:#fff;border:1px solid #DFDFDF;padding:16px 0 16px 16px;margin-bottom:20px;border-radius:10px;;}
+.content .wrap .left_section .list_items li .state{float:left;overflow:hidden;font-size:12px;color:#888;width:45px;padding:6px 10px;background-color:#B6B6B614;border:1px solid #C8C8C8;border-radius:10px;}
+.content .wrap .left_section .list_items li .state.register{color:#FF9701;border:1px solid #FF9701;background-color:#fff7eb;}
+.content .wrap .left_section .list_items li .state.progress{color:#006FCD;border:1px solid #006FCD;background-color:#dcefff;}
+.content .wrap .left_section .list_items li .state.return{color:#EF141F;border:1px solid #EF141F;background-color:#fdf1f1;}
+.content .wrap .left_section .list_items li .section{float:left;width:330px;margin-left:8px;}
+.content .wrap .left_section .list_items li .section .tit_tx{margin-bottom:20px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.content .wrap .left_section .list_items li .section .tx_info{color:#666;font-size:13px;}
+.content .wrap .left_section .list_items li .section .priority{float:left;}
+.content .wrap .left_section .list_items li .section .date{float:left;}
+.content .wrap .left_section .list_items li .section .num{float:left;}
+
