@@ -10,26 +10,35 @@
 .content{display:block;}
 .content .topbanner{text-align:center;background-color:#006fcd;}
 .content .wrap{width:1440px;margin:0 auto;}
-.content .wrap .left_section{width:475px;height:1000px;float:left;padding:50px 24px 91px;background-color:#F7F8FC;border-right:1px solid #DFDFDF;}
+.content .wrap .right_section{width:965px;float:right;}
+.wrap{overflow:hidden;}
+
+/* 정규인력 요청 리스트 */
+.content .wrap .left_section{overflow-y:auto;width:475px;height:1000px;float:left;padding:50px 24px 91px;background-color:#F7F8FC;border-right:1px solid #DFDFDF;}
 .content .wrap .left_section .title{overflow:hidden;}
 .content .wrap .left_section .title h2{float:left;font-size:18px;font-weight:700;height:42px;line-height:42px;}
 .content .wrap .left_section .title .btn{float:right;}
 .content .wrap .left_section .title .btn button{min-width:80px;}
 .content .wrap .left_section .title .btn button::before{content:"";display:block;float:left;width:20px;height:20px;background:url('/images/ico/option_ico.png');background-size:20px;}
-.content .wrap .right_section{width:965px;float:right;}
-.wrap{overflow:hidden;}
-
-/* 정규인력 요청 리스트 */
 .content .wrap .left_section .list_items{margin-top:24px;}
-.content .wrap .left_section .list_items li{display:block;overflow:hidden;font-size:15px;font-weight:600;background-color:#fff;border:1px solid #DFDFDF;padding:16px 0 16px 16px;margin-bottom:20px;border-radius:10px;;}
+.content .wrap .left_section .list_items li{display:block;height:123px;overflow:hidden;font-size:15px;font-weight:600;background-color:#fff;border:1px solid #DFDFDF;padding:16px 0 16px 16px;margin-bottom:20px;border-radius:10px;;}
+.content .wrap .left_section .list_items li.on{border:2px solid #006DCD;box-shadow: 0px 4px 4px 0px #006FCD1A;}
+.content .wrap .left_section .list_items li.nodata{background:none;border:none;text-align:center;}
 .content .wrap .left_section .list_items li .state{float:left;overflow:hidden;font-size:12px;color:#888;width:45px;padding:6px 10px;background-color:#B6B6B614;border:1px solid #C8C8C8;border-radius:10px;}
 .content .wrap .left_section .list_items li .state.register{color:#FF9701;border:1px solid #FF9701;background-color:#fff7eb;}
 .content .wrap .left_section .list_items li .state.progress{color:#006FCD;border:1px solid #006FCD;background-color:#dcefff;}
 .content .wrap .left_section .list_items li .state.return{color:#EF141F;border:1px solid #EF141F;background-color:#fdf1f1;}
 .content .wrap .left_section .list_items li .section{float:left;width:330px;margin-left:8px;}
-.content .wrap .left_section .list_items li .section .tit_tx{margin-bottom:20px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
-.content .wrap .left_section .list_items li .section .tx_info{color:#666;font-size:13px;}
-.content .wrap .left_section .list_items li .section .priority{float:left;}
-.content .wrap .left_section .list_items li .section .date{float:left;}
+.content .wrap .left_section .list_items li .section .tit_tx{height:40px;margin-bottom:20px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.content .wrap .left_section .list_items li .section .tx_info{color:#666;font-size:12px;}
+.content .wrap .left_section .list_items li .section .priority{float:left;margin-right:14px;}
+.content .wrap .left_section .list_items li .section .priority .prior{margin-left:8px;padding:4px 5px;border-radius:20px;}
+.content .wrap .left_section .list_items li .section .priority .prior.h{border:1px solid #F4E3E3;color:#DE767A;}
+.content .wrap .left_section .list_items li .section .priority .prior.m{border:1px solid #F6E3C7;color:#D18415;}
+.content .wrap .left_section .list_items li .section .priority .prior.l{border:1px solid #C8D8E5;color:#739EC3;}
+.content .wrap .left_section .list_items li .section .date{float:left;margin-right:14px;}
 .content .wrap .left_section .list_items li .section .num{float:left;}
 
+.left_section::-webkit-scrollbar{width:4px;}
+.left_section::-webkit-scrollbar-thumb{background-color:#DFDFDF;border-radius:10px;}
+.left_section::-webkit-scrollbar-track{background-color:rgba(220, 20, 60, .0);}

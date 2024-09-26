@@ -4,6 +4,17 @@ import requstData from '/data/regRequstList.json';
 import Link from 'next/link';
 
 class ItemList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedIdx: 0,
+    };
+  }
+
+  handleToggle = (index) => {
+    this.setState({ selectedIdx: index });
+  };
+  
   getStatusText(status) {
     switch (status) {
       case 'register':
@@ -28,12 +39,26 @@ class ItemList extends Component {
     }
   }
 
+  getPriorityClass(priority) {
+    switch (priority) {
+      case 'High':
+        return styles['h'];
+      case 'Medium':
+        return styles['m'];
+      case 'Low':
+        return styles['l'];;
+      default:
+        return priority;
+    }
+  }
+
   render() {
     return (
       <div className={styles.list_items}>
         <ul>
-          {requstData.map((item) => (
-            <li key={item.id}>
+        {requstData.length > 0 ? (
+          requstData.map((item, index) => (
+            <li key={item.id} onClick={() => this.handleToggle(index)} className={`${this.state.selectedIdx === index ? styles.on : ''}`}>
               <Link href={''}>
                 <div className={`${styles.state} ${this.getStatusClass(item.status)}`}>
                   {this.getStatusText(item.status)}
@@ -41,14 +66,17 @@ class ItemList extends Component {
                 <div className={styles.section}>
                   <p className={styles.tit_tx}>{item.title}</p>
                   <div className={styles.tx_info}>
-                    <div className={styles.priority}>우선순위 <span>{item.priority}</span></div>
+                    <div className={styles.priority}>우선순위 <span className={`${styles.prior} ${this.getPriorityClass(item.priority)}`}>{item.priority}</span></div>
                     <div className={styles.date}>요청일 {item.date}</div>
-                    <div className={styles.num}>요청인원 {item.requestedBy}</div>
+                    <div className={styles.num}>요청인원 {item.requestedBy}명</div>
                   </div>
                 </div>
               </Link>
             </li>
-          ))}
+          ))
+        ) : (
+          <li className={styles.nodata}>데이터가 없습니다.</li>
+        )}
         </ul>
       </div>
     );
