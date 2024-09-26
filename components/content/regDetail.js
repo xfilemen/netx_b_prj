@@ -8,7 +8,7 @@ class RegDetail extends Component {
     const { item } = this.props;
     return (
         <div className={styles.detail_content}>
-            <h2>{item.title}</h2>
+            <h2>{item ? item.title : '데이터를 불러오는 중입니다...'}</h2>
         </div>
     );
   }
