@@ -8,7 +8,7 @@ class RegularPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      listSelectIdx: 0,      // li on 포커스
+      listSelectIdx: null,      // li on 포커스
       pageSelectItem: null,    // 정규인력 요청·내역 상세페이지 연결
     };
   }
