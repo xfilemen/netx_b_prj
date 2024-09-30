@@ -60,3 +60,12 @@
 .content .wrap .right_section .detail_content .priority .prior.l{border:1px solid #C8D8E5;color:#739EC3;}
 .content .wrap .right_section .detail_content .date{height:28px;line-height:28px;float:left;margin-right:14px;}
 .content .wrap .right_section .detail_content .num{height:28px;line-height:28px;float:left;}
+
+.content .wrap .right_section .detail_content .accordion{width:845px;border:1px solid #DFDFDF;border-radius:12px;margin-top:62px;cursor:pointer}
+.content .wrap .right_section .detail_content .accordion .title{overflow:hidden;padding:14px 36px;}
+.content .wrap .right_section .detail_content .accordion .title h3{float:left;height:46px;line-height:43px;font-size:16px;font-weight:600;}
+.content .wrap .right_section .detail_content .accordion .title h3 img{margin-right:10px}
+.content .wrap .right_section .detail_content .accordion .title span{float:right;margin-top:16px;}
+.content .wrap .right_section .detail_content .accordion .title span .arrowIcon{width:18px;height:9px;}
+.content .wrap .right_section .detail_content .accordion  .content{border-top:1px solid #DFDFDF;padding:30px;}
+.content .wrap .right_section .detail_content .accordion  .content .line{border-bottom:1px solid #DFDFDF}
