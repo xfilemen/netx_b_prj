@@ -47,3 +47,16 @@
 /* 정규인력 요청 상세 */
 .content .wrap .right_section{width:965px;float:right;}
 .content .wrap .right_section .detail_content{margin:50px 50px 0 50px;}
+.content .wrap .right_section .detail_content h2{float:left;width:800px;font-size:22px;font-weight:600;padding-bottom:15px;}
+.content .wrap .right_section .detail_content .state{float:left;margin-right:18px;overflow:hidden;font-size:12px;color:#888;width:45px;padding:6px 10px;background-color:#B6B6B614;border:1px solid #C8C8C8;border-radius:10px;}
+.content .wrap .right_section .detail_content .state.register{color:#FF9701;border:1px solid #FF9701;background-color:#fff7eb;}
+.content .wrap .right_section .detail_content .state.progress{color:#006FCD;border:1px solid #006FCD;background-color:#dcefff;}
+.content .wrap .right_section .detail_content .state.return{color:#EF141F;border:1px solid #EF141F;background-color:#fdf1f1;}
+.content .wrap .right_section .detail_content .tx_info{overflow:hidden;width:800px;padding-left:63px;padding-bottom:30px;border-bottom:1px solid #DFDFDFB2;}
+.content .wrap .right_section .detail_content .priority{float:left;margin-right:14px;}
+.content .wrap .right_section .detail_content .priority .prior{display:inline-block;margin-left:8px;padding:4px 5px;border-radius:20px;}
+.content .wrap .right_section .detail_content .priority .prior.h{border:1px solid #F4E3E3;color:#DE767A;}
+.content .wrap .right_section .detail_content .priority .prior.m{border:1px solid #F6E3C7;color:#D18415;}
+.content .wrap .right_section .detail_content .priority .prior.l{border:1px solid #C8D8E5;color:#739EC3;}
+.content .wrap .right_section .detail_content .date{height:28px;line-height:28px;float:left;margin-right:14px;}
+.content .wrap .right_section .detail_content .num{height:28px;line-height:28px;float:left;}
