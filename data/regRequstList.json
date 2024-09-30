@@ -1,82 +1,122 @@
 [
   {
     "id": 1,
-    "title": "CJ 주식회사 회계시스템 선진화 및 데이터 처리 속도 개선 서버 교체 개선 CJ 주식회사 회계시스템 선진화 및 데이터 처리 속도 개선 서버 교체 개선 CJ 주식회사 회계시스템 선진화 및 데이터 처리 속도 개선 서버 교체 개선",
-    "priority": "High",
+    "title": "CJ 주식회사 회계시스템 선진화 및 데이터 처리 속도 개선 서버 교체 개선",
+    "priority": "high",
     "date": "2024-08-29",
     "requestedBy": 1,
-    "status": "register"
+    "status": "register",
+    "requestName": "회계시스템 선진화",
+    "internalExternal": "대내",
+    "personnel": 5,
+    "purpose": "이번 프로젝트에서 만 14세 미만 및 휴대폰 본인인증 불가 고객 회원가입 프로세스를 신설하여 고객 불만을 해소하고 시스템 고도화를 통해 신규 고객 확대를 강화를 목적으로 합니다. 또한 간편모드 서비스를 신설하여 손쉬운 CJ PAY UI/UX를 경험할 수 있도록 개선할 예정입니다."
   },
   {
     "id": 2,
-    "title": "CJ PAY 고도화 프로젝트 인력 요청 건",
-    "priority": "Medium",
-    "date": "2024-09-01",
+    "title": "CJ 주식회사 물류 시스템 최적화 및 비용 절감 방안 연구",
+    "priority": "high",
+    "date": "2024-08-30",
     "requestedBy": 2,
-    "status": "progress"
+    "status": "register",
+    "requestName": "물류시스템 최적화",
+    "internalExternal": "대외",
+    "personnel": 4,
+    "purpose": "물류 효율성을 높이고 운영 비용을 절감하기 위해 새로운 시스템을 도입하고 최적화 방안을 연구합니다."
   },
   {
     "id": 3,
-    "title": "CJ 주식회사 회계시스템 선진화 및 데이터 처리 속도 및 서버 교체 개선",
-    "priority": "Low",
-    "date": "2024-09-15",
+    "title": "CJ 주식회사 고객 서비스 향상 및 시스템 업그레이드",
+    "priority": "high",
+    "date": "2024-09-01",
     "requestedBy": 3,
-    "status": "complete"
+    "status": "register",
+    "requestName": "고객 서비스 향상",
+    "internalExternal": "대내",
+    "personnel": 6,
+    "purpose": "고객의 문의를 신속하게 처리하고 서비스 품질을 높이기 위해 시스템을 업그레이드합니다."
   },
   {
     "id": 4,
-    "title": "CJ ONE 이벤트 운영 QC 겸 서비스 기획자 운영 인력 요청 건",
-    "priority": "High",
-    "date": "2024-09-20",
+    "title": "CJ 주식회사 마케팅 자동화 시스템 도입",
+    "priority": "high",
+    "date": "2024-09-02",
     "requestedBy": 4,
-    "status": "return"
+    "status": "register",
+    "requestName": "마케팅 자동화",
+    "internalExternal": "대외",
+    "personnel": 3,
+    "purpose": "마케팅 활동의 효율성을 높이기 위해 자동화 시스템을 도입하여 고객 맞춤형 마케팅을 강화합니다."
   },
   {
     "id": 5,
-    "title": "One-Stop 물류 솔루션 PLM시스템 기반 프로젝트 관리 (PMS) 시스템 도입",
-    "priority": "Medium",
-    "date": "2024-09-25",
-    "requestedBy": 1,
-    "status": "cancel"
+    "title": "CJ 주식회사 데이터 분석 및 비즈니스 인사이트 도출 프로젝트",
+    "priority": "high",
+    "date": "2024-09-03",
+    "requestedBy": 5,
+    "status": "register",
+    "requestName": "데이터 분석",
+    "internalExternal": "대내",
+    "personnel": 2,
+    "purpose": "데이터 분석을 통해 비즈니스 인사이트를 도출하고 의사결정을 지원합니다."
   },
   {
     "id": 6,
-    "title": "CJ 주식회사 회계시스템 선진화 및 데이터 처리 속도 개선 서버 교체 개선 CJ 주식회사 회계시스템 선진화 및 데이터 처리 속도 개선 서버 교체 개선 CJ 주식회사 회계시스템 선진화 및 데이터 처리 속도 개선 서버 교체 개선",
-    "priority": "High",
-    "date": "2024-08-29",
-    "requestedBy": 1,
-    "status": "register"
+    "title": "CJ 주식회사 사이버 보안 강화 및 시스템 점검",
+    "priority": "high",
+    "date": "2024-09-04",
+    "requestedBy": 6,
+    "status": "register",
+    "requestName": "사이버 보안 강화",
+    "internalExternal": "대외",
+    "personnel": 4,
+    "purpose": "사이버 공격에 대비하여 보안 시스템을 강화하고 정기적인 점검을 실시합니다."
   },
   {
     "id": 7,
-    "title": "CJ PAY 고도화 프로젝트 인력 요청 건",
-    "priority": "Medium",
-    "date": "2024-09-01",
-    "requestedBy": 2,
-    "status": "progress"
+    "title": "CJ 주식회사 고객 피드백 수집 및 분석 시스템 구축",
+    "priority": "high",
+    "date": "2024-09-05",
+    "requestedBy": 7,
+    "status": "register",
+    "requestName": "고객 피드백 시스템",
+    "internalExternal": "대내",
+    "personnel": 5,
+    "purpose": "고객 피드백을 수집하고 분석하여 서비스 개선에 반영합니다."
   },
   {
     "id": 8,
-    "title": "CJ 주식회사 회계시스템 선진화 및 데이터 처리 속도 및 서버 교체 개선",
-    "priority": "Low",
-    "date": "2024-09-15",
-    "requestedBy": 3,
-    "status": "complete"
+    "title": "CJ 주식회사 협력업체 관리 시스템 개선",
+    "priority": "high",
+    "date": "2024-09-06",
+    "requestedBy": 8,
+    "status": "register",
+    "requestName": "협력업체 관리",
+    "internalExternal": "대외",
+    "personnel": 3,
+    "purpose": "협력업체와의 소통을 원활하게 하고 관리를 개선하기 위한 시스템을 개선합니다."
   },
   {
     "id": 9,
-    "title": "CJ ONE 이벤트 운영 QC 겸 서비스 기획자 운영 인력 요청 건",
-    "priority": "High",
-    "date": "2024-09-20",
-    "requestedBy": 4,
-    "status": "return"
+    "title": "CJ 주식회사 신규 상품 출시 및 마케팅 전략 수립",
+    "priority": "high",
+    "date": "2024-09-07",
+    "requestedBy": 9,
+    "status": "register",
+    "requestName": "신규 상품 출시",
+    "internalExternal": "대내",
+    "personnel": 6,
+    "purpose": "신규 상품 출시를 위해 마케팅 전략을 수립하고 시장 조사를 실시합니다."
   },
   {
     "id": 10,
-    "title": "One-Stop 물류 솔루션 PLM시스템 기반 프로젝트 관리 (PMS) 시스템 도입",
-    "priority": "Medium",
-    "date": "2024-09-25",
-    "requestedBy": 1,
-    "status": "cancel"
+    "title": "CJ 주식회사 인사 시스템 개선 및 직원 만족도 조사",
+    "priority": "high",
+    "date": "2024-09-08",
+    "requestedBy": 10,
+    "status": "register",
+    "requestName": "인사 시스템 개선",
+    "internalExternal": "대외",
+    "personnel": 7,
+    "purpose": "직원 만족도를 높이기 위해 인사 시스템을 개선하고 조사를 실시합니다."
   }
 ]
