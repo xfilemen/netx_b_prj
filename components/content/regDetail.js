@@ -3,7 +3,7 @@ import styles from '/pages/styles/detail.module.css';
 import Image from 'next/image';
 
 
-class RegDetail extends Component {
+class RegDetail extends Component { 
   constructor(props) {
     super(props);
     this.state = {
