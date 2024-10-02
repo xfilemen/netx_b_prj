@@ -2,7 +2,7 @@
   {
     "id": 1,
     "title": "CJ 주식회사 회계시스템 선진화 및 데이터 처리 속도 개선 서버 교체 개선",
-    "priority": "high",
+    "priority": "High",
     "date": "2024-08-29",
     "requestedBy": 1,
     "status": "register",
@@ -14,7 +14,7 @@
   {
     "id": 2,
     "title": "CJ 주식회사 물류 시스템 최적화 및 비용 절감 방안 연구",
-    "priority": "high",
+    "priority": "Medium",
     "date": "2024-08-30",
     "requestedBy": 2,
     "status": "progress",
@@ -26,7 +26,7 @@
   {
     "id": 3,
     "title": "CJ 주식회사 고객 서비스 향상 및 시스템 업그레이드",
-    "priority": "high",
+    "priority": "High",
     "date": "2024-09-01",
     "requestedBy": 3,
     "status": "cancel",
@@ -38,7 +38,7 @@
   {
     "id": 4,
     "title": "CJ 주식회사 마케팅 자동화 시스템 도입",
-    "priority": "high",
+    "priority": "High",
     "date": "2024-09-02",
     "requestedBy": 4,
     "status": "progress",
@@ -50,7 +50,7 @@
   {
     "id": 5,
     "title": "CJ 주식회사 데이터 분석 및 비즈니스 인사이트 도출 프로젝트",
-    "priority": "high",
+    "priority": "Medium",
     "date": "2024-09-03",
     "requestedBy": 5,
     "status": "return",
@@ -62,7 +62,7 @@
   {
     "id": 6,
     "title": "CJ 주식회사 사이버 보안 강화 및 시스템 점검",
-    "priority": "high",
+    "priority": "Low",
     "date": "2024-09-04",
     "requestedBy": 6,
     "status": "register",
@@ -74,7 +74,7 @@
   {
     "id": 7,
     "title": "CJ 주식회사 고객 피드백 수집 및 분석 시스템 구축",
-    "priority": "high",
+    "priority": "Medium",
     "date": "2024-09-05",
     "requestedBy": 7,
     "status": "return",
@@ -86,7 +86,7 @@
   {
     "id": 8,
     "title": "CJ 주식회사 협력업체 관리 시스템 개선",
-    "priority": "high",
+    "priority": "Low",
     "date": "2024-09-06",
     "requestedBy": 8,
     "status": "register",
@@ -98,7 +98,7 @@
   {
     "id": 9,
     "title": "CJ 주식회사 신규 상품 출시 및 마케팅 전략 수립",
-    "priority": "high",
+    "priority": "High",
     "date": "2024-09-07",
     "requestedBy": 9,
     "status": "progress",
@@ -110,7 +110,7 @@
   {
     "id": 10,
     "title": "CJ 주식회사 인사 시스템 개선 및 직원 만족도 조사",
-    "priority": "high",
+    "priority": "Low",
     "date": "2024-09-08",
     "requestedBy": 10,
     "status": "progress",
