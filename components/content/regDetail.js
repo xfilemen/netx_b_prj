@@ -3,7 +3,7 @@ import styles from '/pages/styles/detail.module.css';
 import Image from 'next/image';
 
 
-class RegDetail extends Component { 
+class RegDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -88,7 +88,12 @@ class RegDetail extends Component {
                   </span>
               </div>
               {!isOpen && <div className={styles.content}>
-                <div className={styles.line}>요청명 <span>{item.requestName}</span></div>
+                <ul>
+                  <li><span className={styles.tit_tx}>요청명</span><span className={styles.p_tx}>{item.requestName}</span></li>
+                  <li className={styles.half_line1}><span className={styles.tit_tx}>대내·외 구분</span><span className={styles.p_tx}>{item.internalExternal}</span></li>
+                  <li className={styles.half_line2}><span className={styles.tit_tx}>인원</span><span className={styles.p_tx}>{item.personnel}명</span></li>
+                  <li><span className={styles.tit_tx}>목적</span><span className={styles.p_tx}>{item.purpose}</span></li>
+                </ul>
               </div>}
           </div>
         </div>
