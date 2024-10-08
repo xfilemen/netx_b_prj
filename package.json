@@ -1,0 +1,17 @@
+{
+  "name": "netx_b_prj-9",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "next": "^14.2.14",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
