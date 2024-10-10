@@ -1,11 +1,20 @@
-"use client"
+"use client";
 
 import React, { useState } from 'react';
+import RegDetail from '../detail/regReqDetail.jsx';
+import requstData from '../data/regRequstList.json';
+import styles from '../styles/detail.module.css';
 import Image from 'next/image';
 
-export default function RegDetail({ item }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [detailsOpen, setDetailsOpen] = useState([true]); // details 아코디언 상태 배열로 관리
+export default function RegularPage({ item }) {
+  const [listSelectIdx, setListSelectIdx] = useState(null); // li on 포커스
+  const [pageSelectItem, setPageSelectItem] = useState(null); // 정규인력 요청·내역 상세페이지 연결
+
+  const showDetailPage = (index, item) => {
+    setListSelectIdx(index);
+    setPageSelectItem(item);
+    console.log(index, item);
+  };
 
   const getStatusText = (status) => {
     switch (status) {
@@ -20,7 +29,7 @@ export default function RegDetail({ item }) {
       case 'complete':
         return '완료';
       default:
-        return status;
+        return status; // 다른 상태는 원래 값을 사용
     }
   };
 
@@ -37,110 +46,57 @@ export default function RegDetail({ item }) {
       case 'Low':
         return styles['l'];
       default:
-        return priority;
+        return '';
     }
   };
-
-  const toggleAccordion = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const toggleDetailsAccordion = (index) => {
-    const updatedDetailsOpen = [...detailsOpen];
-    updatedDetailsOpen[index] = !updatedDetailsOpen[index];
-    setDetailsOpen(updatedDetailsOpen);
-  };
-
   return (
-    item && (
-      <div className={styles.detail_content}>
-        <div className={`${styles.state} ${getStatusClass(item.status)}`}>
-          {getStatusText(item.status)}
-        </div>
-        <h2>{item.title}</h2>
-        <div className={styles.tx_info}>
-          <div className={styles.priority}>
-            우선순위 <span className={`${styles.prior} ${getPriorityClass(item.priority)}`}>{item.priority}</span>
-          </div>
-          <div className={styles.date}>요청일 {item.date}</div>
-          <div className={styles.num}>요청인원 {item.requestedBy}명</div>
-        </div>
-        {/* 기본 정보 아코디언 */}
-        <div className={styles.accordion}>
-          <div className={styles.title} onClick={toggleAccordion}>
-            <h3>
-              <Image
-                src="/images/detail/ico_info.png"
-                alt="요청 기본 정보"
-                width={46}
-                height={46}
-              />
-              요청 기본 정보
-            </h3>
-            <span>
-              <Image
-                src={isOpen ? "/images/detail/ico_ac_up.png" : "/images/detail/ico_ac_down.png"}
-                alt={isOpen ? "닫기" : "열기"}
-                width={12}
-                height={6}
-                className={styles.arrowIcon}
-              />
-            </span>
-          </div>
-          {!isOpen && (
-            <div className={styles.content}>
-              <ul>
-                <li><span className={styles.tit_tx}>요청명</span><span className={styles.p_tx}>{item.requestName}</span></li>
-                <li className={styles.half_line1}><span className={styles.tit_tx}>대내·외 구분</span><span className={styles.p_tx}>{item.internalExternal}</span></li>
-                <li className={styles.half_line2}><span className={styles.p_tx}>인원</span><span className={styles.p_tx}>{item.personnel}명</span></li>
-                <li><span className={styles.tit_tx}>목적</span><span className={styles.p_tx}>{item.purpose}</span></li>
-              </ul>
-            </div>
-          )}
-        </div>
-        {/* 개별 details 정보 아코디언 */}
-        {item.details && item.details.map((detail, index) => {
-          const isDetailOpen = detailsOpen[index] || false;
-          return (
-            <div key={index} className={`${styles.accordion} ${styles.detail}`}>
-              <div className={styles.title} onClick={() => toggleDetailsAccordion(index)}>
-                <h3>
-                  <Image
-                    src="/images/detail/ico_partners.png"
-                    alt="요청 기본 정보"
-                    width={46}
-                    height={46}
-                  />
-                  요청 인력 정보 <span className={styles.acc_num}>{index + 1}</span>
-                </h3>
-                <span>
-                  <Image
-                    src={isDetailOpen ? "/images/detail/ico_ac_up.png" : "/images/detail/ico_ac_down.png"}
-                    alt={isDetailOpen ? "닫기" : "열기"}
-                    width={12}
-                    height={6}
-                    className={styles.arrowIcon}
-                  />
-                </span>
-              </div>
-              {isDetailOpen && (
-                <div className={styles.content}>
-                  <ul>
-                    <li className={styles.half_line1}><span className={styles.tit_tx}>유형</span><span className={styles.p_tx}>{detail.type}</span></li>
-                    <li className={styles.half_line2}><span className={styles.p_tx}>직무 구분</span><span className={styles.p_tx}>{detail.jobCategory}</span></li>
-                    <li><span className={styles.tit_tx}>등급</span><span className={styles.p_tx}>{detail.grade}</span></li>
-                    <li className={styles.half_line3}><span className={styles.tit_tx}>투입 예정일</span><span className={styles.p_tx}>{detail.startDate}</span></li>
-                    <li className={styles.half_line4}><span className={styles.tit_tx}>투입 종료일</span><span className={styles.p_tx}>{detail.endDate}</span></li>
-                    <li className={styles.half_line3}><span className={styles.tit_tx}>M/M</span><span className={styles.p_tx}>{detail.MM}</span></li>
-                    <li className={styles.half_line4}><span className={styles.p_tx}>근무지</span><span className={styles.p_tx}>{detail.workLocation}</span></li>
-                    <li><span className={styles.tit_tx}>상세<br />요구기술</span><span className={styles.p_tx}>{detail.technicalRequirement}</span></li>
-                  </ul>
-                </div>
-              )}
-            </div>
-          );
-        })}
+    <div className={styles.content}>
+      <div className={styles.topbanner}>
+        <Image 
+          src="/images/detail/TopVisual.png"
+          alt="효율적인 인력배치 언제든 문의하세요"
+          width={1440}
+          height={150}
+        />
       </div>
-    )
+      <div className={styles.wrap}>
+          <div className={styles.left_section}>
+            <div className={styles.title}>
+              <h2>정규인력 요청·내역</h2>
+              <div className={styles.btn}>
+                <button>Filter</button>
+              </div>
+            </div>
+            <div className={styles.item_list}>
+              <div className={styles.list_items}>
+                <ul>
+                  {requstData.length > 0 ? (
+                    requstData.map((item, index) => (
+                      <li key={item.id} onClick={() => showDetailPage(index, item)} className={`${listSelectIdx === index ? styles.on : ''}`}>
+                        <div className={`${styles.state} ${getStatusClass(item.status)}`}>
+                            {getStatusText(item.status)}
+                          </div>
+                          <div className={styles.section}>
+                            <p className={styles.tit_tx}>{item.title}</p>
+                            <div className={styles.tx_info}>
+                              <div className={styles.priority}>우선순위 <span className={`${styles.prior} ${getPriorityClass(item.priority)}`}>{item.priority}</span></div>
+                              <div className={styles.date}>요청일 {item.date}</div>
+                              <div className={styles.num}>요청인원 {item.requestedBy}명</div>
+                            </div>
+                          </div>
+                      </li>
+                    ))
+                  ) : (
+                    <li className={styles.nodata}>데이터가 없습니다.</li>
+                  )}
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className={styles.right_section}>
+            <RegDetail item={pageSelectItem} />
+          </div>
+      </div>
+    </div>
   );
 }

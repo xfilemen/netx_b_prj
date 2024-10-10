@@ -6,9 +6,7 @@ export default function DetailLayout({ children }) {
   return (
     <div className={styles.container}>
       <Header />
-      <div>
-        {children}
-      </div>
+      {children}
       <Footer />
     </div>
   )
