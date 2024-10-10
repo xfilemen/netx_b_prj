@@ -12,6 +12,7 @@
 .content .wrap{width:1440px;margin:0 auto;}
 .wrap{overflow:hidden;}
 
+
 /* 정규인력 요청 리스트 */
 .content .wrap .left_section{overflow-y:auto;width:475px;height:1000px;float:left;padding:50px 24px 91px;background-color:#F7F8FC;border-right:1px solid #DFDFDF;}
 .content .wrap .left_section .title{overflow:hidden;}
@@ -81,3 +82,9 @@
 .left_section::-webkit-scrollbar, .right_section::-webkit-scrollbar{width:4px;}
 .left_section::-webkit-scrollbar-thumb, .right_section::-webkit-scrollbar-thumb{background-color:#DFDFDF;border-radius:10px;}
 .left_section::-webkit-scrollbar-track, .right_section::-webkit-scrollbar-track{background-color:rgba(220, 20, 60, .0);}
+
+.content .wrap .not_page{margin:50px 0;}
+.content .wrap .not_page h2{font-size:20px;font-weight:bold;}
+.content .wrap .not_page p{font-size:15px;margin-top:10px;}
+.content .wrap .not_page .btn{margin-top:15px;}
+.content .wrap .not_page .btn a{display:block;width:50px;text-align:center;background-color:#000;color:#fff;border-radius:5px;padding:5px 0;}
