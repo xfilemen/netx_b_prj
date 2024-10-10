@@ -60,42 +60,41 @@ export default function RegularPage({ item }) {
         />
       </div>
       <div className={styles.wrap}>
-          <div className={styles.left_section}>
-            <div className={styles.title}>
-              <h2>정규인력 요청·내역</h2>
-              <div className={styles.btn}>
-                <button>Filter</button>
-              </div>
-            </div>
-            <div className={styles.item_list}>
-              <div className={styles.list_items}>
-                <ul>
-                  {requstData.length > 0 ? (
-                    requstData.map((item, index) => (
-                      <li key={item.id} onClick={() => showDetailPage(index, item)} className={`${listSelectIdx === index ? styles.on : ''}`}>
-                        <div className={`${styles.state} ${getStatusClass(item.status)}`}>
-                            {getStatusText(item.status)}
-                          </div>
-                          <div className={styles.section}>
-                            <p className={styles.tit_tx}>{item.title}</p>
-                            <div className={styles.tx_info}>
-                              <div className={styles.priority}>우선순위 <span className={`${styles.prior} ${getPriorityClass(item.priority)}`}>{item.priority}</span></div>
-                              <div className={styles.date}>요청일 {item.date}</div>
-                              <div className={styles.num}>요청인원 {item.requestedBy}명</div>
-                            </div>
-                          </div>
-                      </li>
-                    ))
-                  ) : (
-                    <li className={styles.nodata}>데이터가 없습니다.</li>
-                  )}
-                </ul>
-              </div>
+        <div className={styles.left_section}>
+          <div className={styles.title}>
+            <h2>정규인력 요청·내역</h2>
+            <div className={styles.btn}>
+              <button>Filter</button>
             </div>
           </div>
-          <div className={styles.right_section}>
+          <div className={styles.item_list}>
+            <div className={styles.list_items}>
+              <ul>
+                {requstData.length > 0 ? (
+                  requstData.map((item, index) => (
+                    <li key={item.id} onClick={() => showDetailPage(index, item)} className={`${listSelectIdx === index ? styles.on : ''}`}>
+                      <div className={`${styles.state} ${getStatusClass(item.status)}`}>
+                        {getStatusText(item.status)}
+                      </div>
+                      <div className={styles.section}>
+                        <p className={styles.tit_tx}>{item.title}</p>
+                        <div className={styles.tx_info}>
+                          <div className={styles.priority}>우선순위 <span className={`${styles.prior} ${getPriorityClass(item.priority)}`}>{item.priority}</span></div>
+                          <div className={styles.date}>요청일 {item.date}</div>
+                          <div className={styles.num}>요청인원 {item.requestedBy}명</div>
+                        </div>
+                      </div>
+                    </li>
+                  ))
+                ) : (
+                  <li className={styles.nodata}>데이터가 없습니다.</li>
+                )}
+              </ul>
+            </div>
+          </div>
+        </div><div className={styles.right_section}>
             <RegDetail item={pageSelectItem} />
-          </div>
+        </div>
       </div>
     </div>
   );
