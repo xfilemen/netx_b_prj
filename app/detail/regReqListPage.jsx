@@ -1,8 +1,7 @@
 "use client";
 
 import React, { Component } from 'react';
-import styles from '/app/styles/detail.module.css';
-import RegDetail from '/app/reqdetail/regDetail.jsx';
+import RegDetail from '/detail/regDetail.jsx';
 import requstData from '../data/regRequstList.json';
 import Image from 'next/image';
 
