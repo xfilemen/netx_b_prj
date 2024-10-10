@@ -41,7 +41,7 @@ export default function LoginPage() {
             <h1>Login</h1>
             <input
               type="text"
-              placeholder="CJ WORLD 계정"
+              placeholder="CJ WORLD 계정2"
               value={cj_id}
               onChange={(e) => setEmail(e.target.value)}
               required
