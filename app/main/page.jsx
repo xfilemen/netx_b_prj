@@ -30,10 +30,10 @@ export default function MainPage() {
                             </Link>
                         </li>
                         <li>
-                            <Link href={'/'}>
+                            <Link href={'/detail'}>
                                 <Image 
                                     src="/images/main/ico_reg.png"
-                                    alt="인력 요청 아이콘"
+                                    alt="인력 내역 확인 아이콘"
                                     width={46}
                                     height={46}
                                 />
@@ -44,7 +44,7 @@ export default function MainPage() {
                             <Link href={'/'}>
                                 <Image 
                                     src="/images/main/ico_noti.png"
-                                    alt="인력 요청 아이콘"
+                                    alt="공지사항 아이콘"
                                     width={46}
                                     height={46}
                                 />
