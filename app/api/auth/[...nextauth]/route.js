@@ -42,6 +42,7 @@ const authOptions = {
   },
   session: {
     strategy: "jwt",
+    maxAge: 60 * 60 * 1, // 7일 동안 세션 유지 (초 단위: 60초 * 60분 * 24시간 * 7일)
   },
   callbacks: {
     async jwt({ token, user }) {

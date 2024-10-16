@@ -1,10 +1,19 @@
+'use client'
+
+import { useSession, signIn, signOut } from "next-auth/react"
 import styles from '/app/styles/main.module.css';
 
+
 export default function MainPage() {
+    const { data: session } = useSession();
+    console.log(session);
+    let userInfo = {};
+    userInfo = session?.user || {};
+
     return (
         <div className={styles.wrap}>
             <div className={styles.main_content}>
-                <h2>디아이웨어 데이터 마케팅팀<br/><span className={styles.name}>홍길동</span>님, 반갑습니다 :)</h2>
+                <h2>디아이웨어 데이터 마케팅팀<br/><span className={styles.name}>{userInfo.name}</span>님, 반갑습니다 :)</h2>
                 <div className={styles.status_list}>
                     <ul>
                         <li>전체 현황 <span className={`${styles.num} ${styles.blue_color}`}>10</span></li>

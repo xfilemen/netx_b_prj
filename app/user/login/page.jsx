@@ -3,36 +3,28 @@
 import { useEffect, useState } from 'react';
 import styles from '/app/styles/main.module.css';
 import Image from 'next/image';
+import {signIn} from "next-auth/react";
 
 export default function LoginPage() { 
 
-  const [cj_id, setEmail] = useState('');
+  const [cj_id, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const result = await signIn("credentials", {
+      redirect: false,
+      cj_id,
+      password,
+    })
 
-    const res = await fetch('/api/user/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ cj_id, password }),
-    });
-
-    const data = await res.json();
-
-    if (res.ok) {
-      alert(data.message);
-      location.href = '/main';
+    if (result.error) {
+      alert(result.error);
     } else {
-      alert(data.message);
+      window.location.href = "/main" 
     }
-  };
-
-  const test = () => {
-    location.href = '/detail';
   }
+  
 
   return (
     <div className={styles.container}>
@@ -52,7 +44,7 @@ export default function LoginPage() {
                 type="text"
                 placeholder="CJ World 계정"
                 value={cj_id}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setUsername(e.target.value)}
                 required
               />
               <input
