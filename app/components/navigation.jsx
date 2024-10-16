@@ -17,7 +17,7 @@ class NaviList extends Component {
   };
 
   render() {
-    const items = ['정규 인력 요청·내역', 'BP인력 요청·내역', '공지사항'];
+    const items = ['정규/BP 인력 요청', '정규/BP 인력 요청 내역', '공지사항'];
 
     return (
       <ul>

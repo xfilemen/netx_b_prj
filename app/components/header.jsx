@@ -1,8 +1,13 @@
+"use client";
+
+import { usePathname } from 'next/navigation';
 import styles from '/app/styles/detail.module.css';
 import NaviList from '/app/components/navigation.jsx';
 import Image from 'next/image';
 
 export default function HeaderPage() {
+  const pathname = usePathname();
+  const showNaviList = pathname !== '/main';
   return (
     <div className={styles.header}>
       <h1>
@@ -13,9 +18,11 @@ export default function HeaderPage() {
             height={22}
           />
       </h1>
-      <div className={styles.navigation}>
-        <NaviList />
-      </div>
+      {showNaviList && (
+        <div className={styles.navigation}>
+          <NaviList />
+        </div>
+      )}
     </div>
   );
 }

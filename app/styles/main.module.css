@@ -1,3 +1,5 @@
+
+/* login page */
 .loginbg{float:left;position:relative;width:39vw;height:100vh;}
 .loginbg img{object-fit:cover;}
 .loginSection{float:left;width:840px;}
@@ -11,3 +13,13 @@
 .loginSection .content .join_section{width:318px;margin:20px auto 0;}
 .loginSection .content .join_section li{float:left;color:#888;}
 .loginSection .content .join_section li.line{color:#D9D9D9;margin:0 14px;}
+
+/* main page */
+.wrap{font-family:Pretendard;border-top:1px solid #dfdfdf;background-color:#F7F8FC;}
+.wrap .main_content{width:1450px;margin:0 auto;padding:150px 120px 255px 120px;}
+.wrap .main_content h2{font-size:32px;font-weight:500}
+.wrap .main_content h2 .name{font-weight:700}
+.wrap .main_content .status_list{margin-top:24px;}
+.wrap .main_content .status_list li{float:left;font-size:16px;font-weight:600;margin-right:40px;height:28px;line-height:28px;}
+.wrap .main_content .status_list li .num{display:inline-block;margin-left:7px;color:#fff;text-align:center;font-size:12px;background-color:#40464F;width:28px;height:28px;border-radius:20px;line-height:25px;}
+.wrap .main_content .status_list li .num.blue_color{background-color:#006FCD;}

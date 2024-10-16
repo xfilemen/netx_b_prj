@@ -24,7 +24,7 @@ export default function LoginPage() {
 
     if (res.ok) {
       alert(data.message);
-      location.href = '/detail';
+      location.href = '/main';
     } else {
       alert(data.message);
     }
