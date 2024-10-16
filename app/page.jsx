@@ -1,19 +1,20 @@
 import styles from '/app/styles/main.module.css';
-import Link from 'next/link';
 import Image from 'next/image';
+
+export const metadata = {
+  title: '인력요청시스템',
+}
 
 export default function LoginPage() { 
   return (
     <div className={styles.container}>
       <div className={styles.loginbg}>
-        <Link href="/detail">
           <Image 
-            src="/images/login/loginbg.png"
-            alt="로그인 페이지"
-            width={800}
-            height={800}
+            src="/images/login/left_login_bg.png"
+            alt="WORKFORCE REQUEST MANAGER SYSTEM"
+            width={840}
+            height={919}
           />
-        </Link>
       </div>
     </div>
   );

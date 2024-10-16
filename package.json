@@ -16,11 +16,14 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
-  "description": "",
+  "description": "1. https://nodejs.org/en <- 홈페이지 접속하여 .msi 파일 다운로드 후 설치 (node v20 이상)\r 2. https://code.visualstudio.com/download <- vscode 윈도우 버전 다운로드 후 설치\r 2. vscode 실행 후 왼쪽 네비게이션 아이콘중  source Control 클릭\r 3. Clone Repository 클릭\r 4. 상단 입력창 표시되면 https://github.com/{git주소}/nextjs.git 입력후 enter\r 5. 로컬 폴더에 프로젝트 생성 완료 되면 vscode 상단에 Terminal -> new Terminal 클릭\r 6. 하단에 터미널창 오픈 되면 순서대로 입력\r    - npm install -g npm\r    - npm install prisma --save-dev\r    - npm install @prisma/client\r    - npx prisma init\r    - npx prisma generate\r    - npx next build\r    - npx next start (수정 작업중에는 npm run dev 입력)\r 7. 브라우저에서 기본 주소 http://localhost:3000/ 실행",
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
     "prisma": "^5.20.0"
+  },
+  "directories": {
+    "lib": "lib"
   }
 }
