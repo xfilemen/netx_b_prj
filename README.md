@@ -13,6 +13,8 @@
    - npm install @prisma/client
    - npx prisma init
    - npx prisma generate
+   - npm install next-auth
+   - npm i env-cmd
    - npx next build
    - npx next start (수정 작업중에는 npm run dev 입력)
 7. 브라우저에서 기본 주소 http://localhost:3000/ 실행
