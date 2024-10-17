@@ -43,8 +43,6 @@ const authOptions = {
           }
         })
 
-        prisma.$disconnect();
-
         if(getPwd.length == 0){
           throw new Error("존재하지 않는 계정");
 
@@ -60,6 +58,8 @@ const authOptions = {
                        compName:getUser[0].comCode.codeName || '',
                        }
       
+
+        prisma.$disconnect();
         return user;
       }
     })

@@ -48,8 +48,9 @@ model tbLogin {
 
 model tbReqMgt {
   reqId         Int       @id @default(autoincrement()) @map("REQ_ID")     // 요청ID, 자동 증가
-  reqTitle      String?   @map("REQ_TITLE")             // 요청명
-  reqOrd        Int?      @map("REQ_ORD")               // 우선순위
+  reqTitle      String?   @map("REQ_TITLE")             // 요청 제목
+  reqName       String?   @map("REQ_NAME")              // 요청명
+  reqOrd        String?   @map("REQ_ORD")               // 우선순위
   reqStatus     String?   @map("REQ_STATUS")            // 진행상황
   reqType       String?   @map("REQ_TYPE")              // 대내/외 구분
   reqHeadcount  Int?      @map("REQ_HEADCOUNT")         // 인원
@@ -62,12 +63,17 @@ model tbReqMgt {
   modDt         DateTime? @map("MOD_DT")                // 수정일
   modId         String?   @map("MOD_ID")                // 수정ID
 
+  
+  reqDet        tbReqMgtDet[] @relation("ReqMgtToDet") // 요청 상세 관계
+
   @@map("tb_req_mgt")
 }
 
 model tbReqMgtDet {
-  reqId      Int       @id @map("REQ_ID")        // 요청ID
+  reqId      Int       @map("REQ_ID")    // 요청ID
+  reqDetId   Int       @default(autoincrement()) @map("REQ_DET_ID")        // 요청상세ID
   reqType    String?   @map("REQ_TYPE")          // 유형
+  reqJob     String?   @map("REQ_JOB")           // 직무구분
   reqGrade   String?   @map("REQ_GRADE")         // 등급
   reqInDt    DateTime? @map("REQ_IN_DT")         // 투입 예정일
   reqOutDt   DateTime? @map("REQ_OUT_DT")        // 투입 종료일
@@ -79,11 +85,14 @@ model tbReqMgtDet {
   modDt      DateTime? @map("MOD_DT")            // 수정일
   modId      String?   @map("MOD_ID")            // 수정ID
 
+  req        tbReqMgt  @relation("ReqMgtToDet", fields: [reqId], references: [reqId]) // 요청 관계
+
+  @@id([reqId, reqDetId])
   @@map("tb_req_mgt_det")
 }
 
 model tbReqWfInfo {
-  reqId      Int       @map("REQ_ID")            // 요청ID
+  reqId      Int       @map("REQ_ID") @unique           // 요청ID
   wfId       Int       @id @default(autoincrement()) @map("WF_ID")  // 요청인력ID
   wfType     String?   @map("WF_TYPE")           // 유형
   wfJob      Int?      @map("WF_JOB")            // 직무구분
