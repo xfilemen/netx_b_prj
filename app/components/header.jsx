@@ -10,7 +10,7 @@ export default function HeaderPage() {
   const pathname = usePathname();
   const showNaviList = pathname !== '/main';
   const { data: session } = useSession();
-  const userInfo = {};
+  let userInfo = {};
   userInfo = session?.user || {};
 
   const [isUserInfoVisible, setUserInfoVisible] = useState(false); // 토글 상태 관리
