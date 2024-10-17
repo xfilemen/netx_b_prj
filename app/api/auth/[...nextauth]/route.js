@@ -12,9 +12,9 @@ const authOptions = {
         password: { label: '비밀번호', type: 'password' },
       },
       async authorize(credentials) {
-        const getUser = await prisma.user.findMany({
+        const getUser = await prisma.tbUser.findMany({
           where: {
-            cj_id: credentials.cj_id 
+            userId: credentials.cj_id 
           }
         })
 
@@ -23,15 +23,31 @@ const authOptions = {
         if(getUser.length == 0){
           throw new Error("존재하지 않는 계정");
 
-        } else if (!bcryptObj.compare(credentials.password,getUser[0].password)) {
+        } 
+        /*
+        const maxSeq = await prisma.TBLogin.aggregate({
+          _max: {
+            seq: true,
+          },
+          where: {
+            userId: credentials.cj_id
+          },
+        });
+        */
+        const getPwd = await prisma.tbLogin.findMany({
+          where: {
+            userId: credentials.cj_id 
+          }
+        })
+
+        if (!bcryptObj.compare(credentials.password,getPwd[0].userPwd)) {
           throw new Error("패스워드 불일치");
 
         }
-        const user = { id: getUser[0].id,  
-                       name: getUser[0].name, 
-                       email:getUser[0].email, 
-                       age:getUser[0].age, 
-                       username: credentials.cj_id }
+        const user = { userId: getUser[0].userId,  
+                       userName: getUser[0].userName, 
+                       deptName:getUser[0].deptName, 
+                       compCd:getUser[0].compCd }
       
         return user;
       }
@@ -42,17 +58,19 @@ const authOptions = {
   },
   session: {
     strategy: "jwt",
-    maxAge: 60 * 60 * 1, // 7일 동안 세션 유지 (초 단위: 60초 * 60분 * 24시간 * 7일)
+    maxAge: 60 * 60 * 1, // (초 단위: 60초 * 60분 * 24시간 * 7일)
   },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id 
+          token.user = user;
       }
       return token;
     },
     async session({ session, token }) {
-      session.user.id = token.id
+      if (token) {
+          session.user = token.user;
+      }
       return session;
     }
   }

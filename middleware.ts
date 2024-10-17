@@ -29,5 +29,5 @@ export function middleware(request: NextRequest) {
 
 // 미들웨어를 적용할 경로 설정
 export const config = {
-  matcher: ['/detail/:path*', '/detail/:path*'], // 특정 경로에만 미들웨어 적용
+  matcher: ['/main/:path*', '/detail/:path*'], // 특정 경로에만 미들웨어 적용
 };

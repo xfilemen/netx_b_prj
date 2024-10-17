@@ -19,7 +19,9 @@ export default function LoginPage() {
     })
 
     if (result.error) {
+      console.log(result.error);
       alert(result.error);
+
     } else {
       window.location.href = "/main" 
     }

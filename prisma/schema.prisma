@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,11 +6,96 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model User {
-  id    Int     @id @default(autoincrement())
-  name  String
-  email String  
-  age  Int
-  cj_id String 
-  password String  
+  id       Int     @id @default(autoincrement())
+  name     String?
+  email    String?
+  age      Int?
+  cj_id    String?
+  password String
+}
+
+model tbUser {
+  userId   String    @id @map("USER_ID")
+  compCd   String?   @map("COMP_CD")
+  deptName String?   @map("DEPT_NAME")
+  userName String?   @map("USER_NAME")
+  agrYn    String?   @map("AGR_YN")
+  regDt    DateTime? @map("REG_DT")
+  regId    String?   @map("REG_ID")
+  modDt    DateTime? @map("MOD_DT")
+  modId    String?   @map("MOD_ID")
+
+  @@map("tb_user")
+}
+
+model tbLogin {
+  userId        String    @map("USER_ID")        // CJ WORLD 계정
+  seq           Int       @default(autoincrement()) @map("SEQ")  // 순번
+  userPwd       String?   @map("USER_PWD")       // 비밀번호
+  pwdWrongCnt   Int?      @map("PWD_WRONG_CNT")  // 로그인 시도 횟수
+  regDt         DateTime? @map("REG_DT")         // 등록일
+  regId         String?   @map("REG_ID")         // 등록ID
+  modDt         DateTime? @map("MOD_DT")         // 수정일
+  modId         String?   @map("MOD_ID")         // 수정ID
+
+  @@id([userId, seq], map: "TB_LOGIN_pkey")      // 복합키 정의
+  @@map("tb_login")
+}
+
+model tbReqMgt {
+  reqId         Int       @id @default(autoincrement()) @map("REQ_ID")     // 요청ID, 자동 증가
+  reqTitle      String?   @map("REQ_TITLE")             // 요청명
+  reqOrd        Int?      @map("REQ_ORD")               // 우선순위
+  reqStatus     String?   @map("REQ_STATUS")            // 진행상황
+  reqType       String?   @map("REQ_TYPE")              // 대내/외 구분
+  reqHeadcount  Int?      @map("REQ_HEADCOUNT")         // 인원
+  reqPurp       String?   @map("REQ_PURP")              // 목적
+  useYn         String?   @map("USE_YN")                // 사용 여부
+  confDt        DateTime? @map("CONF_DT")               // 승인일
+  confId        String?   @map("CONF_ID")               // 승인자
+  regDt         DateTime? @default(now()) @map("REG_DT")// 등록일, 기본값: 현재 시간
+  regId         String?   @map("REG_ID")                // 등록ID
+  modDt         DateTime? @map("MOD_DT")                // 수정일
+  modId         String?   @map("MOD_ID")                // 수정ID
+
+  @@map("tb_req_mgt")
+}
+
+model tbReqMgtDet {
+  reqId      Int       @id @map("REQ_ID")        // 요청ID
+  reqType    String?   @map("REQ_TYPE")          // 유형
+  reqGrade   String?   @map("REQ_GRADE")         // 등급
+  reqInDt    DateTime? @map("REQ_IN_DT")         // 투입 예정일
+  reqOutDt   DateTime? @map("REQ_OUT_DT")        // 투입 종료일
+  reqMm      Int?      @map("REQ_MM")            // M/M
+  reqLoc     String?   @map("REQ_LOC")           // 근무지
+  reqSkill   String?   @map("REQ_SKILL")         // 상세 요구기술
+  regDt      DateTime? @default(now()) @map("REG_DT") // 등록일
+  regId      String?   @map("REG_ID")            // 등록ID
+  modDt      DateTime? @map("MOD_DT")            // 수정일
+  modId      String?   @map("MOD_ID")            // 수정ID
+
+  @@map("tb_req_mgt_det")
+}
+
+model tbReqWfInfo {
+  reqId      Int       @map("REQ_ID")            // 요청ID
+  wfId       Int       @id @default(autoincrement()) @map("WF_ID")  // 요청인력ID
+  wfType     String?   @map("WF_TYPE")           // 유형
+  wfJob      Int?      @map("WF_JOB")            // 직무구분
+  wfGrade    String?   @map("WF_GRADE")          // 등급
+  wfInDt     DateTime? @map("WF_IN_DT")          // 투입 예정일
+  wfOutDt    DateTime? @map("WF_OUT_DT")         // 투입 종료일
+  wfMm       Int?      @map("WF_MM")             // M/M
+  wfLoc      String?   @map("WF_LOC")            // 근무지
+  wfSkill    String?   @map("WF_SKILL")          // 상세 요구기술
+  useYn      String?   @map("USE_YN")            // 사용 여부
+  regDt      DateTime? @default(now()) @map("REG_DT")  // 등록일
+  regId      String?   @map("REG_ID")            // 등록ID
+  modDt      DateTime? @map("MOD_DT")            // 수정일
+  modId      String?   @map("MOD_ID")            // 수정ID
+
+  @@map("tb_req_wf_info")
 }
