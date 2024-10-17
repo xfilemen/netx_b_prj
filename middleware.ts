@@ -14,9 +14,9 @@ export async function middleware(request: NextRequest) {
   console.log('Request URL:', request.nextUrl.pathname);  // 요청 URL 출력
   console.log('Auth Token:', token);  // 토큰 값 출력
 
-    if (!token.user) {
-      return new NextResponse(null, { status: 404 }); // 404 상태 코드 반환
-    }
+    // if (!token.user) {
+    //   return new NextResponse(null, { status: 404 }); // 404 상태 코드 반환
+    // }
 
   /*
   // 정규식 생성  
