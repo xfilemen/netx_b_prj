@@ -19,14 +19,15 @@ export default function MainPage() {
     let userInfo = {};
     userInfo = session?.user || {};
 
+    console.log(userInfo);
      useEffect(() => {
-        console.log(session);
+        console.log(userInfo);
      }, []);
 
     return (
         <div className={styles.wrap}>
             <div className={styles.main_content}>
-                <h2>{userInfo.compCd} {userInfo.deptName}<br/><span className={styles.name}>{userInfo.userName}</span>님, 반갑습니다 :)</h2>
+                <h2>{userInfo.compName} {userInfo.deptName}<br/><span className={styles.name}>{userInfo.userName}</span>님, 반갑습니다 :)</h2>
                 <div className={styles.status_list}>
                     <ul>
                         <li>전체 현황 <span className={`${styles.num} ${styles.blue_color}`}>{requstData.length}</span></li>

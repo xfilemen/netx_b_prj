@@ -15,6 +15,9 @@ const authOptions = {
         const getUser = await prisma.tbUser.findMany({
           where: {
             userId: credentials.cj_id 
+          },
+          include: {
+            comCode: true,
           }
         })
 
@@ -40,6 +43,13 @@ const authOptions = {
           }
         })
 
+        prisma.$disconnect();
+
+        if(getPwd.length == 0){
+          throw new Error("존재하지 않는 계정");
+
+        } 
+
         if (!bcryptObj.compare(credentials.password,getPwd[0].userPwd)) {
           throw new Error("패스워드 불일치");
 
@@ -47,7 +57,8 @@ const authOptions = {
         const user = { userId: getUser[0].userId,  
                        userName: getUser[0].userName, 
                        deptName:getUser[0].deptName, 
-                       compCd:getUser[0].compCd }
+                       compName:getUser[0].comCode.codeName || '',
+                       }
       
         return user;
       }

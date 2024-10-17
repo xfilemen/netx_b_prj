@@ -27,6 +27,8 @@ model tbUser {
   modDt    DateTime? @map("MOD_DT")
   modId    String?   @map("MOD_ID")
 
+  comCode  tbComCode? @relation("ComCodeRelation", fields: [compCd], references: [code])
+
   @@map("tb_user")
 }
 
@@ -40,7 +42,7 @@ model tbLogin {
   modDt         DateTime? @map("MOD_DT")         // 수정일
   modId         String?   @map("MOD_ID")         // 수정ID
 
-  @@id([userId, seq], map: "TB_LOGIN_pkey")      // 복합키 정의
+  @@id([userId, seq], map: "TB_LOGIN_pkey")   
   @@map("tb_login")
 }
 
@@ -98,4 +100,24 @@ model tbReqWfInfo {
   modId      String?   @map("MOD_ID")            // 수정ID
 
   @@map("tb_req_wf_info")
+}
+
+model tbComCode {
+  codeGrp   String    @map("CODE_GRP")
+  code      String    @map("CODE")  @unique 
+  codeName  String?   @map("CODE_NAME")
+  codeOrd   Int?      @map("CODE_ORD")
+  temp1     String?   @map("TEMP1")
+  temp2     String?   @map("TEMP2")
+  temp3     String?   @map("TEMP3")
+  regDt     DateTime? @map("REG_DT") @default(now())
+  regId     String?   @map("REG_ID") 
+  modDt     DateTime? @map("MOD_DT")
+  modId     String?   @map("MOD_ID")
+
+  users    tbUser[] @relation("ComCodeRelation")
+
+
+  @@id([codeGrp, code])
+  @@map("tb_com_code")
 }
