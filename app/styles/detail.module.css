@@ -1,10 +1,4 @@
 .container{width:100%;height:100%;}
-/* header */
-.header{width:1450px;overflow:hidden;margin:0 auto;padding:31px 0 23px 0}
-.header h1{float:left;height:22px;}
-.header .navigation{float:right;}
-.header .navigation li{float:left;margin-right:80px;font-size:16px;font-weight:700;padding-bottom:8px;}
-.header .navigation li.on{color:#006FCD;border-bottom:2px solid #006FCD}
 
 /* detail */
 .content{display:block;}

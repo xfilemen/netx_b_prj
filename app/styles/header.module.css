@@ -1,0 +1,17 @@
+/* header */
+.header{width:1450px;height:100px;margin:0 auto;padding:31px 0 23px 0}
+.header h1{float:left;height:22px;margin-top:12px}
+.header .navi_secition{float:right;}
+.header .navi_secition .navigation{float:left;margin-top:6px;}
+.header .navi_secition .navigation li{float:left;margin-right:80px;font-size:16px;font-weight:700;padding-bottom:8px;}
+.header .navi_secition .navigation li.on{color:#006FCD;border-bottom:2px solid #006FCD}
+.header .navi_secition .user_info_section{position:relative;float:right;}
+.header .navi_secition .user_info_section .user_info{border:1px solid #DFDFDF;padding:12px 10px;border-radius:30px;font-size:14px;font-weight:500;color:#000;cursor: pointer;}
+.header .navi_secition .user_info_section .user_info::after{display:block;width:9px;height:5px;margin-left:6px;margin-top:8px;float:right;content:"";background:url("../../public/images/ico/ico_down_blt.png") no-repeat 0 0;background-size:9px 5px;}
+.header .navi_secition .user_info_section .user_info img{margin-right:10px;}
+.header .navi_secition .user_info_section .user_detail_info{position:absolute;top:50px;right:0;width:260px;border:1px solid #dfdfdf;background-color:#fff;border-radius:12px;padding:25px 23px;z-index:111;}
+.header .navi_secition .user_info_section .user_detail_info img{float:left;}
+.header .navi_secition .user_info_section .user_detail_info .user_info_tx{float:left;font-size:16px;font-weight:500;margin-left:13px;}
+.header .navi_secition .user_info_section .user_detail_info .type_req_tx{font-size:13px;color:#888;}
+.header .navi_secition .user_info_section .user_detail_info .team_info_tx{float:left;margin-top:6px;font-size:13px;color:#868686;margin-left:13px;}
+.header .navi_secition .user_info_section .user_detail_info .logout_btn{float:right;width:100%;margin-top:20px;text-align:right;font-size:14px;font-weight:600;}

@@ -4,7 +4,7 @@
 .loginbg img{object-fit:cover;}
 .loginSection{float:left;width:840px;}
 .loginSection .content{width:375px;margin:380px auto 0;}
-.loginSection .content h1{font-size:22px;font-family:Pretendard;font-weight:600;margin-bottom:20px;}
+.loginSection .content h1{font-size:22px;font-weight:600;margin-bottom:20px;}
 .loginSection .content input{width:100%;padding:12px 0 12px 16px;font-size:16px;color:#888;border:1px solid #cfcfd0;border-radius:4px;margin-bottom:16px;}
 .loginSection .content .saveid{overflow:hidden;font-size:14px;color:#000;margin-bottom:24px;}
 .loginSection .content .saveid input[type="checkbox"]{float:left;display:inline;width:18px;height:18px;margin:0;}
@@ -15,7 +15,7 @@
 .loginSection .content .join_section li.line{color:#D9D9D9;margin:0 14px;}
 
 /* main page */
-.wrap{font-family:Pretendard;border-top:1px solid #dfdfdf;background-color:#F7F8FC;}
+.wrap{border-top:1px solid #dfdfdf;background-color:#F7F8FC;}
 .wrap .main_content{overflow:hidden;width:1450px;margin:0 auto;padding:150px 120px 255px 120px;}
 .wrap .main_content h2{font-size:32px;font-weight:500}
 .wrap .main_content h2 .name{font-weight:700}

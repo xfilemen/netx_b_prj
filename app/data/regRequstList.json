@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "title": "CJ 주식회사 회계시스템 선진화 및 데이터 처리 속도 개선 서버 교체 개선 CJ 주식회사 회계시스템 선진화 및 데이터 처리 속도 개선 서버 교체 개선 CJ 주식회사 회계시스템 선진화 및 데이터 처리 속도 개선 서버 교체 개선 CJ 주식회사 회계시스템 선진화 및 데이터 처리 속도 개선 서버 교체 개선",
+    "title": "CJ 주식회사 회계시스템 선진화 및 데이터 처리 속도 개선 서버 교체 개선",
     "priority": "High",
     "date": "2024-08-29",
     "requestedBy": 1,
@@ -9,7 +9,7 @@
     "requestName": "회계시스템 선진화",
     "internalExternal": "대내",
     "personnel": 5,
-    "purpose": "이번 프로젝트에서 만 14세 미만 및 휴대폰 본인인증 불가 고객 회원가입 프로세스를 신설하여 고객 불만을 해소하고 시스템 고도화를 통해 신규 고객 확대를 강화를 목적으로 합니다. 또한 간편모드 서비스를 신설하여 손쉬운 CJ PAY UI/UX를 경험할 수 있도록 개선할 예정입니다.",
+    "purpose": "이번 프로젝트에서 만 14세 미만 및 휴대폰 본인인증 불가 고객 회원가입 프로세스를 신설하여 고객 불만을 해소하고 시스템 고도화를 통해 신규 고객 확대를 강화를 목적으로 합니다.",
     "details": [
       {
         "type": "시스템 개선",
@@ -20,36 +20,6 @@
         "MM": "3",
         "workLocation": "서울",
         "technicalRequirement": "Java, Spring"
-      },
-      {
-        "type": "데이터 분석",
-        "jobCategory": "데이터 엔지니어",
-        "grade": "중급",
-        "startDate": "2024-10-01",
-        "endDate": "2025-01-31",
-        "MM": "4",
-        "workLocation": "부산",
-        "technicalRequirement": "Python, R"
-      },
-      {
-        "type": "시스템 개선",
-        "jobCategory": "회계",
-        "grade": "고급",
-        "startDate": "2024-09-01",
-        "endDate": "미정",
-        "MM": "3",
-        "workLocation": "서울",
-        "technicalRequirement": "Java, Spring"
-      },
-      {
-        "type": "데이터 분석",
-        "jobCategory": "데이터 엔지니어",
-        "grade": "중급",
-        "startDate": "2024-10-01",
-        "endDate": "2025-01-31",
-        "MM": "4",
-        "workLocation": "부산",
-        "technicalRequirement": "Python, R"
       },
       {
         "type": "데이터 분석",
@@ -86,14 +56,14 @@
         "technicalRequirement": "Figma, Adobe XD"
       },
       {
-        "type": "프론트엔드 개발",
-        "jobCategory": "프론트엔드",
+        "type": "데이터 모델링",
+        "jobCategory": "데이터 엔지니어",
         "grade": "고급",
-        "startDate": "2024-07-20",
-        "endDate": "2024-10-20",
-        "MM": "3",
+        "startDate": "2024-04-01",
+        "endDate": "2024-07-01",
+        "MM": "4",
         "workLocation": "부산",
-        "technicalRequirement": "React Native"
+        "technicalRequirement": "Python, SQL"
       }
     ]
   },
@@ -118,16 +88,6 @@
         "MM": "3",
         "workLocation": "대전",
         "technicalRequirement": "Python, SQL"
-      },
-      {
-        "type": "데이터 시각화",
-        "jobCategory": "데이터 분석",
-        "grade": "초급",
-        "startDate": "2024-09-01",
-        "endDate": "2024-12-01",
-        "MM": "3",
-        "workLocation": "인천",
-        "technicalRequirement": "Tableau, PowerBI"
       }
     ]
   },
@@ -137,7 +97,7 @@
     "priority": "High",
     "date": "2024-09-02",
     "requestedBy": 4,
-    "status": "progress",
+    "status": "complete",
     "requestName": "마케팅 자동화",
     "internalExternal": "대외",
     "personnel": 3,
@@ -152,26 +112,6 @@
         "MM": "2",
         "workLocation": "서울",
         "technicalRequirement": "Firewall, IPS"
-      },
-      {
-        "type": "보안 모니터링",
-        "jobCategory": "보안",
-        "grade": "중급",
-        "startDate": "2024-08-01",
-        "endDate": "2024-11-30",
-        "MM": "3",
-        "workLocation": "대구",
-        "technicalRequirement": "Splunk, Wireshark"
-      },
-      {
-        "type": "보안 모니터링",
-        "jobCategory": "보안",
-        "grade": "중급",
-        "startDate": "2024-08-01",
-        "endDate": "2024-11-30",
-        "MM": "3",
-        "workLocation": "대구",
-        "technicalRequirement": "Splunk, Wireshark"
       }
     ]
   },
@@ -196,16 +136,6 @@
         "MM": "3",
         "workLocation": "서울",
         "technicalRequirement": "AWS, Terraform"
-      },
-      {
-        "type": "데이터 이전",
-        "jobCategory": "DBA",
-        "grade": "고급",
-        "startDate": "2024-07-01",
-        "endDate": "2024-10-01",
-        "MM": "3",
-        "workLocation": "부산",
-        "technicalRequirement": "Oracle, PostgreSQL"
       }
     ]
   },
@@ -215,7 +145,7 @@
     "priority": "Low",
     "date": "2024-09-04",
     "requestedBy": 6,
-    "status": "register",
+    "status": "complete",
     "requestName": "사이버 보안 강화",
     "internalExternal": "대외",
     "personnel": 4,
@@ -254,16 +184,6 @@
         "MM": "3",
         "workLocation": "서울",
         "technicalRequirement": "Python, TensorFlow"
-      },
-      {
-        "type": "UI 통합",
-        "jobCategory": "프론트엔드",
-        "grade": "초급",
-        "startDate": "2024-10-01",
-        "endDate": "2025-01-01",
-        "MM": "3",
-        "workLocation": "부산",
-        "technicalRequirement": "React, GraphQL"
       }
     ]
   },
@@ -288,16 +208,6 @@
         "MM": "4",
         "workLocation": "대구",
         "technicalRequirement": "MySQL, PostgreSQL"
-      },
-      {
-        "type": "모듈 개발",
-        "jobCategory": "백엔드",
-        "grade": "B",
-        "startDate": "2024-06-01",
-        "endDate": "2024-09-01",
-        "MM": "초급",
-        "workLocation": "서울",
-        "technicalRequirement": "Java, Spring Boot"
       }
     ]
   },
@@ -307,7 +217,7 @@
     "priority": "High",
     "date": "2024-09-07",
     "requestedBy": 9,
-    "status": "progress",
+    "status": "complete",
     "requestName": "신규 상품 출시",
     "internalExternal": "대내",
     "personnel": 6,
@@ -319,53 +229,29 @@
         "grade": "고급",
         "startDate": "2024-04-01",
         "endDate": "2024-07-01",
-        "MM": "3",
-        "workLocation": "광주",
-        "technicalRequirement": "SQL, NoSQL"
-      },
-      {
-        "type": "인프라 설정",
-        "jobCategory": "클라우드 엔지니어",
-        "grade": "초급",
-        "startDate": "2024-04-15",
-        "endDate": "2024-08-15",
         "MM": "4",
         "workLocation": "부산",
-        "technicalRequirement": "AWS, Docker"
-      }
-    ]
-  },
-  {
-    "id": 10,
-    "title": "CJ 주식회사 인사 시스템 개선 및 직원 만족도 조사",
-    "priority": "Low",
-    "date": "2024-09-08",
-    "requestedBy": 10,
-    "status": "progress",
-    "requestName": "인사 시스템 개선",
-    "internalExternal": "대외",
-    "personnel": 7,
-    "purpose": "직원 만족도를 높이기 위해 인사 시스템을 개선하고 조사를 실시합니다.",
-    "details": [
-      {
-        "type": "프로세스 분석",
-        "jobCategory": "컨설턴트",
-        "grade": "고급",
-        "startDate": "2024-05-20",
-        "endDate": "2024-07-20",
-        "MM": "2",
-        "workLocation": "서울",
-        "technicalRequirement": "UiPath, Blue Prism"
+        "technicalRequirement": "Python, SQL"
       },
       {
-        "type": "봇 개발",
-        "jobCategory": "자동화 개발자",
+        "type": "데이터 모델링",
+        "jobCategory": "데이터 엔지니어",
         "grade": "고급",
-        "startDate": "2024-06-01",
-        "endDate": "2024-09-01",
-        "MM": "3",
-        "workLocation": "대전",
-        "technicalRequirement": "Python, Selenium"
+        "startDate": "2024-04-01",
+        "endDate": "2024-07-01",
+        "MM": "4",
+        "workLocation": "부산",
+        "technicalRequirement": "Python, SQL"
+      },
+      {
+        "type": "데이터 모델링",
+        "jobCategory": "데이터 엔지니어",
+        "grade": "고급",
+        "startDate": "2024-04-01",
+        "endDate": "2024-07-01",
+        "MM": "4",
+        "workLocation": "부산",
+        "technicalRequirement": "Python, SQL"
       }
     ]
   }

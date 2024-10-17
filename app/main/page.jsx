@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signIn, signOut } from "next-auth/react";
+import requstData from '../data/regRequstList.json';
 import styles from '/app/styles/main.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,6 +11,11 @@ import Link from 'next/link';
 
 export default function MainPage() {
     const { data: session } = useSession();
+    const registerCount = requstData.filter(item => item.status === 'register').length;
+    const progressCount = requstData.filter(item => item.status === 'progress').length;
+    const cancelCount = requstData.filter(item => item.status === 'return' || item.status === 'cancel').length;
+    const completeCount = requstData.filter(item => item.status === 'complete').length;
+
     let userInfo = {};
     userInfo = session?.user || {};
 
@@ -23,11 +29,11 @@ export default function MainPage() {
                 <h2>{userInfo.compCd} {userInfo.deptName}<br/><span className={styles.name}>{userInfo.userName}</span>님, 반갑습니다 :)</h2>
                 <div className={styles.status_list}>
                     <ul>
-                        <li>전체 현황 <span className={`${styles.num} ${styles.blue_color}`}>10</span></li>
-                        <li>접수 현황 <span className={styles.num}>1</span></li>
-                        <li>진행 현황 <span className={styles.num}>1</span></li>
-                        <li>취소/반려 현황 <span className={styles.num}>1</span></li>
-                        <li>완료 현황 <span className={styles.num}>1</span></li>
+                        <li>전체 현황 <span className={`${styles.num} ${styles.blue_color}`}>{requstData.length}</span></li>
+                        <li>접수 현황 <span className={styles.num}>{registerCount}</span></li>
+                        <li>진행 현황 <span className={styles.num}>{progressCount}</span></li>
+                        <li>취소/반려 현황 <span className={styles.num}>{cancelCount}</span></li>
+                        <li>완료 현황 <span className={styles.num}>{completeCount}</span></li>
                     </ul>
                 </div>
                 <div className={styles.link_menu}>
