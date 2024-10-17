@@ -22,6 +22,8 @@ export default function HeaderPage() {
   useEffect(() => {
     console.log(session);
   }, []);
+
+
   return (
     <div className={styles.header}>
       <h1>
@@ -56,7 +58,7 @@ export default function HeaderPage() {
                 height={51}
               />
               <div className={styles.user_info_tx}>{userInfo.userName ? `${userInfo.userName}님` : ''} <span className={styles.type_req_tx}>(요청자)</span></div>
-              <div className={styles.team_info_tx}>{userInfo.compCd}<br/>{userInfo.deptName}</div>
+              <div className={styles.team_info_tx}>{userInfo.compName}<br/>{userInfo.deptName}</div>
               <div className={styles.logout_btn}>
                 <a href="">로그아웃</a>
               </div>
