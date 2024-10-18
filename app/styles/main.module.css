@@ -1,9 +1,10 @@
+.section{overflow:hidden;background-color:#006FCD;}
 
 /* login page */
-.loginbg{float:left;position:relative;width:39vw;height:100vh;}
-.loginbg img{object-fit:cover;}
-.loginSection{float:left;width:840px;}
-.loginSection .content{width:375px;margin:380px auto 0;}
+.loginbg{float:left;position:relative;width:50%}
+.loginbg img{float:right;width:840px;;height:100vh;}
+.loginSection{float:left;width:50%;height:100vh;background-color:#fff;}
+.loginSection .content{width:375px;margin:330px 0 0 112px;}
 .loginSection .content h1{font-size:22px;font-weight:600;margin-bottom:20px;}
 .loginSection .content input{width:100%;padding:12px 0 12px 16px;font-size:16px;color:#888;border:1px solid #cfcfd0;border-radius:4px;margin-bottom:16px;}
 .loginSection .content .saveid{overflow:hidden;font-size:14px;color:#000;margin-bottom:24px;}
@@ -15,7 +16,7 @@
 .loginSection .content .join_section li.line{color:#D9D9D9;margin:0 14px;}
 
 /* main page */
-.wrap{border-top:1px solid #dfdfdf;background-color:#F7F8FC;}
+.wrap{border-top:1px solid #dfdfdf;background-color:#F7F8FC;background: url('../../public/images/main/main_bg.jpg') no-repeat 0;}
 .wrap .main_content{overflow:hidden;width:1450px;margin:0 auto;padding:150px 120px 255px 120px;}
 .wrap .main_content h2{font-size:32px;font-weight:500}
 .wrap .main_content h2 .name{font-weight:700}
@@ -23,8 +24,8 @@
 .wrap .main_content .status_list li{float:left;font-size:16px;font-weight:600;margin-right:40px;height:28px;line-height:28px;}
 .wrap .main_content .status_list li .num{display:inline-block;margin-left:7px;color:#fff;text-align:center;font-size:12px;background-color:#40464F;width:28px;height:28px;border-radius:20px;line-height:25px;}
 .wrap .main_content .status_list li .num.blue_color{background-color:#006FCD;}
-.wrap .main_content .link_menu{overflow:hidden;margin-top:60px;}
-.wrap .main_content .link_menu li{float:left;width:384px;border:1px solid #DFDFDF;border-radius:12px;margin-right:24px;background: url('../../public/images/main/ico_link_blt.png') no-repeat 339px;background-color:#fff;}
+.wrap .main_content .link_menu{margin-top:60px;}
+.wrap .main_content .link_menu li{float:left;width:384px;border:1px solid #DFDFDF;border-radius:12px;margin-right:24px;background: url('../../public/images/main/ico_link_blt.png') no-repeat 339px;background-color:#fff;box-shadow:4px 4px 13px 0px #00000026;}
 .wrap .main_content .link_menu li:last-child{margin-right:0;}
 .wrap .main_content .link_menu li a{display:block;padding:47px 0 47px 30px;height:140px;}
 .wrap .main_content .link_menu li .tx{display:inline-block;font-size:16px;font-weight:600;margin-left:10px;}
