@@ -19,9 +19,13 @@ export default function HeaderPage() {
     setUserInfoVisible(!isUserInfoVisible); // 클릭 시 토글
   };
 
+  const handleSignOut = () => {
+    signOut({ callbackUrl: '/login' }); // 로그아웃 처리
+  };
+
   useEffect(() => {
     console.log(session);
-  }, []);
+  }, [session]);
 
 
   return (
@@ -60,7 +64,7 @@ export default function HeaderPage() {
               <div className={styles.user_info_tx}>{userInfo.userName ? `${userInfo.userName}님` : ''} <span className={styles.type_req_tx}>(요청자)</span></div>
               <div className={styles.team_info_tx}>{userInfo.compName}<br/>{userInfo.deptName}</div>
               <div className={styles.logout_btn}>
-                <a href="">로그아웃</a>
+                <button onClick={handleSignOut}>로그아웃</button>
               </div>
           </div>
         </div>
