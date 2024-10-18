@@ -22,7 +22,7 @@
 .wrap .main_content h2 .name{font-weight:700}
 .wrap .main_content .status_list{margin-top:24px;overflow:hidden;height:32px;}
 .wrap .main_content .status_list li{float:left;font-size:16px;font-weight:600;margin-right:40px;height:28px;line-height:28px;}
-.wrap .main_content .status_list li .num{display:inline-block;margin-left:7px;color:#fff;text-align:center;font-size:12px;background-color:#40464F;width:28px;height:28px;border-radius:20px;line-height:25px;}
+.wrap .main_content .status_list li .num{display:inline-block;margin-left:7px;color:#fff;text-align:center;font-size:12px;background-color:#40464F;width:28px;height:28px;border-radius:20px;}
 .wrap .main_content .status_list li .num.blue_color{background-color:#006FCD;}
 .wrap .main_content .link_menu{margin-top:60px;}
 .wrap .main_content .link_menu li{float:left;width:384px;border:1px solid #DFDFDF;border-radius:12px;margin-right:24px;background: url('../../public/images/main/ico_link_blt.png') no-repeat 339px;background-color:#fff;box-shadow:4px 4px 13px 0px #00000026;}
