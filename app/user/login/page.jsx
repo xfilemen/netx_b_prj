@@ -9,18 +9,19 @@ export default function LoginPage() {
 
   const [cj_id, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { data: session } = useSession();
+  const { data: session3 } = useSession();
 
-  useEffect(function() {
-    console.log(session);
-    if(session){
-      try {
-        signOut({ redirect: false });
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }, []);
+  
+  // useEffect(function() {
+  //   console.log(session3);
+  //   if(session3){
+  //     try {
+  //       signOut({ redirect: false });
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault()
