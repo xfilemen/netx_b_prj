@@ -9,9 +9,9 @@ export default function LoginPage() {
 
   const [cj_id, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { data: session3 } = useSession();
+  const { data: session } = useSession();
 
-  
+  console.log("session : " + session);
   // useEffect(function() {
   //   console.log(session3);
   //   if(session3){

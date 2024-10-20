@@ -21,9 +21,6 @@ export async function middleware(request: NextRequest) {
   console.log('Request URL:', request.nextUrl.pathname);  // 요청 URL 출력
   console.log('Auth Token:', token);  // 토큰 값 출력
 
-  if(true){
-    return new NextResponse(JSON.stringify({ token1: token, secret: process.env.NEXTAUTH_SECRET,  message : 'test'}), { status: 200});
-  }
 
   if (!token.user) {
     if(protectedPages.some(api => request.nextUrl.pathname.includes(api))){
