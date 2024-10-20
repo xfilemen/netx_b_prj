@@ -14,10 +14,14 @@ const authOptions = {
       async authorize(credentials) {
         const getUser = await prisma.tbUser.findMany({
           where: {
-            userId: credentials.cj_id 
+            userId: credentials.cj_id ,
           },
           include: {
-            comCode: true,
+            comCode: {
+              where: {
+                codeGrp: 'G001',
+              },
+            }
           }
         })
 
@@ -45,18 +49,40 @@ const authOptions = {
 
         if(getPwd.length == 0){
           throw new Error("존재하지 않는 계정");
-
         } 
 
         if (!bcryptObj.compare(credentials.password,getPwd[0].userPwd)) {
           throw new Error("패스워드 불일치");
-
         }
+
+        //권한 조회
+        const getAuth = await prisma.tbAuthUser.findMany({
+          where: {
+            userId: credentials.cj_id ,
+          },
+          include: {
+            auth: {
+              where: {
+                authType: 'role',
+              },
+            }
+          }
+        })
+
+        // const comCodeOrg = await prisma.tbComCode.findMany();
+        // let comCode = {};
+        // comCodeOrg.forEach(element => {
+        //   comCode[element.codeGrp] = element;
+        // });
+
+
         const user = { userId: getUser[0].userId,  
                        userName: getUser[0].userName, 
                        deptName:getUser[0].deptName, 
-                       compName:getUser[0].comCode.codeName || '',
-                       }
+                       compName:getUser[0]['comCode'][0]['codeName'] || '',
+                       authCd:getAuth[0]['authCd'] || '',
+                       authName:getAuth[0]['auth']['authName'] || ''
+                     }
       
 
         prisma.$disconnect();

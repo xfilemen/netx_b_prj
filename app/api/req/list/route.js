@@ -6,7 +6,7 @@ export async function POST(req) {
         reqDet: true,
       }
     })
-    return new Response(JSON.stringify({ message: '정상적으로 조회되었습니다.', date : tbReqMgt}), {
+    return new Response(JSON.stringify({ message: '정상적으로 조회되었습니다.', data : tbReqMgt}), {
       status: 200,
     })
   } catch(err){

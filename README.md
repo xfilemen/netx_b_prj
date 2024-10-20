@@ -11,7 +11,6 @@
    - npm install -g npm
    - npm install prisma --save-dev
    - npm install @prisma/client
-   - npx prisma init
    - npx prisma generate
    - npm install next-auth
    - npm i env-cmd

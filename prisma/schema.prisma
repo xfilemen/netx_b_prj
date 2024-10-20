@@ -17,51 +17,51 @@ model User {
 }
 
 model tbUser {
-  userId   String    @id @map("USER_ID")
-  compCd   String?   @map("COMP_CD")
-  deptName String?   @map("DEPT_NAME")
-  userName String?   @map("USER_NAME")
-  agrYn    String?   @map("AGR_YN")
-  regDt    DateTime? @map("REG_DT")
-  regId    String?   @map("REG_ID")
-  modDt    DateTime? @map("MOD_DT")
-  modId    String?   @map("MOD_ID")
+  userId   String    @id @map("user_id")
+  compCd   String?   @map("comp_cd") @unique 
+  deptName String?   @map("dept_name")
+  userName String?   @map("user_name")
+  agrYn    String?   @map("agr_yn")
+  regDt    DateTime? @map("reg_dt")
+  regId    String?   @map("reg_id")
+  modDt    DateTime? @map("mod_dt")
+  modId    String?   @map("mod_id")
 
-  comCode  tbComCode? @relation("ComCodeRelation", fields: [compCd], references: [code])
+  comCode  tbComCode[] @relation("userCompCd")
 
   @@map("tb_user")
 }
 
 model tbLogin {
-  userId        String    @map("USER_ID")        // CJ WORLD 계정
-  seq           Int       @default(autoincrement()) @map("SEQ")  // 순번
-  userPwd       String?   @map("USER_PWD")       // 비밀번호
-  pwdWrongCnt   Int?      @map("PWD_WRONG_CNT")  // 로그인 시도 횟수
-  regDt         DateTime? @map("REG_DT")         // 등록일
-  regId         String?   @map("REG_ID")         // 등록ID
-  modDt         DateTime? @map("MOD_DT")         // 수정일
-  modId         String?   @map("MOD_ID")         // 수정ID
+  userId        String    @map("user_id")        // CJ WORLD 계정
+  seq           Int       @default(autoincrement()) @map("seq")  // 순번
+  userPwd       String?   @map("user_pwd")       // 비밀번호
+  pwdWrongCnt   Int?      @map("pwd_wrong_cnt")  // 로그인 시도 횟수
+  regDt         DateTime? @map("reg_dt")         // 등록일
+  regId         String?   @map("reg_id")         // 등록ID
+  modDt         DateTime? @map("mod_dt")         // 수정일
+  modId         String?   @map("mod_id")         // 수정ID
 
   @@id([userId, seq], map: "TB_LOGIN_pkey")   
   @@map("tb_login")
 }
 
 model tbReqMgt {
-  reqId         Int       @id @default(autoincrement()) @map("REQ_ID")     // 요청ID, 자동 증가
-  reqTitle      String?   @map("REQ_TITLE")             // 요청 제목
-  reqName       String?   @map("REQ_NAME")              // 요청명
-  reqOrd        String?   @map("REQ_ORD")               // 우선순위
-  reqStatus     String?   @map("REQ_STATUS")            // 진행상황
-  reqType       String?   @map("REQ_TYPE")              // 대내/외 구분
-  reqHeadcount  Int?      @map("REQ_HEADCOUNT")         // 인원
-  reqPurp       String?   @map("REQ_PURP")              // 목적
-  useYn         String?   @map("USE_YN")                // 사용 여부
-  confDt        DateTime? @map("CONF_DT")               // 승인일
-  confId        String?   @map("CONF_ID")               // 승인자
-  regDt         DateTime? @default(now()) @map("REG_DT")// 등록일, 기본값: 현재 시간
-  regId         String?   @map("REG_ID")                // 등록ID
-  modDt         DateTime? @map("MOD_DT")                // 수정일
-  modId         String?   @map("MOD_ID")                // 수정ID
+  reqId         Int       @id @default(autoincrement()) @map("req_id")     // 요청ID, 자동 증가
+  reqTitle      String?   @map("req_title")             // 요청 제목
+  reqName       String?   @map("req_name")              // 요청명
+  reqOrd        String?   @map("req_ord")               // 우선순위
+  reqStatus     String?   @map("req_status")            // 진행상황
+  reqType       String?   @map("req_type")              // 대내/외 구분
+  reqHeadcount  Int?      @map("req_headcount")         // 인원
+  reqPurp       String?   @map("req_purp")              // 목적
+  useYn         String?   @map("use_yn")                // 사용 여부
+  confDt        DateTime? @map("conf_dt")               // 승인일
+  confId        String?   @map("conf_id")               // 승인자
+  regDt         DateTime? @default(now()) @map("reg_dt")// 등록일, 기본값: 현재 시간
+  regId         String?   @map("reg_id")                // 등록ID
+  modDt         DateTime? @map("mod_dt")                // 수정일
+  modId         String?   @map("mod_id")                // 수정ID
 
   
   reqDet        tbReqMgtDet[] @relation("ReqMgtToDet") // 요청 상세 관계
@@ -70,20 +70,21 @@ model tbReqMgt {
 }
 
 model tbReqMgtDet {
-  reqId      Int       @map("REQ_ID")    // 요청ID
-  reqDetId   Int       @default(autoincrement()) @map("REQ_DET_ID")        // 요청상세ID
-  reqType    String?   @map("REQ_TYPE")          // 유형
-  reqJob     String?   @map("REQ_JOB")           // 직무구분
-  reqGrade   String?   @map("REQ_GRADE")         // 등급
-  reqInDt    DateTime? @map("REQ_IN_DT")         // 투입 예정일
-  reqOutDt   DateTime? @map("REQ_OUT_DT")        // 투입 종료일
-  reqMm      Int?      @map("REQ_MM")            // M/M
-  reqLoc     String?   @map("REQ_LOC")           // 근무지
-  reqSkill   String?   @map("REQ_SKILL")         // 상세 요구기술
-  regDt      DateTime? @default(now()) @map("REG_DT") // 등록일
-  regId      String?   @map("REG_ID")            // 등록ID
-  modDt      DateTime? @map("MOD_DT")            // 수정일
-  modId      String?   @map("MOD_ID")            // 수정ID
+  reqId      Int       @map("req_id")    // 요청ID
+  reqDetId   Int       @default(autoincrement()) @map("req_det_id")        // 요청상세ID
+  reqType    String?   @map("req_type")          // 유형
+  reqJob     String?   @map("req_job")           // 직무구분
+  reqGrade   String?   @map("req_grade")         // 등급
+  reqInDt    DateTime? @map("req_in_dt")         // 투입 예정일
+  reqOutDt   DateTime? @map("req_out_dt")        // 투입 종료일
+  reqMm      Int?      @map("req_mm")            // M/M
+  reqLoc     String?   @map("req_loc")           // 근무지
+  reqSkill   String?   @map("req_skill")         // 상세 요구기술
+  useYn      String?   @map("use_yn")
+  regDt      DateTime? @default(now()) @map("reg_dt") // 등록일
+  regId      String?   @map("reg_id")            // 등록ID
+  modDt      DateTime? @map("mod_dt")            // 수정일
+  modId      String?   @map("mod_id")            // 수정ID
 
   req        tbReqMgt  @relation("ReqMgtToDet", fields: [reqId], references: [reqId]) // 요청 관계
 
@@ -92,40 +93,70 @@ model tbReqMgtDet {
 }
 
 model tbReqWfInfo {
-  reqId      Int       @map("REQ_ID") @unique           // 요청ID
-  wfId       Int       @id @default(autoincrement()) @map("WF_ID")  // 요청인력ID
-  wfType     String?   @map("WF_TYPE")           // 유형
-  wfJob      Int?      @map("WF_JOB")            // 직무구분
-  wfGrade    String?   @map("WF_GRADE")          // 등급
-  wfInDt     DateTime? @map("WF_IN_DT")          // 투입 예정일
-  wfOutDt    DateTime? @map("WF_OUT_DT")         // 투입 종료일
-  wfMm       Int?      @map("WF_MM")             // M/M
-  wfLoc      String?   @map("WF_LOC")            // 근무지
-  wfSkill    String?   @map("WF_SKILL")          // 상세 요구기술
-  useYn      String?   @map("USE_YN")            // 사용 여부
-  regDt      DateTime? @default(now()) @map("REG_DT")  // 등록일
-  regId      String?   @map("REG_ID")            // 등록ID
-  modDt      DateTime? @map("MOD_DT")            // 수정일
-  modId      String?   @map("MOD_ID")            // 수정ID
+  reqId      Int       @map("req_id") @unique           // 요청ID
+  wfId       Int       @id @default(autoincrement()) @map("wf_id")  // 요청인력ID
+  wfType     String?   @map("wf_type")           // 유형
+  wfJob      Int?      @map("wf_job")            // 직무구분
+  wfGrade    String?   @map("wf_grade")          // 등급
+  wfInDt     DateTime? @map("wf_in_dt")          // 투입 예정일
+  wfOutDt    DateTime? @map("wf_out_dt")         // 투입 종료일
+  wfMm       Int?      @map("wf_mm")             // M/M
+  wfLoc      String?   @map("wf_loc")            // 근무지
+  wfSkill    String?   @map("wf_skill")          // 상세 요구기술
+  useYn      String?   @map("use_yn")            // 사용 여부
+  regDt      DateTime? @default(now()) @map("reg_dt")  // 등록일
+  regId      String?   @map("reg_id")            // 등록ID
+  modDt      DateTime? @map("mod_dt")            // 수정일
+  modId      String?   @map("mod_id")            // 수정ID
 
   @@map("tb_req_wf_info")
 }
 
+model tbAuth {
+  authCd   String  @id @map("auth_cd") // 권한코드 (Primary Key)  @unique 
+  authType String? @map("auth_type")   // 권한 유형
+  authName String? @map("auth_name")   // 권한 명
+  authDesc String? @map("auth_desc")   // 권한 설명
+  useYn    String?   @map("use_yn")    // 사용 여부
+  regDt    DateTime @default(now()) @map("reg_dt") // 등록일
+  regId    String?  @map("reg_id")     // 등록ID
+  modDt    DateTime? @map("mod_dt")    // 수정일
+  modId    String?  @map("mod_id")     // 수정ID
+
+  authUser  tbAuthUser[] @relation("auth")
+  @@map("tb_auth")
+}
+
+model tbAuthUser {
+  authCd   String  @map("auth_cd") // 권한코드
+  userId   String  @map("user_id") // CJWORLD 계정
+  useYn     String?   @map("use_yn")
+  regDt    DateTime @default(now()) @map("reg_dt") // 등록일
+  regId    String?  @map("reg_id") // 등록ID
+  modDt    DateTime? @map("mod_dt") // 수정일
+  modId    String?  @map("mod_id") // 수정ID
+
+  auth     tbAuth?     @relation("auth", fields: [authCd], references: [authCd])
+
+  @@id([authCd, userId])
+  @@map("tb_auth_user")
+}
+
 model tbComCode {
-  codeGrp   String    @map("CODE_GRP")
-  code      String    @map("CODE")  @unique 
-  codeName  String?   @map("CODE_NAME")
-  codeOrd   Int?      @map("CODE_ORD")
-  temp1     String?   @map("TEMP1")
-  temp2     String?   @map("TEMP2")
-  temp3     String?   @map("TEMP3")
-  regDt     DateTime? @map("REG_DT") @default(now())
-  regId     String?   @map("REG_ID") 
-  modDt     DateTime? @map("MOD_DT")
-  modId     String?   @map("MOD_ID")
+  codeGrp   String    @map("code_grp")
+  code      String    @map("code")
+  codeName  String?   @map("code_name")
+  codeOrd   Int?      @map("code_ord")
+  temp1     String?   @map("temp1")
+  temp2     String?   @map("temp2")
+  temp3     String?   @map("temp3")
+  regDt     DateTime? @map("reg_dt") @default(now())
+  regId     String?   @map("reg_id") 
+  modDt     DateTime? @map("mod_dt")
+  modId     String?   @map("mod_id")
+  useYn     String?   @map("use_yn")
 
-  users    tbUser[] @relation("ComCodeRelation")
-
+  users     tbUser?     @relation("userCompCd", fields: [code], references: [compCd])
 
   @@id([codeGrp, code])
   @@map("tb_com_code")

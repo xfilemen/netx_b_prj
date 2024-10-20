@@ -3,12 +3,24 @@
 import { useEffect, useState } from 'react';
 import styles from '/app/styles/main.module.css';
 import Image from 'next/image';
-import {signIn} from "next-auth/react";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function LoginPage() { 
 
   const [cj_id, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { data: session } = useSession();
+
+  useEffect(function() {
+    console.log(session);
+    if(session){
+      try {
+        signOut({ redirect: false });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault()
