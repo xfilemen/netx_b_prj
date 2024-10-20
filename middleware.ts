@@ -2,7 +2,7 @@ import { NextResponse, NextRequest } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
 export async function middleware(request: NextRequest) {
-  const token = await getToken({req: request, secret: process.env.NEXTAUTH_SECRET }) || {};
+  const token = await getToken({req: request, secret: process.env.NEXTAUTH_SECRET || 'pmds-bteam' }) || {};
   
   // 인증이 필요한 페이지 경로
   const protectedPages = ['/detail', '/test','/main'];    // 접근 제한 화면
@@ -22,7 +22,7 @@ export async function middleware(request: NextRequest) {
   console.log('Auth Token:', token);  // 토큰 값 출력
 
   if(true){
-    return new NextResponse(JSON.stringify({ token1: token, message : 'test'}), { status: 200});
+    return new NextResponse(JSON.stringify({ token1: token, secret: process.env.NEXTAUTH_SECRET,  message : 'test'}), { status: 200});
   }
 
   if (!token.user) {
