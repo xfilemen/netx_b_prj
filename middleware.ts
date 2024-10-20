@@ -9,6 +9,13 @@ export async function middleware(request: NextRequest) {
   const ignoreApi = ['/api/req','api/detail'];            // 접근 제한 api
   //const ignorePage = ['/', '/user/login'];
   //const replaceTerms = ["/board", "/write", "/list"];
+
+  //로그인 페이지 접근 시 세션 초기화
+  if(request.nextUrl.pathname == '/user/login'){
+    const response = NextResponse.next();
+    response.cookies.set('next-auth.session-token', '', { maxAge: -1 });
+    return response;
+  }
   
   if(request.nextUrl.pathname == '/'){
     if (token.user) {
@@ -46,5 +53,5 @@ export async function middleware(request: NextRequest) {
 
 // 미들웨어를 적용할 경로 설정
 export const config = {
-  matcher: ['/','/main/:path*', '/detail/:path*', '/api/req/:path*'] // 특정 경로에만 미들웨어 적용
+  matcher: ['/','/user/login','/main/:path*', '/detail/:path*', '/api/req/:path*'] // 특정 경로에만 미들웨어 적용
 };
