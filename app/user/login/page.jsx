@@ -11,17 +11,24 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const { data: session } = useSession();
 
-  console.log("session : " + session);
-  useEffect(function() {
-    console.log(session);
-    if(session){
-      try {
-        signOut({ redirect: false });
-      } catch (error) {
-        console.error(error);
-      }
+  console.log("session : " + session['user']);
+  if(session['user']){
+    try {
+      signOut({ redirect: false });
+    } catch (error) {
+      console.error(error);
     }
-  }, []);
+  }
+  // useEffect(function() {
+  //   console.log(session);
+  //   if(session){
+  //     try {
+  //       signOut({ redirect: false });
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault()
