@@ -93,6 +93,7 @@ const authOptions = {
   pages: {
     signIn: '/user/login',
   },
+  secret: process.env.NEXTAUTH_SECRET || "pmds-bteam",
   session: {
     strategy: "jwt",
     maxAge: 60 * 60 * 1, // (초 단위: 60초 * 60분 * 24시간 * 7일)
