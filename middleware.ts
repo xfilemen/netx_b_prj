@@ -10,16 +10,20 @@ export async function middleware(request: NextRequest) {
   //const ignorePage = ['/', '/user/login'];
   //const replaceTerms = ["/board", "/write", "/list"];
   
-  // if(request.nextUrl.pathname == '/'){
-  //   if (token.user) {
-  //     return NextResponse.redirect(new URL('/main', request.url));
-  //   } else{
-  //     return NextResponse.redirect(new URL('/user/login', request.url));
-  //   }
-  // }
+  if(request.nextUrl.pathname == '/'){
+    if (token.user) {
+      return NextResponse.redirect(new URL('/main', request.url));
+    } else{
+      return NextResponse.redirect(new URL('/user/login', request.url));
+    }
+  }
 
   console.log('Request URL:', request.nextUrl.pathname);  // 요청 URL 출력
   console.log('Auth Token:', token);  // 토큰 값 출력
+
+  if(true){
+    return new NextResponse(JSON.stringify({ token1: token, message : 'test'}), { status: 200});
+  }
 
   if (!token.user) {
     if(protectedPages.some(api => request.nextUrl.pathname.includes(api))){
