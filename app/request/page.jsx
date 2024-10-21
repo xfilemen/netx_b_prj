@@ -78,7 +78,7 @@ export default function RegPage() {
                 <label>인원</label>
                 <SelectBox options={reqHeadcount} name="reqHeadcount" />
               </div>
-              <div className={styles.item_half}>
+              <div className={styles.item}>
                 <label>목적</label>
                 <SelectBox options={reqPurp} name="reqPurp" />
               </div>
