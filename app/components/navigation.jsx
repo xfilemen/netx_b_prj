@@ -12,6 +12,25 @@ class NaviList extends Component {
     };
   }
 
+  componentDidMount() {
+    const pathname = window.location.pathname;
+    const idx = this.getIndexFromPath(pathname); // 현재 URL에 맞는 index를 설정
+    this.setState({ selectedIdx: idx });
+  }
+
+  getIndexFromPath = (path) => {
+    switch (path) {
+      case '/request':
+        return 0;
+      case '/detail':
+        return 1;
+      case '/notice':
+        return 2;
+      default:
+        return 0;
+    }
+  };
+
   handleToggle = (index) => {
     this.setState({ selectedIdx: index });
   };
@@ -26,7 +45,9 @@ class NaviList extends Component {
     return (
       <ul>
         {items.map((item, index) => (
-          <li key={index} onClick={() => this.handleToggle(index)} className={`${styles.listItem} ${this.state.selectedIdx === index ? styles.on : ''}`}><Link href={item.link}>{item.text}</Link></li>
+          <li key={index} onClick={() => this.handleToggle(index)} className={`${styles.listItem} ${this.state.selectedIdx === index ? styles.on : ''}`}>
+            <Link href={item.link}>{item.text}</Link>
+          </li>
         ))}        
       </ul>
     );
