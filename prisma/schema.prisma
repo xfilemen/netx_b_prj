@@ -28,6 +28,8 @@ model tbUser {
   modId    String?   @map("mod_id")
 
   comCode  tbComCode[] @relation("userCompCd")
+  post1     tbPost[] @relation("userPostReg")
+  post2     tbPost[] @relation("userPostMod")
 
   @@map("tb_user")
 }
@@ -160,4 +162,40 @@ model tbComCode {
 
   @@id([codeGrp, code])
   @@map("tb_com_code")
+}
+
+model tbBoard {
+  brdId   Int      @id @default(autoincrement()) @map("brd_id")  // 게시판ID
+  brdNm   String   @map("brd_nm")                                  // 게시판명
+  menuId  Int      @map("menu_id")                                 // 메뉴ID
+  useYn   String   @map("use_yn") @default("Y")                    // 사용여부
+  regDt   DateTime @map("reg_dt") @default(now())                  // 등록일
+  regId   String   @map("reg_id")                                  // 등록ID
+  modDt   DateTime @map("mod_dt")                                  // 수정일
+  modId   String?  @map("mod_id")                                  // 수정ID (nullable)
+
+
+  tbPost tbPost[] @relation("post")
+
+  @@map("tb_board")
+}
+
+model tbPost {
+  pstId       Int      @default(autoincrement()) @map("pst_id") // 게시물SEQ
+  brdId       Int      @map("brd_id")  @unique                      // 게시판ID
+  pstTitle    String?  @map("pst_title")                            // 제목
+  pstContents String?  @map("pst_contents")                         // 내용
+  viewYn      String?  @map("view_yn")                              // 노출 여부
+  regDt       DateTime? @map("reg_dt") @default(now())              // 등록일
+  regId       String?  @map("reg_id")                               // 등록ID
+  modDt       DateTime? @map("mod_dt")                              // 수정일
+  modId       String?  @map("mod_id")                               // 수정ID
+
+  tbBoard     tbBoard? @relation("post",fields: [brdId], references: [brdId])
+  tbUserReg   tbUser?  @relation("userPostReg",fields: [regId], references: [userId])
+  tbUserMod   tbUser?  @relation("userPostMod",fields: [modId], references: [userId])
+
+
+  @@id([pstId, brdId])
+  @@map("tb_post")
 }

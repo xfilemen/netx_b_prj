@@ -9,10 +9,12 @@ export default function RegularPage({ item }) {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
 
+  
+
   const submitData = async () => {
     try {
       const result = await apiHandler.postData('/api/req/list'); // POST 요청
-      console.log(result);
+      console.log('요청 전체 조회 : ',result);
       if(result.data === undefined){
         setError(error);
 
@@ -26,6 +28,71 @@ export default function RegularPage({ item }) {
     }
   };
 
+  
+
+  const brdPostData = async () => {
+    try {
+      const result = await apiHandler.postData('/api/brd/post/list'); // POST 요청
+      console.log('게시물 전체 조회 : ',result);
+      if(result.data === undefined){
+
+      }else{
+        console.log(result.data);
+      }
+    } catch (error) {
+      console.log('error',error);
+      setError(error);
+    }
+};
+
+const reqRegist = async () => {
+    try {
+      const result = await apiHandler.postData('/api/req/regist',{
+        reqTitle : '요청 타이틀',
+        reqName : '요청명',
+        reqOrd : '2',
+        reqStatus : 'regist',
+        reqType : '1',
+        reqHeadcount : 1,
+        reqPurp : '운영'
+        
+      }); // POST 요청
+      console.log('reqRegist : ',result);
+      if(result.data === undefined){
+
+      }else{
+        console.log(result.data);
+      }
+    } catch (error) {
+      console.log('error',error);
+      setError(error);
+    }
+};
+
+const boardRegist = async () => {
+  try {
+    const result = await apiHandler.postData('/api/brd/post/regist',{
+      brdId : 3,
+      pstTitle : '공지사항 제목 test',
+      pstContents : '공지사항 내용 test',
+      viewYn : 'Y',
+      regId : 'test',
+      modId : 'test'
+      
+    }); // POST 요청
+    console.log('reqRegist : ',result);
+    if(result.data === undefined){
+
+    }else{
+      console.log(result.data);
+    }
+  } catch (error) {
+    console.log('error',error);
+    setError(error);
+  }
+};
+
+
 
 // 컴포넌트가 마운트될 때 데이터 가져오기
 useEffect(function() {
@@ -33,6 +100,7 @@ useEffect(function() {
   // console.log(result);
     console.log("API 호출",error);
     submitData();
+    brdPostData();
     console.log("API 호출 error",error);
 }, []);
 
@@ -51,6 +119,12 @@ useEffect(function() {
           </div>
         ))
       )}
+      <div>
+        <button onClick={reqRegist}>요청 등록하기 api 호출</button>
+      </div>
+      <div>
+        <button onClick={boardRegist}>게시물 등록하기 api 호출</button>
+      </div>
     </div>
   );
 }
