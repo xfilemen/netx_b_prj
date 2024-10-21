@@ -18,6 +18,7 @@ class SelectBox extends Component {
         return (
             <span>
                 <select name={name} value={this.state.selectedOption} onChange={this.handleChange} className={styles.custom_select}>
+                    <option value="">선택</option>
                     {options.map((option) => (
                     <option key={option.value} value={option.value}>
                         {option.label}

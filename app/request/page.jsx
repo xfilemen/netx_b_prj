@@ -9,18 +9,22 @@ export default function RegPage() {
   const [isOpen, setIsOpen] = useState(false);
 
   const reqType = [
-    { value: '선택', label: '선택' },
     { value: '대내', label: '대내' },
     { value: '대외', label: '대외' },
   ];
 
   const reqHeadcount = [
-    { value: '선택', label: '선택' },
     { value: '1', label: '1' },
     { value: '2', label: '2' },
     { value: '3', label: '3' },
     { value: '4', label: '4' },
     { value: '5', label: '5' },
+  ];
+
+  const reqPurp = [
+    { value: '구축', label: '구축' },
+    { value: '운영', label: '운영' },
+    { value: '개선/개발', label: '개선/개발' },
   ];
 
   const toggleAccordion = () => {
@@ -74,9 +78,9 @@ export default function RegPage() {
                 <label>인원</label>
                 <SelectBox options={reqHeadcount} name="reqHeadcount" />
               </div>
-              <div className={styles.item}>
+              <div className={styles.item_half}>
                 <label>목적</label>
-                <SelectBox options={reqHeadcount} name="reqHeadcount" />
+                <SelectBox options={reqPurp} name="reqPurp" />
               </div>
             </div>
           )}
