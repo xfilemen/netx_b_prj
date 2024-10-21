@@ -2,15 +2,31 @@
 
 import React, { useState } from 'react';
 import styles from '../styles/request.module.css';
+import SelectBox from '../components/select';
 import Image from 'next/image';
 
 export default function RegPage() { 
   const [isOpen, setIsOpen] = useState(false);
 
+  const reqType = [
+    { value: '선택', label: '선택' },
+    { value: '대내', label: '대내' },
+    { value: '대외', label: '대외' },
+  ];
+
+  const reqHeadcount = [
+    { value: '선택', label: '선택' },
+    { value: '1', label: '1' },
+    { value: '2', label: '2' },
+    { value: '3', label: '3' },
+    { value: '4', label: '4' },
+    { value: '5', label: '5' },
+  ];
+
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
-
+  
   return (
     <div className={styles.content}>
       <div className={styles.topbanner}>
@@ -49,6 +65,18 @@ export default function RegPage() {
               <div className={styles.item}>
                 <span>등급</span>
                 <input type="text" placeholder="ex. CJ PAY Back-End 개발 or CJ ENM 차세대 K-POP 플랫폼 구축" />
+              </div>
+              <div className={styles.item_half}>
+                <label>대내외 구분</label>
+                <SelectBox options={reqType} name="reqType" />
+              </div>
+              <div className={styles.item_half}>
+                <label>인원</label>
+                <SelectBox options={reqHeadcount} name="reqHeadcount" />
+              </div>
+              <div className={styles.item}>
+                <label>목적</label>
+                <SelectBox options={reqHeadcount} name="reqHeadcount" />
               </div>
             </div>
           )}

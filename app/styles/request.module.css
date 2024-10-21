@@ -12,5 +12,10 @@
 .content .wrap .accordion .title span{float:right;margin-top:16px;}
 .content .wrap .accordion .title span .arrowIcon{width:18px;height:9px;}
 .content .wrap .accordion .content{overflow:hidden;border-top:1px solid #DFDFDF;padding:30px;}
-.content .wrap .accordion .content .item span{color:#888;font-size:14px;width:70px;margin-right:40px}
-.content .wrap .accordion .content .item input{width:1000px;border:1px solid #ebebeb;padding:12px;font-size:14px;color:#888;}
+.content .wrap .accordion .content .item{overflow:hidden;margin-bottom:30px;clear:both;}
+.content .wrap .accordion .content .item:last-child{margin-bottom:0}
+.content .wrap .accordion .content .item span{display:inline-block;color:#888;font-size:13px;width:70px;margin-right:40px}
+.content .wrap .accordion .content .item input{width:1000px;border:1px solid #ebebeb;padding:12px;font-size:14px;color:#888;border-radius:4px;}
+.content .wrap .accordion .content .item_half{float:left;margin-right:50px;margin-bottom:30px;}
+.content .wrap .accordion .content label{display:inline-block;color:#888;font-size:13px;width:70px;margin-right:40px;}
+.content .wrap .accordion .content .custom_select{border:1px solid #ebebeb;padding:12px;width:200px;border-radius:4px;appearance:none;background: url('../../public/images/detail/ico_ac_down.png') no-repeat right 10px center;background-size:12px 6px;}
