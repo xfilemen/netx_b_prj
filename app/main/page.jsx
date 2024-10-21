@@ -97,7 +97,7 @@ export default function MainPage() {
                             </Link>
                         </li>
                         <li>
-                            <Link href={'/'}>
+                            <Link href={'/notice'}>
                                 <Image 
                                     src="/images/main/ico_noti.png"
                                     alt="공지사항 아이콘"
