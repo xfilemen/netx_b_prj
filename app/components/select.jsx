@@ -25,6 +25,7 @@ class SelectBox extends Component {
                     </option>
                     ))}
                 </select>
+                {/* <p>선택한 옵션: {this.state.selectedOption}</p> */}
             </span>
         )
     }

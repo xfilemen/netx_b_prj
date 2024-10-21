@@ -9,8 +9,8 @@ export default function RegPage() {
   const [isOpen, setIsOpen] = useState(false);
 
   const reqType = [
-    { value: '대내', label: '대내' },
-    { value: '대외', label: '대외' },
+    { value: '1', label: '대내' },
+    { value: '2', label: '대외' },
   ];
 
   const reqHeadcount = [
