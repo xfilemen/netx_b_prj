@@ -17,12 +17,16 @@ class NaviList extends Component {
   };
 
   render() {
-    const items = ['정규/BP 인력 요청', '정규/BP 인력 요청 내역', '공지사항'];
+    const items = [
+      { text: '정규/BP 인력 요청', link: '/request' },
+      { text: '정규/BP 인력 요청 내역', link: '/detail' },
+      { text: '공지사항', link: '/notice' },
+    ];
 
     return (
       <ul>
         {items.map((item, index) => (
-          <li key={index} onClick={() => this.handleToggle(index)} className={`${styles.listItem} ${this.state.selectedIdx === index ? styles.on : ''}`}><Link href={''}>{item}</Link></li>
+          <li key={index} onClick={() => this.handleToggle(index)} className={`${styles.listItem} ${this.state.selectedIdx === index ? styles.on : ''}`}><Link href={item.link}>{item.text}</Link></li>
         ))}        
       </ul>
     );

@@ -40,7 +40,7 @@ export default function MainPage() {
                 <div className={styles.link_menu}>
                     <ul>
                         <li>
-                            <Link href={'/'}>
+                            <Link href={'/request'}>
                                 <Image 
                                     src="/images/main/ico_req.png"
                                     alt="인력 요청 아이콘"

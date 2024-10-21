@@ -16,7 +16,7 @@
 .loginSection .content .join_section li.line{color:#D9D9D9;margin:0 14px;}
 
 /* main page */
-.wrap{border-top:1px solid #dfdfdf;background-color:#F7F8FC;background: url('../../public/images/main/main_bg.jpg') no-repeat 0;}
+.wrap{border-top:1px solid #dfdfdf;background: url('../../public/images/main/main_bg.jpg') no-repeat right;background-color: #F7F8FC;}
 .wrap .main_content{overflow:hidden;width:1450px;margin:0 auto;padding:150px 120px 255px 120px;}
 .wrap .main_content h2{font-size:32px;font-weight:500}
 .wrap .main_content h2 .name{font-weight:700}
