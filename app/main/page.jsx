@@ -6,22 +6,57 @@ import requstData from '../data/regRequstList.json';
 import styles from '/app/styles/main.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
+import apiHandler from '../../lib/api-handler';
 
 
 
 export default function MainPage() {
     const { data: session } = useSession();
+    const [data, setData] = useState([]);
+    const [error, setError] = useState(null);
+
     const registerCount = requstData.filter(item => item.status === 'register').length;
     const progressCount = requstData.filter(item => item.status === 'progress').length;
     const cancelCount = requstData.filter(item => item.status === 'return' || item.status === 'cancel').length;
     const completeCount = requstData.filter(item => item.status === 'complete').length;
 
+    
     let userInfo = {};
     userInfo = session?.user || {};
-
     console.log(userInfo);
+
+    
+    const submitData = async () => {
+        try {
+          const result = await apiHandler.postData('/api/req/status'); // POST 요청
+          console.log(result);
+
+
+          if(result.data === undefined){
+            setError(error);
+    
+          }else{
+            setData(result.data);
+            console.log(result.data);
+            const rowdata = result.data;
+            const register = rowdata.filter(rowdata => rowdata.reqStatus === 'register').length;
+            const progress = rowdata.filter(rowdata => rowdata.reqStatus === 'progress').length;
+            const cancel = rowdata.filter(rowdata => rowdata.reqStatus === 'cancel' || rowdata.reqStatus === 'return').length;
+            const complete = rowdata.filter(rowdata => rowdata.reqStatus === 'complete').length;
+            console.log(`register: ${register}`);
+            console.log(`progress: ${progress}`);
+            console.log(`cancel: ${cancel}`);
+            console.log(`complete: ${complete}`);
+    
+          }
+        } catch (error) {
+          console.log('error',error);
+          setError(error);
+        }
+    };
+
      useEffect(() => {
-        console.log(userInfo);
+        submitData();
      }, []);
 
     return (
