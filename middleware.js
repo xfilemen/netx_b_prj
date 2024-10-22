@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
+//import {authOptions} from '/lib/auth-config.js';
+//import { getServerSession } from 'next-auth';
+//import middleware from "next-auth/middleware";
 
 
 export async function middleware(request) {
@@ -15,6 +18,9 @@ export async function middleware(request) {
     response.cookies.set('next-auth.session-token', '', { maxAge: -1 });
     return response;
   }
+  console.log('Request URL:', request.nextUrl.pathname); // 요청 URL 출력
+  console.log('Auth Token:', token); // 토큰 값 출력
+
 
   if (request.nextUrl.pathname === '/') {
     if (token.user) {
@@ -24,23 +30,42 @@ export async function middleware(request) {
     }
   }
 
-  console.log('Request URL:', request.nextUrl.pathname); // 요청 URL 출력
-  console.log('Auth Token:', token); // 토큰 값 출력
-
   if (!token.user) {
     if (protectedPages.some(api => request.nextUrl.pathname.includes(api))) {
       return NextResponse.redirect(new URL('/user/login', request.url));
     }
 
     if (ignoreApi.some(api => request.nextUrl.pathname.includes(api))) {
-      return new NextResponse(JSON.stringify({ message: '세션이 만료되었습니다.' }), { status: 401 });
+      return new NextResponse(JSON.stringify({ message: '세션이 만료되었습니다.' }), { status: 440 });
     }
   }
 
   return NextResponse.next();
 }
 
-// 미들웨어를 적용할 경로 설정
+// export default middleware({
+//     pages: {
+//         signIn: '/user/login',
+//       },
+//     callbacks: {
+//     authorized: ({ req, token }) => {
+//         if (!token){
+//             console.log('토큰값 없음');
+//             return new NextResponse(
+//                 JSON.stringify({ message: 'Unauthorized' }), 
+//                 {
+//                   status: 401, // 401 상태 코드
+//                   headers: { 'Content-Type': 'application/json' }, 
+//                 }
+//               );
+//         }
+//         console.log('token',token);
+
+//         return true; // 기본적으로 false 반환
+//     },
+//     },
+//   });
+// // 미들웨어를 적용할 경로 설정
 export const config = {
-  matcher: ['/', '/user/login', '/main/:path*', '/detail/:path*', '/api/req/:path*'] // 특정 경로에만 미들웨어 적용
+  matcher: ['/','/user/login','/main/:path*', '/detail/:path*', '/api/req/:path*', '/api/brd/:path*'] // 특정 경로에만 미들웨어 적용
 };

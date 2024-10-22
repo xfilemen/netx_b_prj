@@ -91,6 +91,23 @@ const boardRegist = async () => {
     setError(error);
   }
 };
+const codeSelect = async () => {
+  try {
+    const result = await apiHandler.postData('/api/code/select',{
+      codeGrp : 'G001',
+      
+    }); // POST 요청
+    console.log('codeSelect : ',result);
+    if(result.data === undefined){
+
+    }else{
+      console.log(result.data);
+    }
+  } catch (error) {
+    console.log('error',error);
+    setError(error);
+  }
+};
 
 
 
@@ -98,10 +115,11 @@ const boardRegist = async () => {
 useEffect(function() {
   // const result = fetchData('/api/req/list');
   // console.log(result);
-    console.log("API 호출",error);
+    console.log("API 호출 start",error);
     submitData();
     brdPostData();
-    console.log("API 호출 error",error);
+    codeSelect();
+    console.log("API 호출 end",error);
 }, []);
 
   return (
