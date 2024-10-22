@@ -64,11 +64,11 @@ export default function RegPage() {
 
   // 등급 (정규직, BP, 기타)
   const classChk = [
-    { label: '초급', name: '1' },
-    { label: '중급', name: '2' },
-    { label: '고급', name: '3' },
-    { label: '특급', name: '4' },
-    { label: '기타', name: '5' },
+    { label: '초급', name: '4' },
+    { label: '중급', name: '5' },
+    { label: '고급', name: '6' },
+    { label: '특급', name: '7' },
+    { label: '기타', name: '8' },
   ];
 
 
