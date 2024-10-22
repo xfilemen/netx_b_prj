@@ -128,7 +128,12 @@ export default function RegPage() {
                 </span>
               </div>
               {isDetailOpen && (
-                <div>{index + 1}</div>
+                <div className={styles.content}>
+                  <div className={styles.item}>
+                    <span>직무 구분</span>
+                    <SelectBox options={reqType} name="reqType" />
+                  </div>
+                </div>
               )}
             </div>
           );
