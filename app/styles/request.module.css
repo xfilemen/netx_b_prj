@@ -24,3 +24,5 @@
 .content .wrap .accordion .content .chk{display:inline-block}
 .content .wrap .accordion .content .chk input{width:16px;height:16px;margin-right:10px;vertical-align:middle;}
 .content .wrap .accordion .content .chk label{font-size:14px;vertical-align:middle;cursor:pointer;margin-right:30px;}
+
+.content .wrap .accordion .content .calendar{padding:12px;border:1px solid #ebebeb;border-radius:4px;}

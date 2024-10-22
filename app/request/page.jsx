@@ -21,7 +21,8 @@ export default function RegPage() {
     option2: false,
     option3: false,
   });
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
+  const [lastDate, setLastDate] = useState(null);
 
   // 대내외 구분
   const reqType = [
@@ -237,7 +238,11 @@ export default function RegPage() {
                   </div>
                   <div className={styles.item_half}>
                     <span className={styles.tx}>투입 예정일</span>
-                    <DatePicker dateFormat='yyyy.MM.dd' placeholderText="시작일" selected={startDate} onChange={(date) => setStartDate(date)} />
+                    <DatePicker dateFormat='yyyy.MM.dd' placeholderText="시작일" selected={startDate} className={styles.calendar} onChange={(date) => setStartDate(date)} />
+                  </div>
+                  <div className={styles.item_half}>
+                    <span className={styles.tx}>투입 종료일</span>
+                    <DatePicker dateFormat='yyyy.MM.dd' placeholderText="종료일" selected={lastDate} className={styles.calendar} onChange={(date) => setLastDate(date)} />
                   </div>
                 </div>
               )}
