@@ -5,6 +5,7 @@ import styles from '../styles/detail.module.css';
 import Image from 'next/image';
 
 export default function RegDetail({ item }) {
+  
   const [isOpen, setIsOpen] = useState(false);
   const [detailsOpen, setDetailsOpen] = useState([true]); // details 아코디언 상태 배열로 관리
 
@@ -55,16 +56,16 @@ export default function RegDetail({ item }) {
   return (
     item && (
       <div className={styles.detail_content}>
-        <div className={`${styles.state} ${getStatusClass(item.status)}`}>
-          {getStatusText(item.status)}
+        <div className={`${styles.state} ${getStatusClass(item.reqStatus)}`}>
+          {getStatusText(item.reqStatus)}
         </div>
-        <h2>{item.title}</h2>
+        <h2>{item.reqTitle}</h2>
         <div className={styles.tx_info}>
           <div className={styles.priority}>
-            우선순위 <span className={`${styles.prior} ${getPriorityClass(item.priority)}`}>{item.priority}</span>
+            우선순위 <span className={`${styles.prior} ${getPriorityClass(item.reqOrd)}`}>{item.reqOrd}</span>
           </div>
-          <div className={styles.date}>요청일 {item.date}</div>
-          <div className={styles.num}>요청인원 {item.requestedBy}명</div>
+          <div className={styles.date}>요청일 {item.regDt.substring(0,10)}</div>
+          <div className={styles.num}>요청인원 {item.reqHeadcount}명</div>
         </div>
         {/* 기본 정보 아코디언 */}
         <div className={styles.accordion}>
@@ -91,16 +92,16 @@ export default function RegDetail({ item }) {
           {!isOpen && (
             <div className={styles.content}>
               <ul>
-                <li><span className={styles.tit_tx}>요청명</span><span className={styles.p_tx}>{item.requestName}</span></li>
+                <li><span className={styles.tit_tx}>요청명</span><span className={styles.p_tx}>{item.reqName}</span></li>
                 <li className={styles.half_line1}><span className={styles.tit_tx}>대내·외 구분</span><span className={styles.p_tx}>{item.internalExternal}</span></li>
-                <li className={styles.half_line2}><span className={styles.p_tx}>인원</span><span className={styles.p_tx}>{item.personnel}명</span></li>
-                <li><span className={styles.tit_tx}>목적</span><span className={styles.p_tx}>{item.purpose}</span></li>
+                <li className={styles.half_line2}><span className={styles.p_tx}>인원</span><span className={styles.p_tx}>{item.reqHeadcount}명</span></li>
+                <li><span className={styles.tit_tx}>목적</span><span className={styles.p_tx}>{item.reqPurp}</span></li>
               </ul>
             </div>
           )}
         </div>
         {/* 개별 details 정보 아코디언 */}
-        {item.details && item.details.map((detail, index) => {
+        {item.reqDet && item.reqDet.map((detail, index) => {
           const isDetailOpen = detailsOpen[index] || false;
           return (
             <div key={index} className={`${styles.accordion} ${styles.detail}`}>
@@ -127,14 +128,14 @@ export default function RegDetail({ item }) {
               {isDetailOpen && (
                 <div className={styles.content}>
                   <ul>
-                    <li className={styles.half_line1}><span className={styles.tit_tx}>유형</span><span className={styles.p_tx}>{detail.type}</span></li>
-                    <li className={styles.half_line2}><span className={styles.p_tx}>직무 구분</span><span className={styles.p_tx}>{detail.jobCategory}</span></li>
-                    <li><span className={styles.tit_tx}>등급</span><span className={styles.p_tx}>{detail.grade}</span></li>
-                    <li className={styles.half_line3}><span className={styles.tit_tx}>투입 예정일</span><span className={styles.p_tx}>{detail.startDate}</span></li>
-                    <li className={styles.half_line4}><span className={styles.tit_tx}>투입 종료일</span><span className={styles.p_tx}>{detail.endDate}</span></li>
-                    <li className={styles.half_line3}><span className={styles.tit_tx}>M/M</span><span className={styles.p_tx}>{detail.MM}</span></li>
-                    <li className={styles.half_line4}><span className={styles.p_tx}>근무지</span><span className={styles.p_tx}>{detail.workLocation}</span></li>
-                    <li><span className={styles.tit_tx}>상세<br />요구기술</span><span className={styles.p_tx}>{detail.technicalRequirement}</span></li>
+                    <li className={styles.half_line1}><span className={styles.tit_tx}>유형</span><span className={styles.p_tx}>{detail.reqType}</span></li>
+                    <li className={styles.half_line2}><span className={styles.p_tx}>직무 구분</span><span className={styles.p_tx}>{detail.reqJob}</span></li>
+                    <li><span className={styles.tit_tx}>등급</span><span className={styles.p_tx}>{detail.reqGrade}</span></li>
+                    <li className={styles.half_line3}><span className={styles.tit_tx}>투입 예정일</span><span className={styles.p_tx}>{detail.reqInDt.substring(0,10)}</span></li>
+                    <li className={styles.half_line4}><span className={styles.tit_tx}>투입 종료일</span><span className={styles.p_tx}>{detail.reqOutDt}</span></li>
+                    <li className={styles.half_line3}><span className={styles.tit_tx}>M/M</span><span className={styles.p_tx}>{detail.reqMm}</span></li>
+                    <li className={styles.half_line4}><span className={styles.p_tx}>근무지</span><span className={styles.p_tx}>{detail.reqLoc}</span></li>
+                    <li><span className={styles.tit_tx}>상세<br />요구기술</span><span className={styles.p_tx}>{detail.reqSkill}</span></li>
                   </ul>
                 </div>
               )}

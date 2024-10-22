@@ -1,19 +1,32 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import RegDetail from '../detail/regReqDetail.jsx';
 import requstData from '../data/regRequstList.json';
 import styles from '../styles/detail.module.css';
 import Image from 'next/image';
+import apiHandler from '../../lib/api-handler.js';
 
 export default function RegularPage({ item }) {
   const [listSelectIdx, setListSelectIdx] = useState(null); // li on 포커스
   const [pageSelectItem, setPageSelectItem] = useState(null); // 정규인력 요청·내역 상세페이지 연결
 
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
+
   const showDetailPage = (index, item) => {
     setListSelectIdx(index);
     setPageSelectItem(item);
     console.log(index, item);
+  };
+
+
+  const getData = async (url) => {
+    console.log('📢 [page.jsx:26]', url);
+    const result = await apiHandler.postData(url); // POST 요청
+      console.log('요청 전체 조회 : ',result.data);
+      setData(result.data);
+      // setData("11");
   };
 
   const getStatusText = (status) => {
@@ -49,6 +62,14 @@ export default function RegularPage({ item }) {
         return '';
     }
   };
+
+  // 컴포넌트가 마운트될 때 데이터 가져오기
+  useEffect(function() {
+      console.log("API 호출");
+      getData('/api/req/list');
+      console.log("API 호출 error");
+  }, []);
+
   return (
     <div className={styles.content}>
       <div className={styles.topbanner}>
@@ -71,18 +92,18 @@ export default function RegularPage({ item }) {
           <div className={styles.item_list}>
             <div className={styles.list_items}>
               <ul>
-                {requstData.length > 0 ? (
-                  requstData.map((item, index) => (
+                {data.length > 0 ? (
+                  data.map((item, index) => (
                     <li key={item.id} onClick={() => showDetailPage(index, item)} className={`${listSelectIdx === index ? styles.on : ''}`}>
-                      <div className={`${styles.state} ${getStatusClass(item.status)}`}>
-                        {getStatusText(item.status)}
+                      <div className={`${styles.state} ${getStatusClass(item.reqStatus)}`}>
+                        {getStatusText(item.reqStatus)}
                       </div>
                       <div className={styles.section}>
-                        <p className={styles.tit_tx}>{item.title}</p>
+                        <p className={styles.tit_tx}>{item.reqTitle}</p>
                         <div className={styles.tx_info}>
-                          <div className={styles.priority}>우선순위 <span className={`${styles.prior} ${getPriorityClass(item.priority)}`}>{item.priority}</span></div>
-                          <div className={styles.date}>요청일 {item.date}</div>
-                          <div className={styles.num}>요청인원 {item.requestedBy}명</div>
+                          <div className={styles.priority}>우선순위 <span className={`${styles.prior} ${getPriorityClass(item.reqOrd)}`}>{item.reqOrd}</span></div>
+                          <div className={styles.date}>요청일 {item.regDt.substring(0,10)}</div>
+                          <div className={styles.num}>요청인원 {item.reqHeadcount}명</div>
                         </div>
                       </div>
                     </li>
