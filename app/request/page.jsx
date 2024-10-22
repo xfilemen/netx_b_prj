@@ -7,6 +7,8 @@ import Image from 'next/image';
 
 export default function RegPage() { 
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedHeadcount, setSelectedHeadcount] = useState(1);
+  const [detailsOpen, setDetailsOpen] = useState([true]); // details 아코디언 상태 배열로 관리
 
   const reqType = [
     { value: '1', label: '대내' },
@@ -29,6 +31,16 @@ export default function RegPage() {
 
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleHeadcountChange = (e) => {
+    setSelectedHeadcount(Number(e.target.value)); // 선택된 숫자로 상태 업데이트
+  };
+
+  const toggleDetailsAccordion = (index) => {
+    const updatedDetailsOpen = [...detailsOpen];
+    updatedDetailsOpen[index] = !updatedDetailsOpen[index];
+    setDetailsOpen(updatedDetailsOpen);
   };
   
   return (
@@ -76,7 +88,13 @@ export default function RegPage() {
               </div>
               <div className={styles.item_half}>
                 <label>인원</label>
-                <SelectBox options={reqHeadcount} name="reqHeadcount" />
+                <select name="reqHeadcount" onChange={handleHeadcountChange} className={styles.custom_select}>
+                  {reqHeadcount.map(option => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className={styles.item}>
                 <label>목적</label>
@@ -85,8 +103,38 @@ export default function RegPage() {
             </div>
           )}
         </div>
+        {Array.from({ length: selectedHeadcount }, (_, index) => {
+          const isDetailOpen = detailsOpen[index] || false; // index로 상태 접근
+          return (
+            <div key={index} className={styles.accordion}>
+              <div className={styles.title} onClick={() => toggleDetailsAccordion(index)}>
+                <h3>
+                  <Image
+                    src="/images/main/ico_reg.png"
+                    alt="요청 기본 정보"
+                    width={46}
+                    height={46}
+                  />
+                  요청 상세 정보 <span className={styles.acc_num}>{index + 1}</span>
+                </h3>
+                <span>
+                  <Image
+                    src={isDetailOpen ? "/images/detail/ico_ac_up.png" : "/images/detail/ico_ac_down.png"}
+                    alt={isDetailOpen ? "닫기" : "열기"}
+                    width={12}
+                    height={6}
+                    className={styles.arrowIcon}
+                  />
+                </span>
+              </div>
+              {isDetailOpen && (
+                <div>{index + 1}</div>
+              )}
+            </div>
+          );
+        })}
       </div>
-    </div>
+    </div> 
   );
 }
 
