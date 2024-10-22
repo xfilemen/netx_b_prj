@@ -237,7 +237,7 @@ export default function RegPage() {
                   </div>
                   <div className={styles.item_half}>
                     <span className={styles.tx}>투입 예정일</span>
-                    <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                    <DatePicker dateFormat='yyyy.MM.dd' placeholderText="시작일" selected={startDate} onChange={(date) => setStartDate(date)} />
                   </div>
                 </div>
               )}
