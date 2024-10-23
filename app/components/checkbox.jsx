@@ -11,7 +11,7 @@ const CheckBox = ({ label, name, checked, onChange }) => {
             checked={checked}
             onChange={onChange}
         />
-        <label htmlFor={name}>{label}</label>
+        <label>{label}</label>
     </span>
   );
 };
