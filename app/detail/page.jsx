@@ -88,7 +88,6 @@ export default function RegularPage({ item }) {
             <p className={styles.tit_tx}>요청 내역을 확인하실 수 있습니다.</p>
             {isGetData.current}
             {/* {isGetData} */}
-            12345
             {/* <div className={styles.btn}>
               <button>Filter</button>
             </div> */}
