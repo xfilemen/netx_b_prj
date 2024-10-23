@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import RegDetail from '../detail/regReqDetail.jsx';
-import requstData from '../data/regRequstList.json';
 import styles from '../styles/detail.module.css';
 import Image from 'next/image';
 import apiHandler from '../../lib/api-handler.js';
@@ -14,6 +13,8 @@ export default function RegularPage({ item }) {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
 
+  const isGetData = useRef(false);
+
   const showDetailPage = (index, item) => {
     setListSelectIdx(index);
     setPageSelectItem(item);
@@ -23,10 +24,11 @@ export default function RegularPage({ item }) {
 
   const getData = async (url) => {
     console.log('📢 [page.jsx:26]', url);
-    const result = await apiHandler.postData(url); // POST 요청
-      console.log('요청 전체 조회 : ',result.data);
-      setData(result.data);
-      // setData("11");
+    const result = await apiHandler.postData(url,"param"); // POST 요청
+    console.log('요청 전체 조회 : ',result.data);
+    setData(result.data);
+    isGetData.current = true;
+    // ++isGetData.current;
   };
 
   const getStatusText = (status) => {
@@ -67,7 +69,6 @@ export default function RegularPage({ item }) {
   useEffect(function() {
       console.log("API 호출");
       getData('/api/req/list');
-      console.log("API 호출 error");
   }, []);
 
   return (
@@ -85,6 +86,9 @@ export default function RegularPage({ item }) {
           <div className={styles.title}>
             <h2>정규인력 요청·내역</h2>
             <p className={styles.tit_tx}>요청 내역을 확인하실 수 있습니다.</p>
+            {isGetData.current}
+            {/* {isGetData} */}
+            12345
             {/* <div className={styles.btn}>
               <button>Filter</button>
             </div> */}
@@ -92,25 +96,28 @@ export default function RegularPage({ item }) {
           <div className={styles.item_list}>
             <div className={styles.list_items}>
               <ul>
-                {data.length > 0 ? (
-                  data.map((item, index) => (
-                    <li key={item.id} onClick={() => showDetailPage(index, item)} className={`${listSelectIdx === index ? styles.on : ''}`}>
-                      <div className={`${styles.state} ${getStatusClass(item.reqStatus)}`}>
-                        {getStatusText(item.reqStatus)}
-                      </div>
-                      <div className={styles.section}>
-                        <p className={styles.tit_tx}>{item.reqTitle}</p>
-                        <div className={styles.tx_info}>
-                          <div className={styles.priority}>우선순위 <span className={`${styles.prior} ${getPriorityClass(item.reqOrd)}`}>{item.reqOrd}</span></div>
-                          <div className={styles.date}>요청일 {item.regDt.substring(0,10)}</div>
-                          <div className={styles.num}>요청인원 {item.reqHeadcount}명</div>
+                {
+                  data.length > 0 ? (
+                    data.map((item, index) => (
+                      <li key={item.id} onClick={() => showDetailPage(index, item)} className={`${listSelectIdx === index ? styles.on : ''}`}>
+                        <div className={`${styles.state} ${getStatusClass(item.reqStatus)}`}>
+                          {getStatusText(item.reqStatus)}
                         </div>
-                      </div>
-                    </li>
-                  ))
-                ) : (
-                  <li className={styles.nodata}>데이터가 없습니다.</li>
-                )}
+                        <div className={styles.section}>
+                          <p className={styles.tit_tx}>{item.reqTitle}</p>
+                          <div className={styles.tx_info}>
+                            <div className={styles.priority}>우선순위 <span className={`${styles.prior} ${getPriorityClass(item.reqOrd)}`}>{item.reqOrd}</span></div>
+                            <div className={styles.date}>요청일 {item.regDt.substring(0,10)}</div>
+                            <div className={styles.num}>요청인원 {item.reqHeadcount}명</div>
+                          </div>
+                        </div>
+                      </li>
+                    ))
+                  ) : isGetData.current ? 
+                    (
+                      <li className={styles.nodata}>데이터가 없습니다.</li>
+                    ) : ""
+                }
               </ul>
             </div>
           </div>
