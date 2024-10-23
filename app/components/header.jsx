@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import styles from "../styles/header.module.css";
 import NaviList from '/app/components/navigation.jsx';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function HeaderPage() {
   const pathname = usePathname();
@@ -31,12 +32,14 @@ export default function HeaderPage() {
   return (
     <div className={styles.header}>
       <h1>
-        <Image 
+        <Link href={"/main"}>
+          <Image 
             src="/images/detail/diware_logo_img.png"
             alt="DIware"
             width={91}
             height={22}
           />
+        </Link>
       </h1>
       <div className={styles.navi_secition}>
         {showNaviList && (

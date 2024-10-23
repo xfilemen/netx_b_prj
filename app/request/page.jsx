@@ -151,6 +151,10 @@ export default function RegPage() {
     setLastDates(updatedLastDates);
   };
 
+  const goMian = () => {
+    location.href = '/main'
+  }
+
   return (
     <div className={styles.content}>
       <div className={styles.topbanner}>
@@ -327,7 +331,7 @@ export default function RegPage() {
         })}
       </div>
       <div className={styles.btn_section}>
-        <button className={styles.cancel_btn}>취소</button>
+        <button className={styles.cancel_btn} onClick={goMian}>취소</button>
         <button className={styles.aply_btn}>등록</button>
       </div>
     </div>
