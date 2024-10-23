@@ -72,6 +72,10 @@ export default function RegPage() {
     { value: 'mh', label: 'm/h' },
   ]
 
+  const workplace = [
+    { label: '미정', name: 'N' },
+  ]
+
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
@@ -297,12 +301,34 @@ export default function RegPage() {
                   <div className={styles.item}>
                     <span className={styles.tx}>투입 공수</span>
                     <SelectBox options={deploymentTime} name="deploymentTime" />
+                    <input type="text" placeholder="ex. 1 or 0.5" className={styles.mm_tx}/>
+                  </div>
+                  <div className={styles.item}>
+                    <span className={styles.tx}>근무지</span>
+                    <input type="text" placeholder="ex. 지역명 + 빌딩명 or 본사명" className={`${styles.txt} ${styles.w_txt}`}/>
+                    {workplace.map((item) => (
+                      <CheckBox
+                        key={item.name}
+                        label={item.label}
+                        name={item.name}
+                        checked={checkState[item.name]}
+                        onChange={handleCheckboxChange}
+                      />
+                    ))}
+                  </div>
+                  <div className={styles.item}>
+                    <span className={`${styles.tx} ${styles.v_t}`}>상세<br />요구기술</span>
+                    <textarea name="" placeholder="요구 스킬 기재" className={styles.text_box}></textarea>
                   </div>
                 </div>
               )}
             </div>
           );
         })}
+      </div>
+      <div className={styles.btn_section}>
+        <button className={styles.cancel_btn}>취소</button>
+        <button className={styles.aply_btn}>등록</button>
       </div>
     </div>
   );
