@@ -9,6 +9,7 @@ import '../styles/datepicker-custom.css';
 import SelectBox from '../components/select';
 import CheckBox from '../components/checkbox';
 import Image from 'next/image';
+import apiHandler from '../../lib/api-handler';
 
 export default function RegPage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -79,6 +80,35 @@ export default function RegPage() {
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
+  
+  // 여러 입력 필드 값을 관리할 상태 선언
+  const [formData, setFormData] = useState({
+    reqTitle : '',
+    reqName : '',
+    reqOrd : '',
+    reqStatus : '',
+    reqType : '',
+    reqHeadcount : 0,
+    reqPurp : ''
+  });
+
+  const insertData = async () => {
+
+    console.log('📢 [page.jsx:81] insertData');
+
+    const result = await apiHandler.postData('/api/req/regist',{
+      reqTitle : '요청 타이틀',
+      reqName : '요청명',
+      reqOrd : '2',
+      reqStatus : 'register',
+      reqType : '1',
+      reqHeadcount : 1,
+      reqPurp : '운영'
+      
+    }); // POST 요청
+
+    console.log('📢 [page.jsx:95]', result);
+  }
 
   const handleHeadcountChange = (e) => {
     const count = Number(e.target.value);
@@ -137,6 +167,17 @@ export default function RegPage() {
     setCheckedItems(updatedCheckedItems);
   };
 
+  // 입력 값이 변경될 때 상태 업데이트
+  const handleChange = (event) => {
+    const { name, value } = event.target;  // 입력 필드의 이름(name)과 값(value)을 가져옴
+    setFormData({
+      ...formData,  // 기존 상태를 복사하고
+      [name]: value // name 속성에 해당하는 값을 업데이트
+    });
+    console.log('📢 [page.jsx:173]', value);
+    console.log('📢 [page.jsx:174]', formData.reqTitle);
+  };
+
   // 시작일을 개별적으로 설정하는 함수
   const handleStartDateChange = (index) => (date) => {
     const updatedStartDates = [...startDates];
@@ -192,7 +233,7 @@ export default function RegPage() {
             <div className={styles.content}>
               <div className={styles.item}>
                 <span className={styles.tx}>등급</span>
-                <input type="text" placeholder="ex. CJ PAY Back-End 개발 or CJ ENM 차세대 K-POP 플랫폼 구축" className={styles.txt}/>
+                <input type="text" placeholder="ex. CJ PAY Back-End 개발 or CJ ENM 차세대 K-POP 플랫폼 구축" className={styles.txt} name="reqTitle" value={formData.reqTitle} onChange={handleChange}/>
               </div>
               <div className={styles.item_half}>
                 <label>대내외 구분</label>
