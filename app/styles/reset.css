@@ -9,7 +9,6 @@ ol, ul, li{list-style:none;-webkit-padding-start:0;}
 label{vertical-align:middle;}
 i, em{font-style:normal;}
 xmp, pre {display: inline;}
-h1, h2, h3, h4{font-weight:normal;}
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section{display:block;}
 table{width:100%;border-collapse:collapse;table-layout:fixed;border-spacing:0;}
 table caption{width:100%;height:0;overflow:hidden;font-size:medium;line-height:normal;word-break:break-all;opacity:0;filter:alpha(opacity=0);-ms-filter:'progid:DXImageTransform.Microsoft.Alpha(opacity=0)';}
