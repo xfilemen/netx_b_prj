@@ -232,7 +232,7 @@ export default function RegPage() {
           {!isOpen && (
             <div className={styles.content}>
               <div className={styles.item}>
-                <span className={styles.tx}>등급</span>
+                <span className={styles.tx}>요청명</span>
                 <input type="text" placeholder="ex. CJ PAY Back-End 개발 or CJ ENM 차세대 K-POP 플랫폼 구축" className={styles.txt} name="reqTitle" value={formData.reqTitle} onChange={handleChange}/>
               </div>
               <div className={styles.item_half}>

@@ -9,7 +9,9 @@
 .noticeHeader{display:grid;grid-template-columns:1fr 7fr 1fr 1fr;padding:20px 0;background-color:#f5f5f5;font-weight:bold;text-align:center;border-bottom:1px solid #dfdfdf;font-size:14px;font-weight:600;color:#4A4A4A;}
 .noticeItem{display:grid;grid-template-columns:1fr 7fr 1fr 1fr;padding:22px 0;border-bottom:1px solid #dfdfdf;text-align:center;font-size:14px;font-weight:600;color:#4A4A4A;}
 .tit_tx{text-align:left;}
-.pagination{display:flex;justify-content:center;align-items:center;margin-top:20px;}  
-.pagination button{margin: 0 10px;padding:5px 10px;font-size:30px;cursor:pointer;border:none;background:none;}
-.pagination button:disabled{cursor:not-allowed;opacity:0.5;}
-.pagination span{font-size:16px;}
+.pagination{margin-top:20px;text-align:center;}
+.pagination button.prev{width:30px;height:30px;display:inline-block;font-size:0;margin:0 10px;border-radius:50%;background: url('../../public/images/ico/btn_pagination.png') no-repeat -28px -28px;background-color:#F7F8FC;}
+.pagination button.next{width:30px;height:30px;display:inline-block;font-size:0;margin:0 10px;border-radius:50%;background: url('../../public/images/ico/btn_pagination.png') no-repeat -56px -28px;background-color:#F7F8FC;}
+.pagination button:disabled{cursor:not-allowed;opacity:0.5;background-color:#fff;}
+.pagination span{display:inline-block;font-size:16px;height:30px;line-height:36px;vertical-align:middle;}
+.noNotices{text-align:center;padding:300px 0;border-bottom:1px solid #dfdfdf;font-size:16px;font-weight:600}

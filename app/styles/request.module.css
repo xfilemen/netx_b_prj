@@ -2,7 +2,7 @@
 .content{display:block;}
 .content .topbanner{text-align:center;background-color:hsl(208, 100%, 40%);}
 .content .wrap{width:1200px;overflow:hidden;margin:50px auto 0;}
-.content .wrap h2{font-size:22px;font-weight:600;color:#000 !important;}
+.content .wrap h2{font-size:22px;font-weight:600;color:#000;}
 .content .wrap .accordion{width:1200px;border:1px solid #DFDFDF;border-radius:12px;margin-top:40px;cursor:pointer}
 .content .wrap .accordion.detail{margin-top:24px}
 .content .wrap .accordion .title{overflow:hidden;padding:14px 36px;}

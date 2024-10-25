@@ -63,9 +63,13 @@ const NoticeBoard = ({ currentPage, noticesPerPage }) => {
         <div>게시일</div>
         <div>등록자</div>
       </div>
-      {currentNotices.map((notice) => (
-        <NoticeItem key={notice.id} notice={notice} />
-      ))}
+      {currentNotices.length > 0 ? (
+        currentNotices.map((notice) => (
+          <NoticeItem key={notice.id} notice={notice} />
+        ))
+      ) : (
+        <div className={styles.noNotices}>등록된 게시물이 없습니다.</div>
+      )}
     </div>
   );
 };
@@ -100,11 +104,15 @@ export default function NotiPage() {
       <div className={styles.wrap}>
         <h2>공지사항</h2>
         <NoticeBoard currentPage={currentPage} noticesPerPage={noticesPerPage} />
-        <div className={styles.pagination}>
-          <button onClick={handlePrevPage} disabled={currentPage === 1}>&#8249;</button>
-          <span>{currentPage} / {totalPages}</span>
-          <button onClick={handleNextPage} disabled={currentPage === totalPages}>&#8250;</button>
-        </div>
+        {notices.length > 0 ? (
+          <div className={styles.pagination}>
+            <button onClick={handlePrevPage} disabled={currentPage === 1} className={styles.prev}>이전</button>
+            <span>{currentPage} / {totalPages}</span>
+            <button onClick={handleNextPage} disabled={currentPage === totalPages} className={styles.next}>다음</button>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

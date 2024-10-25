@@ -120,7 +120,8 @@ export default function RegularPage({ item }) {
               </ul>
             </div>
           </div>
-        </div><div className={styles.right_section}>
+        </div>
+        <div className={styles.right_section}>
             <RegDetail item={pageSelectItem} />
         </div>
       </div>
