@@ -3,8 +3,7 @@
 .react-datepicker__header{background-color:#0a3e68;}
 .react-datepicker__day--selected{background-color:#00ff00;color:white;}
 .react-datepicker__day:hover{background-color:#ddd;}
-.react-datepicker__current-month{font-size:1.2rem;color:#333;}
-.request_content__hj2ux .request_wrap__5uOBw{height:40px;color:#fff}
+.react-datepicker__current-month{font-size:1.2rem;color:#fff;}
 .react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle{fill:#0a3e68;color:#0a3e68}
 .react-datepicker__navigation--previous{top:11px}
 .react-datepicker__navigation--next{top:11px;}
