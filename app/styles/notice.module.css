@@ -15,3 +15,10 @@
 .pagination button:disabled{cursor:not-allowed;opacity:0.5;background-color:#fff;}
 .pagination span{display:inline-block;font-size:16px;height:30px;line-height:36px;vertical-align:middle;}
 .noNotices{text-align:center;padding:300px 0;border-bottom:1px solid #dfdfdf;font-size:16px;font-weight:600}
+
+
+/* detail */
+.noti_detail .header{width:100%;border-top:1px solid #222;background-color:#f8f8f8;border-bottom:1px solid #ddd;overflow:hidden;padding:20px;}
+.noti_detail .header h3{float:left;}
+.noti_detail .header .detail_info{float:right;}
+.noti_detail .header .detail_info span{margin-right:10px;}
