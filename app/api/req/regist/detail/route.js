@@ -4,11 +4,12 @@ export async function POST(req) {
 
     const data = await req.json();
     if(data.params){
-      const {reqId,reqTitle,reqName,reqOrd,reqStatus,reqType,reqHeadcount,reqPurp} = data.params;
+      console.log('📢 [route.js:7]', data.params);
+      const {reqId,reqType,reqGrade,reqInDt,reqOutDt,reqMm,reqLoc,reqSkill,reqJob,reqJobDet} = data.params;
 
-      const post = await prisma.tbReqMgt.create({
+      const post = await prisma.tbReqMgtDet.create({
         data: {
-          reqId,reqTitle,reqName,reqOrd,reqStatus,reqType,reqHeadcount,reqPurp
+            reqId,reqType,reqGrade,reqInDt,reqOutDt,reqMm,reqLoc,reqSkill,reqJob,reqJobDet
         },
       });
 

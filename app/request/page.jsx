@@ -28,11 +28,11 @@ export default function RegPage() {
 
   // 인원
   const reqHeadcount = [
-    { value: '1', label: '1' },
-    { value: '2', label: '2' },
-    { value: '3', label: '3' },
-    { value: '4', label: '4' },
-    { value: '5', label: '5' },
+    { value: 1, label: '1' },
+    { value: 2, label: '2' },
+    { value: 3, label: '3' },
+    { value: 4, label: '4' },
+    { value: 5, label: '5' },
   ];
 
   // 목적
@@ -81,38 +81,78 @@ export default function RegPage() {
     setIsOpen(!isOpen);
   };
   
-  // 여러 입력 필드 값을 관리할 상태 선언
+  // 여러 입력 필드 값을 관리할 상태 선언 (기본 요청)
   const [formData, setFormData] = useState({
+    reqId: 17,
     reqTitle : '',
     reqName : '',
-    reqOrd : '',
-    reqStatus : '',
+    reqOrd : 'Medium',
+    reqStatus : 'register',
     reqType : '',
     reqHeadcount : 0,
-    reqPurp : ''
+    reqPurp : '',
+    reqDet : [{}]
   });
 
+  // 상세요청 초기화
+  const initDetData = Array.from(
+    { length: selectedHeadcount || 1 }, // selectedHeadcount가 0이거나 undefined면 기본값 1 사용
+    () => ({
+      reqId: '',
+      reqType: '',
+      reqGrade: '',
+      reqInDt: '',
+      reqOutDt: '',
+      reqMm: '',
+      reqLoc: '',
+      reqSkill: '',
+      reqJob: '',
+      reqJobDet: ''
+    })
+  );
+
+  const [detFormData, setDetFormData] = useState(initDetData);
+
+  const handleDetInputChange = (index, field) => (event) => {
+    const { value } = event.target;
+    setDetFormData((prevData) => {
+      const newData = [...prevData];
+      newData[index] = {
+        ...newData[index],
+        [field]: value,
+      };
+      return newData;
+    });
+  };
+
+  const API_URL = '/api/req/regist'; // API 경로를 상수로 관리
+  const GET_SEQ_URL = '/api/req/getSeq';
+
+  // 데이터 저장
   const insertData = async () => {
+    try {
+      console.log('📢 [page.jsx:81] insertData:: ', API_URL);
 
-    console.log('📢 [page.jsx:81] insertData');
+      // 시퀀스 조회
+      const seq = await apiHandler.postData(GET_SEQ_URL);
+      console.log('📢 [page.jsx:105]', seq.data);
+      formData.reqId = parseInt(seq.data);
 
-    const result = await apiHandler.postData('/api/req/regist',{
-      reqTitle : '요청 타이틀',
-      reqName : '요청명',
-      reqOrd : '2',
-      reqStatus : 'register',
-      reqType : '1',
-      reqHeadcount : 1,
-      reqPurp : '운영'
+      // POST 요청에서 formData 전체 객체를 전달 (객체 단축 속성 사용)
+      const result = await apiHandler.postData(API_URL, { ...formData });
+
+      console.log('📢 [page.jsx:95]', result);
       
-    }); // POST 요청
-
-    console.log('📢 [page.jsx:95]', result);
-  }
+    } catch (error) {
+      console.error('❌ [page.jsx:100] Error inserting data:', error);
+    }
+  };
 
   const handleHeadcountChange = (e) => {
     const count = Number(e.target.value);
     setSelectedHeadcount(count);
+
+    handleChange(e);
 
     // detailsOpen 상태 업데이트
     setDetailsOpen((prev = []) => {
@@ -148,13 +188,59 @@ export default function RegPage() {
     setJobSelections(updatedJobSelections);
   };
 
-  const handleJobSelectionChange = (index) => (e) => {
+  // 입력 값이 변경될 때 상태 업데이트
+  const handleDetChange = (index) => (event) => {
+    console.log('📢 [page.jsx:190]', selectedHeadcount);
+    const { value, name } = event.target;
+    console.log('📢 [page.jsx:193]', value);
+    console.log('📢 [page.jsx:194]', name);
+    console.log('📢 [page.jsx:195]', index);
+    console.log('📢 [page.jsx:195]', detFormData);
+    const prevData = detFormData[0];
+    console.log('📢 [page.jsx:192]', prevData);
+    setDetFormData((prevData) => {
+      const newData = [...prevData];
+      newData[index] = {
+        ...newData[index],
+        [name]: value,
+      };
+      console.log('📢 [page.jsx:197]', detFormData);
+    });
+  };
+  
+  const handleJobSelectionChange = (index) => (event) => {
+    const { name, value } = event.target;
+    console.log('📢 [page.jsx:208]', name);
+    console.log('📢 [page.jsx:209]', index+1);
     const updatedJobSelections = [...jobSelections];
-    updatedJobSelections[index].selectedJob = e.target.value;
+    updatedJobSelections[index].selectedJob = event.target.value;
+    // handleDetChange(index, name, value);
+    handleDetChange(index)(event);
+    console.log('📢 [page.jsx:195]');
     setJobSelections(updatedJobSelections);
+    
   };
 
-  const handleCheckboxChange = (index, item) => (e) => {
+  // 입력 값이 변경될 때 상태 업데이트
+  const handleChange = (event) => {
+    let { name, value } = event.target;  // 입력 필드의 이름(name)과 값(value)을 가져옴
+    console.log('📢 [page.jsx:173]', typeof value);
+
+    if (name == "reqHeadcount") {
+      value = parseInt(value);
+    }
+
+    console.log('📢 [page.jsx:173]', typeof value);
+
+    setFormData({
+      ...formData,  // 기존 상태를 복사하고
+      [name]: value // name 속성에 해당하는 값을 업데이트
+    });
+    console.log('📢 [page.jsx:173]', value);
+    console.log('📢 [page.jsx:174]', formData);
+  };
+
+  const handleCheckboxChange = (index) => (e) => {
     const { name, checked } = e.target;
     const updatedCheckedItems = [...checkedItems];
     if (!updatedCheckedItems[index]) {
@@ -165,17 +251,7 @@ export default function RegPage() {
       [name]: checked,
     };
     setCheckedItems(updatedCheckedItems);
-  };
-
-  // 입력 값이 변경될 때 상태 업데이트
-  const handleChange = (event) => {
-    const { name, value } = event.target;  // 입력 필드의 이름(name)과 값(value)을 가져옴
-    setFormData({
-      ...formData,  // 기존 상태를 복사하고
-      [name]: value // name 속성에 해당하는 값을 업데이트
-    });
-    console.log('📢 [page.jsx:173]', value);
-    console.log('📢 [page.jsx:174]', formData.reqTitle);
+    handleDetChange(index)(e);
   };
 
   // 시작일을 개별적으로 설정하는 함수
@@ -233,11 +309,12 @@ export default function RegPage() {
             <div className={styles.content}>
               <div className={styles.item}>
                 <span className={styles.tx}>요청명</span>
-                <input type="text" placeholder="ex. CJ PAY Back-End 개발 or CJ ENM 차세대 K-POP 플랫폼 구축" className={styles.txt} name="reqTitle" value={formData.reqTitle} onChange={handleChange}/>
+                <input type="text" placeholder="ex. CJ PAY Back-End 개발 or CJ ENM 차세대 K-POP 플랫폼 구축" 
+                className={styles.txt} name="reqTitle" value={formData.reqTitle} onChange={handleChange}/>
               </div>
               <div className={styles.item_half}>
                 <label>대내외 구분</label>
-                <SelectBox options={reqType} name="reqType" />
+                <SelectBox options={reqType} name="reqType" onChange={handleChange}/>
               </div>
               <div className={styles.item_half}>
                 <label>인원</label>
@@ -251,7 +328,7 @@ export default function RegPage() {
               </div>
               <div className={styles.item}>
                 <label>목적</label>
-                <SelectBox options={reqPurp} name="reqPurp" />
+                <SelectBox options={reqPurp} name="reqPurp" onChange={handleHeadcountChange}/>
               </div>
             </div>
           )}
@@ -288,12 +365,13 @@ export default function RegPage() {
                     <SelectBox
                       options={jobData.categories}
                       name={`reqCategory-${index}`}
+                      
                       onChange={handleJobCategoryChange(index)}
                     />
                     <span className={styles.blt}>&gt;</span> 
                     <SelectBox
                       options={jobSelections[index]?.jobs || []}
-                      name={`reqJob-${index}`}
+                      name="reqJob"
                       onChange={handleJobSelectionChange(index)}
                     />
                   </div>
@@ -373,7 +451,7 @@ export default function RegPage() {
       </div>
       <div className={styles.btn_section}>
         <button className={styles.cancel_btn} onClick={goMian}>취소</button>
-        <button className={styles.aply_btn}>등록</button>
+        <button className={styles.aply_btn} onClick={insertData}>등록</button>
       </div>
     </div>
   );
