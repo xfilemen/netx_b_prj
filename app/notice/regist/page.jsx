@@ -7,7 +7,7 @@ import styles from '/app/styles/notice.module.css';
 import '/app/styles/ckeditorStyles.css';
 import Image from 'next/image';
 
-const NoticeCreatePage = () => {
+const NoticeCreatePage = () => {  
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [file, setFile] = useState(null); // 파일 첨부 state
