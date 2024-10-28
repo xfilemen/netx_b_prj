@@ -101,6 +101,9 @@ export default function NotiPage() {
       <div className={styles.wrap}>
         <h2>공지사항</h2>
         <NoticeBoard currentPage={currentPage} noticesPerPage={noticesPerPage} />
+        <div className={styles.btn}>
+          <Link href={'/notice/regist'}>등록</Link>
+        </div>
         {notices.length > 0 ? (
           <div className={styles.pagination}>
             <button onClick={handlePrevPage} disabled={currentPage === 1} className={styles.prev}>이전</button>

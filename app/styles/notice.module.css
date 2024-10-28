@@ -1,7 +1,7 @@
 /* detail */
 .content{display:block;}
 .content .topbanner{text-align:center;background-color:#006fcd;}
-.content .wrap{overflow:hidden;width:1200px;margin:50px auto 60px;}
+.content .wrap{position:relative;width:1200px;margin:50px auto 60px;}
 
 .content .wrap h2{margin-bottom:40px}
 
@@ -15,6 +15,8 @@
 .pagination button:disabled{cursor:not-allowed;opacity:0.5;background-color:#fff;}
 .pagination span{display:inline-block;font-size:16px;height:30px;line-height:36px;vertical-align:middle;}
 .noNotices{text-align:center;padding:300px 0;border-bottom:1px solid #dfdfdf;font-size:16px;font-weight:600}
+.btn{text-align:right;}
+.btn a{position:absolute;bottom:-10px;right:0;background-color:#191F28;color:#fff;font-size:16px;width:128px;border-radius:30px;padding:15px 0;text-align:center;}
 
 
 /* detail */
@@ -23,3 +25,17 @@
 .noti_detail .header .detail_info{float:right;}
 .noti_detail .header .detail_info span{margin-right:10px;}
 .noti_detail .content{padding:30px 20px;border-bottom:1px solid #ddd;}
+
+/* regist */
+.noti_regist .header{width:100%;border-top:1px solid #222;background-color:#f8f8f8;border-bottom:1px solid #ddd;overflow:hidden;padding:20px;}
+.noti_regist .header label{width:70px;color:#888;margin-right:20px;}
+.noti_regist .header input{width:1110px;padding:12px;}
+.noti_regist .content{padding:30px 20px;border-bottom:1px solid #ddd;}
+.noti_regist .content .ckeditor{margin-top:20px;}
+.noti_regist .file_submit{position:relative;padding:30px 20px;border-bottom:1px solid #ddd;}
+.noti_regist .file_tx{margin-left:20px;font-size:14px;vertical-align:middle;}
+.noti_regist .submit_btn{position:absolute;right:0;top:20px;background-color:#191F28;color:#fff;}
+
+.noti_regist .regi_btn{width:100%;overflow:hidden;margin-top:20px;}
+.noti_regist .regi_btn .cancel_btn{float:left;border:1px solid #191F28;background-color:#fff;width:70px;border-radius:20px;padding:8px 12px;text-align:center;}
+.noti_regist .regi_btn .regisit_btn{float:right;background-color:#191F28;color:#fff;width:70px;border-radius:20px;}
