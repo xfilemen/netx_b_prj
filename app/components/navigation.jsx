@@ -37,8 +37,8 @@ class NaviList extends Component {
 
   render() {
     const items = [
-      { text: '정규/BP 인력 요청', link: '/request' },
-      { text: '정규/BP 인력 요청 내역', link: '/detail' },
+      { text: '인력 요청', link: '/request' },
+      { text: '인력 요청 내역', link: '/detail' },
       { text: '공지사항', link: '/notice' },
     ];
 

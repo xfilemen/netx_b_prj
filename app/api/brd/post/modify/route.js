@@ -18,8 +18,8 @@ export async function POST(req) {
       });
 
 
-      console.log(data);
-      return new Response(JSON.stringify({ message: '정상적으로 처리되었습니다.', data : updatedTbPost}), {
+      console.log('📢 [route.js:16]', post);
+      return new Response(JSON.stringify({ message: '정상적으로 처리되었습니다.', data : post}), {
         status: 200,
       })
 
@@ -30,9 +30,9 @@ export async function POST(req) {
     // console.log(cj_id, password );
     
   } catch(err){
-    console.log(err);
+    console.log('📢 [route.js:28]', err);
     return new Response(JSON.stringify({ message: '오류 발생' }), {
-      status: 401,
+      status: err,
     })
   } finally {
     await prisma.$disconnect();

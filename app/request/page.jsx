@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from "react-datepicker";
-import { ko } from 'date-fns/locale';
+import { it, ko } from 'date-fns/locale';
 import styles from '../styles/request.module.css';
 import "react-datepicker/dist/react-datepicker.css";
 import '../styles/datepicker-custom.css';
@@ -19,6 +19,8 @@ export default function RegPage() {
   const [checkedItems, setCheckedItems] = useState([]); // 각 아코디언의 체크박스 상태 배열로 관리
   const [startDates, setStartDates] = useState([]); // 시작일 상태 배열
   const [lastDates, setLastDates] = useState([]);   // 종료일 상태 배열
+
+  const [reqTypeChk, setReqTypeChk] = useState([]);   // 유형 배열
 
   // 대내외 구분
   const reqType = [
@@ -37,17 +39,17 @@ export default function RegPage() {
 
   // 목적
   const reqPurp = [
-    { value: '구축', label: '구축' },
-    { value: '운영', label: '운영' },
-    { value: '개선/개발', label: '개선/개발' },
+    { value: '1', label: '구축' },
+    { value: '2', label: '운영' },
+    { value: '3', label: '개선/개발' },
   ];
 
   // 직무 구분 데이터
   const jobData = {
     categories: [
-      { value: 'dev', label: '개발', jobs: [{ value: '1', label: '웹 개발자' },{ value: '2', label: '서버 개발자' },{ value: '3', label: '프론트엔드 개발자' },{ value: '4', label: '안드로이드 개발자' },{ value: '5', label: 'C, C++ 개발자' },{ value: '6', label: 'IOS 개발자' },{ value: '7', label: '시스템, 네트워크 관리자' },{ value: '8', label: '개발 매니저' },{ value: '9', label: '기술지원' },{ value: '10', label: '보안 엔지니어' },{ value: '11', label: '프로덕트 매니저' },{ value: '12', label: 'PHP 개발자' },{ value: '13', label: '웹 퍼블리셔' },{ value: '14', label: '.Net 개발자' },{ value: '15', label: 'DBA' }] },
-      { value: 'plan', label: '기획', jobs: [{ value: '1', label: '서비스 기획자' },{ value: '2', label: 'PM/PO' }] },
-      { value: 'design', label: '디자인', jobs: [{ value: '1', label: 'UX디자이너' },{ value: '2', label: '웹 디자이너' }] }
+      { value: 'dev', label: '개발', jobs: [{ value: '웹 개발자', label: '웹 개발자' },{ value: '서버 개발자', label: '서버 개발자' },{ value: '프론트엔드 개발자', label: '프론트엔드 개발자' },{ value: '안드로이드 개발자', label: '안드로이드 개발자' },{ value: 'C, C++ 개발자', label: 'C, C++ 개발자' },{ value: 'IOS 개발자', label: 'IOS 개발자' },{ value: '시스템, 네트워크 관리자', label: '시스템, 네트워크 관리자' },{ value: '개발 매니저', label: '개발 매니저' },{ value: '기술지원', label: '기술지원' },{ value: '보안 엔지니어', label: '보안 엔지니어' },{ value: '프로덕트 매니저', label: '프로덕트 매니저' },{ value: 'PHP 개발자', label: 'PHP 개발자' },{ value: '웹 퍼블리셔', label: '웹 퍼블리셔' },{ value: '.Net 개발자', label: '.Net 개발자' },{ value: 'DBA', label: 'DBA' }] },
+      { value: 'plan', label: '기획', jobs: [{ value: '서비스 기획자', label: '서비스 기획자' },{ value: 'PM/PO', label: 'PM/PO' }] },
+      { value: 'design', label: '디자인', jobs: [{ value: 'UX디자이너', label: 'UX디자이너' },{ value: '웹 디자이너', label: '웹 디자이너' }] }
     ]
   };
 
@@ -58,19 +60,14 @@ export default function RegPage() {
     { label: '기타', name: '3' },
   ];
 
-  // 등급 (정규직, BP, 기타)
-  const classChk = [
-    { label: '초급', name: '4' },
-    { label: '중급', name: '5' },
-    { label: '고급', name: '6' },
-    { label: '특급', name: '7' },
-    { label: '기타', name: '8' },
-  ];
-
-  const deploymentTime =[
+  const deploymentTime = [
     { value: 'mm', label: 'm/m' },
     { value: 'md', label: 'm/d' },
     { value: 'mh', label: 'm/h' },
+  ]
+
+  const endTimeChk = [
+    { label: '미정', name: 'N' },
   ]
 
   const workplace = [
@@ -94,44 +91,32 @@ export default function RegPage() {
     reqDet : [{}]
   });
 
-  // 상세요청 초기화
-  const initDetData = Array.from(
-    { length: selectedHeadcount || 1 }, // selectedHeadcount가 0이거나 undefined면 기본값 1 사용
+  // 초기 배열 생성 함수
+  const createDetailData = (count) => Array.from(
+    { length: count },
     () => ({
-      reqId: '',
-      reqType: '',
-      reqGrade: '',
-      reqInDt: '',
-      reqOutDt: '',
-      reqMm: '',
-      reqLoc: '',
-      reqSkill: '',
+      reqId:'',
       reqJob: '',
-      reqJobDet: ''
+      // req_grade: '',
+      // req_type: '',
+      // req_in_dt: '',
+      // req_out_dt: '',
+      // req_mm:'',
+      // 필요한 다른 필드들도 추가하세요
     })
   );
 
-  const [detFormData, setDetFormData] = useState(initDetData);
+  // 상태 설정
+  const [detFormData, setDetFormData] = useState(createDetailData(selectedHeadcount));
 
-  const handleDetInputChange = (index, field) => (event) => {
-    const { value } = event.target;
-    setDetFormData((prevData) => {
-      const newData = [...prevData];
-      newData[index] = {
-        ...newData[index],
-        [field]: value,
-      };
-      return newData;
-    });
-  };
-
-  const API_URL = '/api/req/regist'; // API 경로를 상수로 관리
+  const API_URL1 = '/api/req/regist'; // API 경로를 상수로 관리
   const GET_SEQ_URL = '/api/req/getSeq';
+  const API_URL2 = '/api/req/regist/detail';
 
   // 데이터 저장
   const insertData = async () => {
     try {
-      console.log('📢 [page.jsx:81] insertData:: ', API_URL);
+      console.log('📢 [page.jsx:81] insertData:: ', API_URL1);
 
       // 시퀀스 조회
       const seq = await apiHandler.postData(GET_SEQ_URL);
@@ -139,7 +124,12 @@ export default function RegPage() {
       formData.reqId = parseInt(seq.data);
 
       // POST 요청에서 formData 전체 객체를 전달 (객체 단축 속성 사용)
-      const result = await apiHandler.postData(API_URL, { ...formData });
+      const result = await apiHandler.postData(API_URL1, { ...formData });
+
+      for (let index = 0; index < detFormData.length; index++) {
+        detFormData[index].reqId = parseInt(seq.data);
+        await apiHandler.postData(API_URL2, { ...detFormData[index] })
+      }
 
       console.log('📢 [page.jsx:95]', result);
       
@@ -186,9 +176,10 @@ export default function RegPage() {
     const updatedJobSelections = [...jobSelections];
     updatedJobSelections[index] = { category: selectedCategory, jobs };
     setJobSelections(updatedJobSelections);
+
   };
 
-  // 입력 값이 변경될 때 상태 업데이트
+  // 상세 입력 값이 변경될 때
   const handleDetChange = (index) => (event) => {
     console.log('📢 [page.jsx:190]', selectedHeadcount);
     const { value, name } = event.target;
@@ -196,16 +187,32 @@ export default function RegPage() {
     console.log('📢 [page.jsx:194]', name);
     console.log('📢 [page.jsx:195]', index);
     console.log('📢 [page.jsx:195]', detFormData);
-    const prevData = detFormData[0];
-    console.log('📢 [page.jsx:192]', prevData);
-    setDetFormData((prevData) => {
-      const newData = [...prevData];
-      newData[index] = {
-        ...newData[index],
-        [name]: value,
-      };
-      console.log('📢 [page.jsx:197]', detFormData);
-    });
+    setDetFormData((prevData) =>
+      prevData.map((item, i) =>
+        i === index ? { ...item, [name]: value } : item
+      )
+    );
+    console.log('📢 [page.jsx:189]', detFormData);
+  };
+
+  // 상세 입력 값이 변경될 때
+  const handleDetChkChange = (index, value1) => (event) => {
+    console.log('📢 [page.jsx:190]', selectedHeadcount);
+    let { value, name } = event.target;
+    console.log('📢 [page.jsx:196]', value1);
+    console.log('📢 [page.jsx:193]', value);
+    console.log('📢 [page.jsx:194]', name);
+    console.log('📢 [page.jsx:195]', index);
+    console.log('📢 [page.jsx:195]', detFormData);
+    if(name == 'req_mm') {
+      value = parseInt(value);
+    }
+    setDetFormData((prevData) =>
+      prevData.map((item, i) =>
+        i === index ? { ...item, [name]: value } : item
+      )
+    );
+    console.log('📢 [page.jsx:189]', detFormData);
   };
   
   const handleJobSelectionChange = (index) => (event) => {
@@ -214,7 +221,6 @@ export default function RegPage() {
     console.log('📢 [page.jsx:209]', index+1);
     const updatedJobSelections = [...jobSelections];
     updatedJobSelections[index].selectedJob = event.target.value;
-    // handleDetChange(index, name, value);
     handleDetChange(index)(event);
     console.log('📢 [page.jsx:195]');
     setJobSelections(updatedJobSelections);
@@ -240,7 +246,7 @@ export default function RegPage() {
     console.log('📢 [page.jsx:174]', formData);
   };
 
-  const handleCheckboxChange = (index) => (e) => {
+  const handleCheckboxChange1 = (index) => (e) => {
     const { name, checked } = e.target;
     const updatedCheckedItems = [...checkedItems];
     if (!updatedCheckedItems[index]) {
@@ -254,23 +260,188 @@ export default function RegPage() {
     handleDetChange(index)(e);
   };
 
+  const handleCheckboxChange99 = (index, item, z) => (e) => {
+    console.log('📢 [page.jsx:238]', index, item, z);
+    console.log('📢 [page.jsx:239]', e.target.name);
+    const {name} = e.target;
+    console.log('📢 [page.jsx:241]', name);
+    if (detFormData[index].name == undefined) {
+      console.log('📢 [page.jsx:243]', item.label);
+      console.log('📢 [page.jsx:244]', e.target.value);
+    } else {
+      handleDetChkChange
+    }
+  };
+
+  const [reqGradeChk, setReqGradeChk] = useState([]); // 초기 상태는 빈 배열
+
+  const handleCheckboxChange = (index, item) => (e) => {
+    console.log('📢 [page.jsx:268]', index);
+    console.log('📢 [page.jsx:269]', item.label);
+    console.log('📢 [page.jsx:270]', e.target);
+    console.log('📢 [page.jsx:271]', e.target.checked);
+    setReqTypeChk([]);
+    console.log('📢 [page.jsx:280]', reqTypeChk);
+    setReqTypeChk(detFormData[index].req_type);
+    console.log('📢 [page.jsx:281]', detFormData[index].req_type);
+    console.log('📢 [page.jsx:28199]', reqTypeChk);
+
+    if(e.target.checked) {
+      addItem(item.label, e.target.name, index);
+      console.log('📢 [page.jsx:282]', );
+    } else {
+      removeItem(item.label, e.target.name, index);
+    }
+
+    console.log('📢 [page.jsx:276]', reqTypeChk);
+    console.log('📢 [page.jsx:283]', reqGradeChk);
+
+    setDetFormData((prevData) =>
+      prevData.map((item, i) =>
+        i === index ? { ...item, [e.target.name]: reqTypeChk } : item
+      )
+    );
+    console.log('📢 [page.jsx:295]', detFormData);
+  };
+
+  // 체크박스 선택시 데이터 추가
+  const addItem = (newItem, name, index) => {
+    console.log('📢 [page.jsx:282]', newItem);
+    console.log('📢 [page.jsx:288]', name);
+    console.log('📢 [page.jsx:293]', index);
+    if (name === "req_type") {
+      setReqTypeChk((prevItems) => {
+        if (!Array.isArray(prevItems)) {
+          // console.error('prevItems is not an array', prevItems);
+          return [newItem]; // prevItems가 배열이 아닌 경우 새 배열 생성
+        }
+        return [...prevItems, newItem]; // 기존 배열에 새 항목 추가
+      });
+    } else {
+      setReqGradeChk((prevItems) => {
+        if (!Array.isArray(prevItems)) {
+          // console.error('prevItems is not an array', prevItems);
+          return [newItem]; // prevItems가 배열이 아닌 경우 새 배열 생성
+        }
+        return [...prevItems, newItem]; // 기존 배열에 새 항목 추가
+      });
+    }
+  };
+
+  // 체크박스 선택시 데이터 추가
+  const addItem2 = (newItem, name, index) => {
+    console.log('📢 [page.jsx:282]', newItem);
+    console.log('📢 [page.jsx:288]', name);
+    console.log('📢 [page.jsx:293]', index);
+    if (name === "req_type") {
+      setReqTypeChk((prevItems) => {
+        if (!Array.isArray(prevItems)) {
+          console.error('prevItems is not an array', prevItems);
+          return [newItem]; // prevItems가 배열이 아닌 경우 새 배열 생성
+        }
+        return [...prevItems, newItem]; // 기존 배열에 새 항목 추가
+      });
+    } else {
+      setReqGradeChk((prevItems) => {
+        if (!Array.isArray(prevItems)) {
+          console.error('prevItems is not an array', prevItems);
+          return [newItem]; // prevItems가 배열이 아닌 경우 새 배열 생성
+        }
+        return [...prevItems, newItem]; // 기존 배열에 새 항목 추가
+      });
+    }
+  };
+
+  // 체크박스 해제시 데이터 삭제
+  const removeItem = (itemToRemove, name) => {
+    console.log('📢 [page.jsx:297]', itemToRemove);
+    console.log('📢 [page.jsx:299]', name);
+    if (name === "req_type") {
+      setReqTypeChk((prevItems) => {
+        // 항목이 존재하는지 확인
+        if (prevItems.includes(itemToRemove)) {
+          // 항목을 제외한 새로운 배열 반환
+          return prevItems.filter(item => item !== itemToRemove);
+        }
+        return prevItems; // 항목이 존재하지 않으면 변경하지 않음
+      });
+    } else {
+      setReqGradeChk((prevItems) => {
+        // 항목이 존재하는지 확인
+        if (prevItems.includes(itemToRemove)) {
+          // 항목을 제외한 새로운 배열 반환
+          return prevItems.filter(item => item !== itemToRemove);
+        }
+        return prevItems; // 항목이 존재하지 않으면 변경하지 않음
+      });
+    }
+    
+  };
+
   // 시작일을 개별적으로 설정하는 함수
   const handleStartDateChange = (index) => (date) => {
     const updatedStartDates = [...startDates];
-    updatedStartDates[index] = date;
+    console.log('📢 [page.jsx:370]', date);
+    const newDate = formatDate(date);
+    console.log('📢 [page.jsx:372]', newDate);
+    updatedStartDates[index] = newDate;
     setStartDates(updatedStartDates);
+    console.log('📢 [page.jsx:372]', startDates[index]);
+    setDetFormData((prevData) =>
+      prevData.map((item, i) =>
+        i === index ? { ...item, ["req_in_dt"]: newDate } : item
+      )
+    );
+    console.log('📢 [page.jsx:189]', detFormData);
   };
 
   // 종료일을 개별적으로 설정하는 함수
   const handleLastDateChange = (index) => (date) => {
     const updatedLastDates = [...lastDates];
-    updatedLastDates[index] = date;
+    console.log('📢 [page.jsx:370]', date);
+    const newDate = formatDate(date);
+    console.log('📢 [page.jsx:372]', newDate);
+    updatedLastDates[index] = newDate;
     setLastDates(updatedLastDates);
+    setDetFormData((prevData) =>
+      prevData.map((item, i) =>
+        i === index ? { ...item, ["req_out_dt"]: newDate } : item
+      )
+    );
+    console.log('📢 [page.jsx:189]', detFormData);
   };
+
+  const formatDate = (date) => {
+    const year = date.getFullYear(); // 년도
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // 월 (0부터 시작하므로 1 더해줌)
+    const day = String(date.getDate()).padStart(2, '0'); // 일
+  
+    return `${year}-${month}-${day}`; // 형식: yyyy-mm-dd
+  }
 
   const goMian = () => {
     location.href = '/main'
   }
+
+  useEffect(() => {
+    setDetFormData((prevData) => {
+      if (selectedHeadcount > prevData.length) {
+        // 새로운 객체를 추가하는 경우
+        return [
+          ...prevData,
+          ...Array.from({ length: selectedHeadcount - prevData.length }, () => ({
+            reqJob: '',
+            req_type: '',
+            // 필요한 다른 필드들도 추가
+          })),
+        ];
+      } else if (selectedHeadcount < prevData.length) {
+        // 기존 배열의 길이를 줄이는 경우
+        return prevData.slice(0, selectedHeadcount);
+      }
+      return prevData; // 변화가 없을 때는 이전 데이터 그대로 반환
+    });
+  }, [selectedHeadcount]);
 
   return (
     <div className={styles.content}>
@@ -283,7 +454,7 @@ export default function RegPage() {
         />
       </div>
       <div className={styles.wrap}>
-        <h2>정규/BP 인력 요청</h2>
+        <h2>인력 요청</h2>
         <div className={styles.accordion}>
           <div className={styles.title} onClick={toggleAccordion}>
             <h3>
@@ -381,23 +552,15 @@ export default function RegPage() {
                       <CheckBox
                         key={item.name}
                         label={item.label}
-                        name={item.name}
+                        name="req_type"
                         checked={checkState[item.name]}
-                        onChange={handleCheckboxChange}
+                        onChange={handleCheckboxChange(index,item)}
                       />
                     ))}
                   </div>
                   <div className={styles.item}>
                     <span className={styles.tx}>등급</span>
-                    {classChk.map((item) => (
-                      <CheckBox
-                        key={item.name}
-                        label={item.label}
-                        name={item.name}
-                        checked={checkState[item.name]}
-                        onChange={handleCheckboxChange}
-                      />
-                    ))}
+                    <input type="text" placeholder="ex. 초초/초중/초상" className={`${styles.txt} ${styles.w_txt}`}/>
                   </div>
                   <div className={styles.item_half}>
                     <span className={styles.tx}>투입 예정일</span>
@@ -407,6 +570,7 @@ export default function RegPage() {
                       placeholderText="시작일"
                       selected={startDates[index]}
                       className={styles.calendar}
+                      name="req_in_dt"
                       onChange={handleStartDateChange(index)}
                     />
                   </div>
@@ -420,15 +584,26 @@ export default function RegPage() {
                       className={styles.calendar}
                       onChange={handleLastDateChange(index)}
                     />
+                    <span className={styles.end_chk}>
+                      {endTimeChk.map((item) => (
+                        <CheckBox
+                          key={item.name}
+                          label={item.label}
+                          name={item.name}
+                          checked={checkState[item.name]}
+                          onChange={handleCheckboxChange}
+                        />
+                      ))}
+                    </span>
                   </div>
                   <div className={styles.item}>
                     <span className={styles.tx}>투입 공수</span>
-                    <SelectBox options={deploymentTime} name="deploymentTime" />
                     <input type="text" placeholder="ex. 1 or 0.5" className={styles.mm_tx}/>
+                    <span className={styles.tx}>M/M</span>
                   </div>
                   <div className={styles.item}>
                     <span className={styles.tx}>근무지</span>
-                    <input type="text" placeholder="ex. 지역명 + 빌딩명 or 본사명" className={`${styles.txt} ${styles.w_txt}`}/>
+                    <input type="text" placeholder="ex. 지역명 + 빌딩명 or 본사명" className={`${styles.txt} ${styles.w_txt}` } name="req_loc" onChange={handleDetChkChange(index)}/>
                     {workplace.map((item) => (
                       <CheckBox
                         key={item.name}
@@ -440,7 +615,11 @@ export default function RegPage() {
                     ))}
                   </div>
                   <div className={styles.item}>
-                    <span className={`${styles.tx} ${styles.v_t}`}>상세<br />요구기술</span>
+                    <span className={`${styles.tx} ${styles.v_t}`}>필수<br />요구기술</span>
+                    <textarea name="" placeholder="요구 스킬 기재" className={styles.text_box}></textarea>
+                  </div>
+                  <div className={styles.item}>
+                    <span className={`${styles.tx} ${styles.v_t}`}>우대<br />요구기술</span>
                     <textarea name="" placeholder="요구 스킬 기재" className={styles.text_box}></textarea>
                   </div>
                 </div>
