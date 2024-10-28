@@ -27,7 +27,8 @@
 .content .wrap .accordion .content .chk input{width:16px;height:16px;margin-right:10px;vertical-align:middle;}
 .content .wrap .accordion .content .chk label{font-size:14px;vertical-align:middle;cursor:pointer;margin-right:30px;}
 .content .wrap .accordion .content .calendar{padding:12px;border:1px solid #ebebeb;border-radius:4px;}
-.content .wrap .accordion .content .item input.mm_tx{width:150px;margin-left:20px;border:1px solid #ebebeb;padding:12px;font-size:14px;color:#888;border-radius:4px;}
+.content .wrap .accordion .content .end_chk{margin-left:10px;}
+.content .wrap .accordion .content .item input.mm_tx{width:150px;margin-right:5px;border:1px solid #ebebeb;padding:12px;font-size:14px;color:#888;border-radius:4px;}
 .content .wrap .accordion .content .item input.txt.w_txt{width:875px;margin-right:20px;}
 .content .wrap .accordion .content .item .text_box{border:1px solid #EBEBEB;width:1000px;height:260px;padding:12px;border-radius:4px;}
 .content .wrap .accordion .content .tx.v_t{vertical-align:top;}

@@ -84,7 +84,7 @@ export default function RegularPage({ item }) {
       <div className={styles.wrap}>
         <div className={styles.left_section}>
           <div className={styles.title}>
-            <h2>정규인력 요청·내역</h2>
+            <h2>인력 요청·내역</h2>
             <p className={styles.tit_tx}>요청 내역을 확인하실 수 있습니다.</p>
             {isGetData.current}
             {/* {isGetData} */}

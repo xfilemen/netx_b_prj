@@ -83,7 +83,7 @@ export default function MainPage() {
                                     width={46}
                                     height={46}
                                 />
-                                <span className={styles.tx}>정규/BP<br/>인력 요청하기</span>
+                                <span className={`${styles.tx} ${styles.line1}`}>인력 요청하기</span>
                             </Link>
                         </li>
                         <li>
@@ -94,7 +94,7 @@ export default function MainPage() {
                                     width={46}
                                     height={46}
                                 />
-                                <span className={styles.tx}>정규/BP 인력<br />요청 내역 확인하기</span>
+                                <span className={`${styles.tx} ${styles.line1}`}>요청 내역 확인하기</span>
                             </Link>
                         </li>
                         <li>

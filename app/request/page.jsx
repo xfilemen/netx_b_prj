@@ -37,9 +37,9 @@ export default function RegPage() {
 
   // 목적
   const reqPurp = [
-    { value: '구축', label: '구축' },
-    { value: '운영', label: '운영' },
-    { value: '개선/개발', label: '개선/개발' },
+    { value: '1', label: '구축' },
+    { value: '2', label: '운영' },
+    { value: '3', label: '개선/개발' },
   ];
 
   // 직무 구분 데이터
@@ -58,19 +58,14 @@ export default function RegPage() {
     { label: '기타', name: '3' },
   ];
 
-  // 등급 (정규직, BP, 기타)
-  const classChk = [
-    { label: '초급', name: '4' },
-    { label: '중급', name: '5' },
-    { label: '고급', name: '6' },
-    { label: '특급', name: '7' },
-    { label: '기타', name: '8' },
-  ];
-
-  const deploymentTime =[
+  const deploymentTime = [
     { value: 'mm', label: 'm/m' },
     { value: 'md', label: 'm/d' },
     { value: 'mh', label: 'm/h' },
+  ]
+
+  const endTimeChk = [
+    { label: '미정', name: 'N' },
   ]
 
   const workplace = [
@@ -283,7 +278,7 @@ export default function RegPage() {
         />
       </div>
       <div className={styles.wrap}>
-        <h2>정규/BP 인력 요청</h2>
+        <h2>인력 요청</h2>
         <div className={styles.accordion}>
           <div className={styles.title} onClick={toggleAccordion}>
             <h3>
@@ -389,15 +384,7 @@ export default function RegPage() {
                   </div>
                   <div className={styles.item}>
                     <span className={styles.tx}>등급</span>
-                    {classChk.map((item) => (
-                      <CheckBox
-                        key={item.name}
-                        label={item.label}
-                        name={item.name}
-                        checked={checkState[item.name]}
-                        onChange={handleCheckboxChange}
-                      />
-                    ))}
+                    <input type="text" placeholder="ex. 초초/초중/초상" className={`${styles.txt} ${styles.w_txt}`}/>
                   </div>
                   <div className={styles.item_half}>
                     <span className={styles.tx}>투입 예정일</span>
@@ -420,11 +407,22 @@ export default function RegPage() {
                       className={styles.calendar}
                       onChange={handleLastDateChange(index)}
                     />
+                    <span className={styles.end_chk}>
+                      {endTimeChk.map((item) => (
+                        <CheckBox
+                          key={item.name}
+                          label={item.label}
+                          name={item.name}
+                          checked={checkState[item.name]}
+                          onChange={handleCheckboxChange}
+                        />
+                      ))}
+                    </span>
                   </div>
                   <div className={styles.item}>
                     <span className={styles.tx}>투입 공수</span>
-                    <SelectBox options={deploymentTime} name="deploymentTime" />
                     <input type="text" placeholder="ex. 1 or 0.5" className={styles.mm_tx}/>
+                    <span className={styles.tx}>M/M</span>
                   </div>
                   <div className={styles.item}>
                     <span className={styles.tx}>근무지</span>
@@ -440,7 +438,11 @@ export default function RegPage() {
                     ))}
                   </div>
                   <div className={styles.item}>
-                    <span className={`${styles.tx} ${styles.v_t}`}>상세<br />요구기술</span>
+                    <span className={`${styles.tx} ${styles.v_t}`}>필수<br />요구기술</span>
+                    <textarea name="" placeholder="요구 스킬 기재" className={styles.text_box}></textarea>
+                  </div>
+                  <div className={styles.item}>
+                    <span className={`${styles.tx} ${styles.v_t}`}>우대<br />요구기술</span>
                     <textarea name="" placeholder="요구 스킬 기재" className={styles.text_box}></textarea>
                   </div>
                 </div>
