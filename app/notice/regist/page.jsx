@@ -17,42 +17,42 @@ const NoticeCreatePage = () => {
         setFile(e.target.files[0]);
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
 
-        const date = new Date(); // 현재 날짜
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('content', content);
-        formData.append('date', date.toISOString());
-        formData.append('author', session?.user?.name || '익명');
+    //     const date = new Date(); // 현재 날짜
+    //     const formData = new FormData();
+    //     formData.append('title', title);
+    //     formData.append('content', content);
+    //     formData.append('date', date.toISOString());
+    //     formData.append('author', session?.user?.name || '익명');
 
-        if (file) {
-            formData.append('file', file);
-        } else {
-            alert('첨부파일을 선택해 주세요.');
-            return;
-        }
+    //     if (file) {
+    //         formData.append('file', file);
+    //     } else {
+    //         alert('첨부파일을 선택해 주세요.');
+    //         return;
+    //     }
 
-        try {
-            const res = await fetch('/api/notices', {
-                method: 'POST',
-                body: formData,
-            });
+    //     try {
+    //         const res = await fetch('/api/notices', {
+    //             method: 'POST',
+    //             body: formData,
+    //         });
 
-            if (res.ok) {
-                alert('공지사항이 등록되었습니다.');
-                // 폼 초기화
-                setTitle('');
-                setContent('');
-                setFile(null);
-            } else {
-                alert(`등록에 실패했습니다: ${res.statusText}`);
-            }
-        } catch (error) {
-            console.error('등록 중 에러:', error);
-        }
-    };
+    //         if (res.ok) {
+    //             alert('공지사항이 등록되었습니다.');
+    //             // 폼 초기화
+    //             setTitle('');
+    //             setContent('');
+    //             setFile(null);
+    //         } else {
+    //             alert(`등록에 실패했습니다: ${res.statusText}`);
+    //         }
+    //     } catch (error) {
+    //         console.error('등록 중 에러:', error);
+    //     }
+    // };
 
     const triggerFileSelect = () => {
         document.getElementById('fileInput').click();
