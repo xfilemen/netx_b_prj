@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react'; // 로그인된 사용자 정보를 가져오기 위해 next-auth 사용
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -16,6 +16,11 @@ const NoticeCreatePage = () => {
     const handleFileChange = (e) => {
         setFile(e.target.files[0]); // 파일 선택 시 상태에 저장
     };
+
+    useEffect(() => {
+        // window 객체를 사용하는 코드
+        console.log(window.innerWidth);
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
