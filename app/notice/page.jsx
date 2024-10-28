@@ -77,7 +77,7 @@ export default function NotiPage() {
   const totalPages = Math.ceil(notices.length / noticesPerPage);
 
   const handleNextPage = () => {
-    if (currentPage < totalPages) {
+    if (currentPage < totalPages) { 
       setCurrentPage(currentPage + 1);
     }
   };
