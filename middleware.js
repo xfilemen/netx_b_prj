@@ -67,5 +67,5 @@ export async function middleware(request) {
 //   });
 // // 미들웨어를 적용할 경로 설정
 export const config = {
-  matcher: ['/','/user/login','/main/:path*', '/detail/:path*', '/api/req/:path*', '/api/brd/:path*'] // 특정 경로에만 미들웨어 적용
+  matcher: ['/','/user/login','/main/:path*', '/notice/:path*', '/detail/:path*', '/api/req/:path*', '/api/brd/:path*'] // 특정 경로에만 미들웨어 적용
 };

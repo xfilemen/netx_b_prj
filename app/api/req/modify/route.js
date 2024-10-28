@@ -1,17 +1,15 @@
 import prisma from '/lib/prisma';
 export async function POST(req) {
   try {
-    
     const data = await req.json();
-    //console.log(data);
 
     const currentTime = await prisma.$queryRaw`SELECT CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Seoul'`;
     const nowData = new Date(currentTime[0].timezone);
 
     if(data.params.main){
-      const { reqTitle, reqName, reqOrd, reqStatus, reqType, reqPurp, regId, reqDet} = data.params.main;
-
-      const tbReqMgt = await prisma.tbReqMgt.create({
+      const { reqId, reqTitle, reqName, reqOrd, reqStatus, reqType, reqPurp,reqDet, modId } = data.params.main;
+      const updatedTbReqMgt = await prisma.tbReqMgt.update({
+        where: { reqId },
         data: {
           reqTitle,
           reqName,
@@ -19,22 +17,20 @@ export async function POST(req) {
           reqStatus,
           reqType,
           reqPurp,
-          regId,
-          regDt : nowData
+          modId,
+          modDt: nowData, // Set the modification date to now
         },
       });
 
-      console.log(tbReqMgt);
-
       // 상세
       for(let i in reqDet){
-        console.log(i);
-        let { reqType, reqHeadcount, reqJob, reqJobDet, reqGrade, 
-              reqInDt, reqOutDt, reqMm, reqLoc, reqSkill, regId } = reqDet[i];
+        let { reqId, reqDetId, reqType, reqHeadcount, reqJob, reqJobDet, reqGrade, 
+              reqInDt, reqOutDt, reqMm, reqLoc, reqSkill, modId } = reqDet[i];
+        console.log(reqId,reqDetId);
 
-        let createdTbReqMgtDet = await prisma.tbReqMgtDet.create({
+        let updatedTbReqMgtDet = await prisma.tbReqMgtDet.update({
+          where: { reqId_reqDetId: { reqId, reqDetId } },
           data: {
-            reqId : tbReqMgt.reqId,
             reqType,
             reqHeadcount,
             reqJob,
@@ -45,15 +41,14 @@ export async function POST(req) {
             reqMm,
             reqLoc,
             reqSkill,
-            regId,
-            regDt : nowData
+            modId, 
+            modDt: new Date(), // Set the modification date to now
           },
         });
 
       }
 
-
-      return new Response(JSON.stringify({ message: '정상적으로 처리되었습니다.', data : tbReqMgt}), {
+      return new Response(JSON.stringify({ message: '정상적으로 처리되었습니다.', data : updatedTbReqMgt}), {
         status: 200,
       })
 

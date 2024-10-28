@@ -72,21 +72,23 @@ model tbReqMgt {
 }
 
 model tbReqMgtDet {
-  reqId      Int       @map("req_id")    // 요청ID
-  reqDetId   Int       @default(autoincrement()) @map("req_det_id")        // 요청상세ID
-  reqType    String?   @map("req_type")          // 유형
-  reqJob     String?   @map("req_job")           // 직무구분
-  reqGrade   String?   @map("req_grade")         // 등급
-  reqInDt    DateTime? @map("req_in_dt")         // 투입 예정일
-  reqOutDt   DateTime? @map("req_out_dt")        // 투입 종료일
-  reqMm      Int?      @map("req_mm")            // M/M
-  reqLoc     String?   @map("req_loc")           // 근무지
-  reqSkill   String?   @map("req_skill")         // 상세 요구기술
-  useYn      String?   @map("use_yn")
-  regDt      DateTime? @default(now()) @map("reg_dt") // 등록일
-  regId      String?   @map("reg_id")            // 등록ID
-  modDt      DateTime? @map("mod_dt")            // 수정일
-  modId      String?   @map("mod_id")            // 수정ID
+  reqId           Int       @map("req_id")    // 요청ID
+  reqDetId        Int       @default(autoincrement()) @map("req_det_id")        // 요청상세ID
+  reqType         String?   @map("req_type")          // 유형
+  reqHeadcount    Int?      @map("req_headcount")     // 인원
+  reqJob          String?   @map("req_job")           // 직무구분
+  reqJobDet       String?   @map("req_job_det")       // 직무구분상세
+  reqGrade        String?   @map("req_grade")         // 등급
+  reqInDt         DateTime? @map("req_in_dt")         // 투입 예정일
+  reqOutDt        DateTime? @map("req_out_dt")        // 투입 종료일
+  reqMm           Int?      @map("req_mm")            // M/M
+  reqLoc          String?   @map("req_loc")           // 근무지
+  reqSkill        String?   @map("req_skill")         // 상세 요구기술
+  useYn           String?   @map("use_yn")
+  regDt           DateTime? @default(now()) @map("reg_dt") // 등록일
+  regId           String?   @map("reg_id")            // 등록ID
+  modDt           DateTime? @map("mod_dt")            // 수정일
+  modId           String?   @map("mod_id")            // 수정ID
 
   req        tbReqMgt  @relation("ReqMgtToDet", fields: [reqId], references: [reqId]) // 요청 관계
 

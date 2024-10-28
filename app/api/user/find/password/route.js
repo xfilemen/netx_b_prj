@@ -4,17 +4,20 @@ export async function POST(req) {
 
     const data = await req.json();
     if(data.params){
-      console.log('📢 [route.js:7]', data.params);
-      const {reqId,reqType,reqGrade,reqInDt,reqOutDt,reqMm,reqLoc,reqSkill,reqJob,reqJobDet} = data.params;
+      const { userId, seq, userPwd, pwdWrongCnt, modId } = data.params;
 
-      const post = await prisma.tbReqMgtDet.create({
+      const updatedTbLogin = await prisma.tbLogin.update({
+        where: { 
+          userId: userId 
+        },
         data: {
-            reqId,reqType,reqGrade,reqInDt,reqOutDt,reqMm,reqLoc,reqSkill,reqJob,reqJobDet
+          userPwd,
+          modId,
+          modDt: new Date()
         },
       });
 
-      console.log(data);
-      return new Response(JSON.stringify({ message: '정상적으로 처리되었습니다.', data : post}), {
+      return new Response(JSON.stringify({ message: '정상적으로 처리되었습니다.', data : 'success'}), {
         status: 200,
       })
 
