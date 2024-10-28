@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react'; // 로그인된 사용자 정보�
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import styles from '/app/styles/notice.module.css';
-import '/app/styles/ckeditorStyles.css';
+import '/app/styles/ckeditorStyles.css'; 
 import Image from 'next/image';
 
 const NoticeCreatePage = () => {  
