@@ -51,7 +51,7 @@
 .content .wrap .right_section .detail_content .date{height:28px;line-height:28px;float:left;margin-right:14px;}
 .content .wrap .right_section .detail_content .num{height:28px;line-height:28px;float:left;}
 
-.content .wrap .right_section .detail_content .accordion{width:845px;border:1px solid #DFDFDF;border-radius:12px;margin-top:62px;cursor:pointer}
+.content .wrap .right_section .detail_content .accordion{width:845px;border:1px solid #DFDFDF;border-radius:12px;margin-top:24px;cursor:pointer}
 .content .wrap .right_section .detail_content .accordion.detail{margin-top:24px}
 .content .wrap .right_section .detail_content .accordion .title{overflow:hidden;padding:14px 36px;}
 .content .wrap .right_section .detail_content .accordion .title h3{float:left;height:46px;line-height:43px;font-size:16px;font-weight:600;}
@@ -73,7 +73,6 @@
 .content .wrap .right_section .detail_content .accordion.detail li.half_line1{padding-top:0}
 .content .wrap .right_section .detail_content .accordion.detail li.half_line2{padding-top:0}
 
-
 .left_section::-webkit-scrollbar, .right_section::-webkit-scrollbar{width:4px;}
 .left_section::-webkit-scrollbar-thumb, .right_section::-webkit-scrollbar-thumb{background-color:#DFDFDF;border-radius:10px;}
 .left_section::-webkit-scrollbar-track, .right_section::-webkit-scrollbar-track{background-color:rgba(220, 20, 60, .0);}
@@ -83,3 +82,12 @@
 .content .wrap .not_page p{font-size:15px;margin-top:10px;}
 .content .wrap .not_page .btn{margin-top:15px;}
 .content .wrap .not_page .btn a{display:block;width:50px;text-align:center;background-color:#000;color:#fff;border-radius:5px;padding:5px 0;}
+
+.progress_section{margin:24px 0;overflow:hidden;}
+.progress_section li{width:293px;float:left;font-size:17px;font-weight:600;color:#aaa;text-align:center;}
+.progressbar{appearance:none;width:845px;height:14px;margin-top:10px;}
+.progressbar::-webkit-progress-bar{background:#E3E3E4;border-radius:10px;}
+.progressbar::-webkit-progress-value{border-radius:10px;background:#1D976C;background:-webkit-linear-gradient(to right, #FFE09C, #FF9700);background: linear-gradient(to right, #FFE09C, #FF9700);}
+
+.content .detail_prog_btn{text-align:right;margin-right:36px;}
+.content .detail_prog_btn button{border:1px solid #000}

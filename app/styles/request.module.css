@@ -30,7 +30,7 @@
 .content .wrap .accordion .content .end_chk{margin-left:10px;}
 .content .wrap .accordion .content .item input.mm_tx{width:150px;margin-right:5px;border:1px solid #ebebeb;padding:12px;font-size:14px;color:#888;border-radius:4px;}
 .content .wrap .accordion .content .item input.txt.w_txt{width:875px;margin-right:20px;}
-.content .wrap .accordion .content .item .text_box{border:1px solid #EBEBEB;width:1000px;height:260px;padding:12px;border-radius:4px;}
+.content .wrap .accordion .content .item .text_box{border:1px solid #EBEBEB;width:1000px;height:260px;padding:12px;border-radius:4px;resize:none;}
 .content .wrap .accordion .content .tx.v_t{vertical-align:top;}
 .content .btn_section{width:266px;margin:40px auto 85px;}
 .content .btn_section button{width:128px;height:52px;font-size:16px;font-weight:600;border-radius:30px}

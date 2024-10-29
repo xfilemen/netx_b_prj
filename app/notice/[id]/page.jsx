@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import styles from '/app/styles/notice.module.css';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const notices = [
     { 
@@ -216,6 +217,10 @@ const NoticeDetail = ({ params }) => {
                 </div>
             </div>
             <div className={styles.content} dangerouslySetInnerHTML={{ __html: notice.content }} />
+            <div className={styles.btn_section}>
+                <Link href={'/notice'} className={styles.btn_list_page}>목록</Link>
+                <button>수정</button>
+            </div>
         </div>
       </div>
     </div>

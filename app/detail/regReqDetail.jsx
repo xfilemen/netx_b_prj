@@ -62,10 +62,21 @@ export default function RegDetail({ item }) {
         <h2>{item.reqTitle}</h2>
         <div className={styles.tx_info}>
           <div className={styles.priority}>
-            우선순위 <span className={`${styles.prior} ${getPriorityClass(item.reqOrd)}`}>{item.reqOrd}</span>
+            유형 <span className={`${styles.prior} ${getPriorityClass(item.reqOrd)}`}>{item.reqOrd}</span>
           </div>
           <div className={styles.date}>요청일 {item.regDt.substring(0,10)}</div>
           <div className={styles.num}>요청인원 {item.reqHeadcount}명</div>
+        </div>
+        <div className={styles.progress_section}>
+          <ul>
+            <li>✓ 접수</li>
+            <li>✓ 진행</li>
+            <li>완료</li>
+          </ul>
+          <progress className={styles.progressbar} value="66" min="0" max="100"></progress>
+        </div>
+        <div className={styles.detail_prog_btn}>
+          <button>상세 진행 현황</button>
         </div>
         {/* 기본 정보 아코디언 */}
         <div className={styles.accordion}>
