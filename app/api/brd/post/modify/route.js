@@ -30,7 +30,7 @@ export async function POST(req) {
     // console.log(cj_id, password );
     
   } catch(err){
-    console.log('📢 [route.js:28]', err);
+    console.log('📢 [route.js:28]11', err);
     return new Response(JSON.stringify({ message: '오류 발생' }), {
       status: err,
     })
