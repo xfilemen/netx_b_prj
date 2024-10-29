@@ -97,11 +97,14 @@ export default function RegPage() {
     () => ({
       reqId:'',
       reqJob: '',
-      // req_grade: '',
-      // req_type: '',
-      // req_in_dt: '',
-      // req_out_dt: '',
-      // req_mm:'',
+      reqGrade: '',
+      reqInDt: '',
+      reqOutDt: '',
+      reqMm: '',
+      reqLoc: '',
+      reqSkill: '',
+      reqJob: '',
+      // reqJobDet: '',
       // 필요한 다른 필드들도 추가하세요
     })
   );
@@ -110,8 +113,9 @@ export default function RegPage() {
   const [detFormData, setDetFormData] = useState(createDetailData(selectedHeadcount));
 
   const API_URL1 = '/api/req/regist'; // API 경로를 상수로 관리
-  const GET_SEQ_URL = '/api/req/getSeq';
   const API_URL2 = '/api/req/regist/detail';
+  const GET_SEQ_URL1 = '/api/req/getReqSeq';
+  const GET_SEQ_URL2 = '/api/req/getDetReqSeq';
 
   // 데이터 저장
   const insertData = async () => {
@@ -119,7 +123,7 @@ export default function RegPage() {
       console.log('📢 [page.jsx:81] insertData:: ', API_URL1);
 
       // 시퀀스 조회
-      const seq = await apiHandler.postData(GET_SEQ_URL);
+      const seq = await apiHandler.postData(GET_SEQ_URL1);
       console.log('📢 [page.jsx:105]', seq.data);
       formData.reqId = parseInt(seq.data);
 
@@ -128,6 +132,8 @@ export default function RegPage() {
 
       for (let index = 0; index < detFormData.length; index++) {
         detFormData[index].reqId = parseInt(seq.data);
+        const seq2 = await apiHandler.postData(GET_SEQ_URL2);
+        detFormData[index].reqDetId = parseInt(seq2.data);
         await apiHandler.postData(API_URL2, { ...detFormData[index] })
       }
 
@@ -182,7 +188,11 @@ export default function RegPage() {
   // 상세 입력 값이 변경될 때
   const handleDetChange = (index) => (event) => {
     console.log('📢 [page.jsx:190]', selectedHeadcount);
-    const { value, name } = event.target;
+    let { value, name, type } = event.target;
+    if (type === "number") {
+      value = parseInt(value);
+    }
+    console.log('📢 [page.jsx:189]', type);
     console.log('📢 [page.jsx:193]', value);
     console.log('📢 [page.jsx:194]', name);
     console.log('📢 [page.jsx:195]', index);
@@ -389,7 +399,7 @@ export default function RegPage() {
     console.log('📢 [page.jsx:372]', startDates[index]);
     setDetFormData((prevData) =>
       prevData.map((item, i) =>
-        i === index ? { ...item, ["req_in_dt"]: newDate } : item
+        i === index ? { ...item, ["reqInDt"]: newDate } : item
       )
     );
     console.log('📢 [page.jsx:189]', detFormData);
@@ -405,18 +415,19 @@ export default function RegPage() {
     setLastDates(updatedLastDates);
     setDetFormData((prevData) =>
       prevData.map((item, i) =>
-        i === index ? { ...item, ["req_out_dt"]: newDate } : item
+        i === index ? { ...item, ["reqOutDt"]: newDate } : item
       )
     );
     console.log('📢 [page.jsx:189]', detFormData);
   };
 
   const formatDate = (date) => {
-    const year = date.getFullYear(); // 년도
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // 월 (0부터 시작하므로 1 더해줌)
-    const day = String(date.getDate()).padStart(2, '0'); // 일
+    const newDate = new Date(date).toISOString(); // "YYYY-MM-DDTHH:MM:SSZ" 형식으로 변환
   
-    return `${year}-${month}-${day}`; // 형식: yyyy-mm-dd
+    // return `${year}-${month}-${day}`; // 형식: yyyy-mm-dd
+    
+    // const formattedDate = newDate.toLocaleDateString('sv-SE'); // "YYYY-MM-DD" 형식으로 변환
+    return newDate;
   }
 
   const goMian = () => {
@@ -430,8 +441,9 @@ export default function RegPage() {
         return [
           ...prevData,
           ...Array.from({ length: selectedHeadcount - prevData.length }, () => ({
+            reqId: '',
             reqJob: '',
-            req_type: '',
+            reqType: '',
             // 필요한 다른 필드들도 추가
           })),
         ];
@@ -552,7 +564,7 @@ export default function RegPage() {
                       <CheckBox
                         key={item.name}
                         label={item.label}
-                        name="req_type"
+                        name="reqType"
                         checked={checkState[item.name]}
                         onChange={handleCheckboxChange(index,item)}
                       />
@@ -560,7 +572,7 @@ export default function RegPage() {
                   </div>
                   <div className={styles.item}>
                     <span className={styles.tx}>등급</span>
-                    <input type="text" placeholder="ex. 초초/초중/초상" className={`${styles.txt} ${styles.w_txt}`}/>
+                    <input type="text" placeholder="ex. 초초/초중/초상" className={`${styles.txt} ${styles.w_txt}`} name='reqGrade' onChange={handleDetChange(index)}/>
                   </div>
                   <div className={styles.item_half}>
                     <span className={styles.tx}>투입 예정일</span>
@@ -570,7 +582,7 @@ export default function RegPage() {
                       placeholderText="시작일"
                       selected={startDates[index]}
                       className={styles.calendar}
-                      name="req_in_dt"
+                      name="reqInDt"
                       onChange={handleStartDateChange(index)}
                     />
                   </div>
@@ -598,12 +610,12 @@ export default function RegPage() {
                   </div>
                   <div className={styles.item}>
                     <span className={styles.tx}>투입 공수</span>
-                    <input type="text" placeholder="ex. 1 or 0.5" className={styles.mm_tx}/>
+                    <input type="number" placeholder="ex. 1 or 0.5" className={styles.mm_tx} name='reqMm' onChange={handleDetChange(index)}/>
                     <span className={styles.tx}>M/M</span>
                   </div>
                   <div className={styles.item}>
                     <span className={styles.tx}>근무지</span>
-                    <input type="text" placeholder="ex. 지역명 + 빌딩명 or 본사명" className={`${styles.txt} ${styles.w_txt}` } name="req_loc" onChange={handleDetChkChange(index)}/>
+                    <input type="text" placeholder="ex. 지역명 + 빌딩명 or 본사명" className={`${styles.txt} ${styles.w_txt}` } name="reqLoc" onChange={handleDetChange(index)}/>
                     {workplace.map((item) => (
                       <CheckBox
                         key={item.name}
