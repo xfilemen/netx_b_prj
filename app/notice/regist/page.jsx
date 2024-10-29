@@ -5,7 +5,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import styles from '/app/styles/notice.module.css';
 import '/app/styles/ckeditorStyles.css'; 
-import Image from 'next/image';
+import Image from 'next/image'; 
 
 const NoticeCreatePage = () => {  
     const [title, setTitle] = useState('');
