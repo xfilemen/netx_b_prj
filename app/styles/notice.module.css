@@ -24,7 +24,7 @@
 .noti_detail .header h3{float:left;}
 .noti_detail .header .detail_info{float:right;}
 .noti_detail .header .detail_info span{margin-right:10px;}
-.noti_detail .content{padding:30px 0;border-bottom:1px solid #ddd;}
+.noti_detail .content{padding:70px 0;border-bottom:1px solid #ddd;}
 .noti_detail .btn_section{overflow:hidden;margin-top:20px;}
 .noti_detail .btn_section .btn_list_page{float:left;display:block;background-color:#fff;color:#000;border:1px solid #000;font-size:16px;width:128px;border-radius:30px;padding:15px 0;text-align:center;}
 .noti_detail .btn_section button{float:right;display:block;background-color:#191F28;color:#fff;font-size:16px;width:128px;border-radius:30px;padding:15px 0;text-align:center;height:56px;}

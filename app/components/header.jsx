@@ -64,7 +64,12 @@ export default function HeaderPage() {
                 width={46}
                 height={51}
               />
-              <div className={styles.user_info_tx}>{userInfo.userName ? `${userInfo.userName}님` : ''} <span className={styles.type_req_tx}>({userInfo.authName})</span></div>
+              <div className={styles.user_info_tx}>
+                <Link href={'/myinfo'}>
+                  {userInfo.userName ? `${userInfo.userName}님` : ''}
+                </Link>
+                <span className={styles.type_req_tx}>({userInfo.authName})</span>
+              </div>
               <div className={styles.team_info_tx}>{userInfo.compName}<br/>{userInfo.deptName}</div>
               <div className={styles.logout_btn}>
                 <button onClick={handleSignOut}>로그아웃</button>

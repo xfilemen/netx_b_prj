@@ -1,0 +1,22 @@
+.container{width:100%;height:100%;}
+
+/* detail */
+.content{display:block;}
+.content .topbanner{text-align:center;background-color:#006fcd;}
+.content .wrap{width:1200px;margin:50px auto;}
+.wrap{overflow:hidden;}
+
+/* myinfo */
+.myinfo_detail{overflow:hidden;border:1px solid #DFDFDF;margin-top:40px;padding:30px;border-radius:12px;}
+.myinfo_detail .item{overflow:hidden;width:100%;font-size:14px;padding-bottom:30px;border-bottom:1px solid #dfdfdf}
+.myinfo_detail .item_pd{overflow:hidden;width:100%;font-size:14px;padding-top:30px;padding-bottom:30px;border-bottom:1px solid #dfdfdf}
+.myinfo_detail .item_pd.no_line{border-bottom:0;padding-bottom:0}
+.myinfo_detail .item_half{font-size:14px;width:545px;float:left;margin-right:20px;margin-bottom:30px;padding-bottom:30px;border-bottom:1px solid #dfdfdf}
+.myinfo_detail .item_half1{font-size:14px;width:545px;float:left;margin-right:20px;margin-top:30px;padding-bottom:30px;border-bottom:1px solid #dfdfdf}
+.myinfo_detail .tx{color:#888;width:90px;display:inline-block;margin-right:40px;}
+.myinfo_detail .p_tx{color:#191F28;}
+.myinfo_detail .txt{width:200px;margin-right:5px;border:1px solid #ebebeb;padding:12px;font-size:14px;color:#888;border-radius:4px;}
+.content .btn_section{width:266px;margin:40px auto 85px;}
+.content .btn_section button{width:128px;height:52px;font-size:16px;font-weight:600;border-radius:30px}
+.content .btn_section button.cancel_btn{border:1px solid #191F28}
+.content .btn_section button.aply_btn{margin-left:10px;color:#fff;background-color:#191F28;}

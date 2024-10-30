@@ -1,0 +1,2 @@
+.select_box{display:inline-block}
+.custom_select{border:1px solid #ebebeb;padding:12px;width:200px;border-radius:4px;appearance:none;background: url('../../public/images/detail/ico_ac_down.png') no-repeat right 10px center;background-size:12px 6px;}
