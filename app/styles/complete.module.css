@@ -1,0 +1,13 @@
+.container{width:100%;height:100%;}
+
+/* detail */
+.content{display:block;}
+.content .topbanner{text-align:center;background-color:#006fcd;}
+.content .wrap{width:500px;margin:245px auto;text-align:center;}
+.wrap{overflow:hidden;}
+
+/* complete */
+.wrap .p_tx{font-size:22px;font-weight:600;margin-top:20px;}
+.content .wrap .btn_section{overflow:hidden;margin:50px auto 0}
+.content .wrap .btn_section .main_btn{display:inline-block;background-color:#006FCD;color:#fff;font-size:16px;width:160px;border-radius:30px;padding:15px 0;text-align:center;height:51px;font-weight:600}
+.content .wrap .btn_section .req_list_btn{display:inline-block;background-color:#000;color:#fff;font-size:16px;width:160px;border-radius:30px;padding:15px 0;text-align:center;height:51px;font-weight:600;margin-left:10px}
