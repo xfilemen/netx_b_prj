@@ -66,13 +66,21 @@ const NoticeCreatePage = () => {
                             />
                         </div>
                         <div className={styles.content}>
-                            <label>내용</label>
                             <div className={styles.ckeditor}>
                             <CustomEditor onDataChange={handleChildDataChange} content={content} />
                             </div>
                         </div>
                         <div className={styles.file_submit}>
-                            <label>파일 첨부</label>
+                            <label className={styles.file_label}>
+                                <Image 
+                                    src="/images/ico/ico_file_blt.png"
+                                    alt="파일첨부 blt"
+                                    width={8}
+                                    height={14}
+                                    className={styles.file_blt_img}
+                                />
+                                파일 첨부
+                            </label>
                             <input
                                 type="file"
                                 id="fileInput"
@@ -83,7 +91,7 @@ const NoticeCreatePage = () => {
                             <button type="button" onClick={triggerFileSelect} className={styles.submit_btn}>첨부 파일</button>                        
                         </div>
                         <div className={styles.regi_btn}>
-                            <a href={'/notice'} className={styles.cancel_btn}>취소</a>
+                            <a href={'/notice'} className={styles.cancel_btn}>목록</a>
                             <button type="submit" className={styles.regisit_btn}>등록</button>
                         </div>
                     </form>

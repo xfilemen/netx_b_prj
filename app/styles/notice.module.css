@@ -24,7 +24,7 @@
 .noti_detail .header h3{float:left;}
 .noti_detail .header .detail_info{float:right;}
 .noti_detail .header .detail_info span{margin-right:10px;}
-.noti_detail .content{padding:30px 20px;border-bottom:1px solid #ddd;}
+.noti_detail .content{padding:30px 0;border-bottom:1px solid #ddd;}
 .noti_detail .btn_section{overflow:hidden;margin-top:20px;}
 .noti_detail .btn_section .btn_list_page{float:left;display:block;background-color:#fff;color:#000;border:1px solid #000;font-size:16px;width:128px;border-radius:30px;padding:15px 0;text-align:center;}
 .noti_detail .btn_section button{float:right;display:block;background-color:#191F28;color:#fff;font-size:16px;width:128px;border-radius:30px;padding:15px 0;text-align:center;height:56px;}
@@ -36,9 +36,11 @@
 .noti_regist .content{padding:30px 20px;border-bottom:1px solid #ddd;}
 .noti_regist .content .ckeditor{margin-top:20px;}
 .noti_regist .file_submit{position:relative;padding:30px 20px;border-bottom:1px solid #ddd;}
+.noti_regist .file_submit .file_label{font-weight:600;}
+.noti_regist .file_submit .file_label .file_blt_img{vertical-align:middle;margin-right:6px}
 .noti_regist .file_tx{margin-left:20px;font-size:14px;vertical-align:middle;}
-.noti_regist .submit_btn{position:absolute;right:0;top:20px;background-color:#191F28;color:#fff;}
+.noti_regist .submit_btn{margin-left:20px;background-color:#9199A6;color:#fff;vertical-align:middle;}
 
 .noti_regist .regi_btn{width:100%;overflow:hidden;margin-top:20px;}
-.noti_regist .regi_btn .cancel_btn{float:left;border:1px solid #191F28;background-color:#fff;width:70px;border-radius:20px;padding:8px 12px;text-align:center;}
-.noti_regist .regi_btn .regisit_btn{float:right;background-color:#191F28;color:#fff;width:70px;border-radius:20px;}
+.noti_regist .regi_btn .cancel_btn{float:left;background-color:#fff;color:#000;border:1px solid #000;font-size:16px;width:128px;border-radius:30px;padding:15px 0;text-align:center;}
+.noti_regist .regi_btn .regisit_btn{float:right;background-color:#191F28;color:#fff;font-size:16px;width:128px;border-radius:30px;padding:15px 0;text-align:center;height:56px;}
