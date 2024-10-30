@@ -2,13 +2,15 @@
 
 import { useEffect, useState } from 'react';
 import styles from '/app/styles/main.module.css';
-import Image from 'next/image';
 import { signIn, signOut } from "next-auth/react";
+import Modal from '../login/modal';
+import Link from 'next/link';
 
 export default function LoginPage() { 
-
   const [cj_id, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [modalType, setModalType] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -26,7 +28,16 @@ export default function LoginPage() {
       window.location.href = "/main" 
     }
   }
+
+  const openModal = (type) => {
+    setModalType(type); // 모달 타입 설정
+    setIsModalOpen(true); // 모달 열기
+  };
   
+  const closeModal = () => {
+    setIsModalOpen(false); // 모달 닫기
+    setModalType(null); // 모달 타입 초기화
+  };
 
   return (
     <div className={styles.container}>
@@ -58,17 +69,24 @@ export default function LoginPage() {
                     placeholder="아이디 저장"
                   /> <span className={styles.saveidtx}>아이디 저장</span>
                 </div>
-                <button type="submit">로그인</button>
+                <button type="submit" className={styles.login_btn}>로그인</button>
               </form>
               <div className={styles.join_section}>
                 <ul>
-                  <li>계정찾기</li>
+                  <li>
+                    <button onClick={() => openModal('')}>계정찾기</button>
+                  </li>
                   <li className={styles.line}>ㅣ</li>
-                  <li>비밀번호 찾기</li>
+                  <li>
+                    <button onClick={() => openModal('')}>비밀번호 찾기</button>
+                  </li>
                   <li className={styles.line}>ㅣ</li>
-                  <li>계정생성 요청</li>
+                  <li>
+                    <button onClick={() => openModal('requestAccount')}>계정생성 요청</button>
+                  </li>
                 </ul>
               </div>
+              {isModalOpen && <Modal type={modalType} />}
             </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-.section{overflow:hidden;background-color:#006FCD;}
+.section{position:relative;overflow:hidden;background-color:#006FCD;}
 
 /* login page */
 .loginbg{float:left;position:relative;width:50%}
@@ -10,7 +10,7 @@
 .loginSection .content .saveid{overflow:hidden;font-size:14px;color:#000;margin-bottom:24px;}
 .loginSection .content .saveid input[type="checkbox"]{float:left;display:inline;width:18px;height:18px;margin:0;}
 .loginSection .content .saveid .saveidtx{float:left;margin-left:5px;margin-bottom:10px;}
-.loginSection .content button{width:100%;text-align:center;background-color:#000;color:#fff;font-size:16px;border-radius:4px;padding:14px 0;}
+.loginSection .content .login_btn{width:100%;text-align:center;background-color:#000;color:#fff;font-size:16px;border-radius:4px;padding:14px 0;}
 .loginSection .content .join_section{width:318px;margin:20px auto 0;}
 .loginSection .content .join_section li{float:left;color:#888;}
 .loginSection .content .join_section li.line{color:#D9D9D9;margin:0 14px;}
@@ -30,3 +30,6 @@
 .wrap .main_content .link_menu li a{display:block;padding:47px 0 47px 30px;height:140px;}
 .wrap .main_content .link_menu li .tx{display:inline-block;font-size:16px;font-weight:600;margin-left:10px;}
 .wrap .main_content .link_menu li .tx.line1{margin-top:10px;}
+
+.join_section button{border:none;padding:0;color:#888}
+/* 계정찾기btn */
