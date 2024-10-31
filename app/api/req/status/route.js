@@ -1,12 +1,22 @@
 import prisma from '/lib/prisma';
+import {getSession} from '/utils/data-access';
 export async function POST(req) {
   try {
+    const {user} = await getSession();
+
+    let where = {}
+    //요청자일 때는 본인 요청내역만 조회
+    if(user.authCd == 'request'){
+      where = { 
+          regId : user.userId
+      }
+    }
     const tbReqMgt2 = await prisma.tbReqMgt.findMany({
+      where,
       select: {
         reqStatus: true,
       },
     })
-    console.log(tbReqMgt2);
     return new Response(JSON.stringify({ message: '정상적으로 조회되었습니다.', data : tbReqMgt2}), {
       status: 200,
     })

@@ -8,9 +8,7 @@ export async function POST(req) {
     //요청자일 때는 본인 요청내역만 조회
     if(user.authCd == 'request'){
       where = { 
-        where : {
           regId : user.userId
-        }
       }
     }
 
@@ -23,7 +21,7 @@ export async function POST(req) {
         regDt: 'desc',
       },
     })
-    console.log(tbReqMgt.length);
+
     return new Response(JSON.stringify({ message: '정상적으로 조회되었습니다.', data : tbReqMgt}), {
       status: 200,
     })
