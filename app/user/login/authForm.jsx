@@ -14,19 +14,6 @@ export default function AuthForm({ type }) {
     ];
     return (
       <form>
-        {/*{type === 'signup' && (
-          <>
-            <input type="text" placeholder="Username" />
-            <input type="password" placeholder="Password" />
-          </>
-        )}
-        {type === 'changePassword' && (
-          <>
-            <input type="password" placeholder="Current Password" />
-            <input type="password" placeholder="New Password" />
-            <button type="submit">Change Password</button>
-          </>
-        )}*/}
         {type === 'requestAccount' && (
             <div className={styles.req_cont}>
                 <h2>계정생성요청</h2>
@@ -45,7 +32,7 @@ export default function AuthForm({ type }) {
                   </div>
                   <div className={styles.item_half_right}>
                       <label>소속</label>
-                      <input type="text" autoComplete="new-group" className={styles.txt} />
+                      <input type="text" placeholder="ex. 테이터 마케팅팀" autoComplete="new-group" className={styles.txt} />
                   </div>
                   <div className={styles.item_half_left}>
                       <label>비밀번호</label>
@@ -57,11 +44,11 @@ export default function AuthForm({ type }) {
                   </div>
                   <div className={styles.item}>
                       <label>휴대폰번호</label>
-                      <input type="number" className={styles.num} />
+                      <input type="number" maxLength={3} className={styles.num} />
                       <span className={styles.line}>-</span>
-                      <input type="number" className={styles.num} />
+                      <input type="number" maxLength={4} className={styles.num} />
                       <span className={styles.line}>-</span>
-                      <input type="number" className={styles.num} />
+                      <input type="number" maxLength={4} className={styles.num} />
                       <span className={styles.certify_aply_btn}>
                         <button>인증번호 발송</button>
                       </span>
@@ -94,6 +81,17 @@ export default function AuthForm({ type }) {
                   <button className={styles.cancel_btn}>취소</button>
                 </div>
             </div>
+        )}
+        {type === 'findPassword' && (
+         <div className={`${styles.req_cont} ${styles.resize}`}>
+            <h2>비밀번호 찾기</h2>
+            <div className={styles.section}>
+              <div className={styles.item}>
+                <label>소속</label>
+                <input type="text" className={styles.txt} />
+              </div>
+            </div>
+          </div>
         )}
       </form>
     );

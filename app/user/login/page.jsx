@@ -107,7 +107,7 @@ export default function LoginPage() {
                   </li>
                   <li className={styles.line}>ㅣ</li>
                   <li>
-                    <button onClick={() => openModal('')}>비밀번호 찾기</button>
+                    <button onClick={() => openModal('findPassword')}>비밀번호 찾기</button>
                   </li>
                 </ul>
               </div>
