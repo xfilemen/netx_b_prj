@@ -1,12 +1,12 @@
 import prisma from '/lib/prisma';
 export async function POST(req) {
   try {
-    const {param} = await req.json();
+    const {params} = await req.json();
 
-    if(param){
+    if(params){
       const tbReqMgtLog = await prisma.tbReqMgtLog.findMany({
         where: { 
-            reqId : param.reqId
+            reqId : params.reqId
         },
         orderBy: {
           regDt: 'desc',
