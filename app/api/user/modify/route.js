@@ -11,39 +11,28 @@ export async function POST(req) {
 
     if(data.params.main){
 
-      const { userId, compCd, deptName, userName, userPwd, authCd, agrYn, regId } = data.params;
+      const { userId, compCd, deptName, userName, userPwd, authCd, agrYn, modId } = data.params;
 
-      const tbUser = await prisma.tbUser.create({
+      const tbUser = await prisma.tbUser.update({
+        where: { userId },
         data: {
-          userId,
           compCd,
           deptName,
-          userName,
-          agrYn : 'Y',
-          regId,
-          regDt : nowData,
+          modId,
+          modDt : nowData,
         },
       });
 
-      const tbLogin = await prisma.tbLogin.create({
-        data: {
-          userId,
-          userPwd : bcryptObj.getEcrypt(userPwd),
-          pwdWrongCnt : 0,
-          regId,
-          regDt : nowData,
-        },
-      });
-
-      const tbAuthUser = await prisma.tbAuthUser.create({
-        data: {
-          authCd,
-          userId,
-          useYn,
-          regId,
-          regDt : nowData,
-        },
-      });
+      if(userPwd){
+        const tbLogin = await prisma.tbLogin.update({
+          where: { userId },
+          data: {
+            userPwd : bcryptObj.getEcrypt(userPwd),
+            modId,
+            modDt : nowData,
+          },
+        });
+      }
 
       return new Response(JSON.stringify({ message: '정상적으로 처리되었습니다.', data : tbUser}), {
         status: 200,
