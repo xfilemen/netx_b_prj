@@ -8,11 +8,18 @@
 .content .item_half_right{float:right;margin-bottom:20px;}
 .content label{display:inline-block;color:#000;font-size:14px;font-weight:600;width:110px;margin-right:30px;}
 .content input.txt{width:200px;border:1px solid #ebebeb;padding:12px;font-size:14px;color:#888;border-radius:4px;margin-bottom:0}
-.content .item .mail_tx{display:inline-block;width:45px;font-weight:500;margin:0 20px 0 10px}
+.content input.num{width:100px;border:1px solid #ebebeb;padding:12px;font-size:14px;color:#888;border-radius:4px;margin-bottom:0}
+.content .item .line{margin:0 10px}
 .content .item .certify_num{display:inline-block;width:45px;color:#006DCA;margin:0 20px 0 10px}
-.content .item .email_aply_btn button{width:100px;background-color:#006DCA;color:#fff;border:none;font-size:13px;height:40px}
+.content .item .certify_aply_btn{margin-left:20px}
+.content .item .certify_aply_btn button{width:100px;background-color:#006DCA;color:#fff;border:none;font-size:13px;height:40px}
 .content .item .certify_btn button{width:100px;background-color:#40464F;color:#fff;border:none;font-size:13px;height:40px}
 .content .req_cont .info_tx{margin-top:30px;}
 .content .req_cont .info_tx li{position:relative;padding-left:10px;font-size:13px;line-height:23px}
 .content .req_cont .info_tx li .bul_dot{position:absolute;left:0;top:10px;width:3px;height:3px;background-color:#000;}
+.content .req_cont .info_tx .chk_p{text-align:center;margin-top:30px;font-size:14px;}
+.content .req_cont .info_tx .chk_p .chk_box{display:inline-block;width:16px;height:16px;margin-bottom:2px;vertical-align:middle;margin-right:10px;}
+.content .btn_section{text-align:center;margin-top:30px;}
+.content .btn_section .aply_btn{width:128px;height:52px;margin-right:10px;border-radius:25px;background-color:#191F28;color:#fff;}
+.content .btn_section .cancel_btn{width:128px;height:52px;border-radius:25px;}
 

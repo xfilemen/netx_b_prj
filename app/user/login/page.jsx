@@ -64,10 +64,8 @@ export default function LoginPage() {
                   required
                 />
                 <div className={styles.saveid}>
-                  <input
-                    type="checkbox"
-                    placeholder="아이디 저장"
-                  /> <span className={styles.saveidtx}>아이디 저장</span>
+                  <input type="checkbox"/>
+                  <span className={styles.saveidtx}>아이디 저장</span>
                 </div>
                 <button type="submit" className={styles.login_btn}>로그인</button>
               </form>

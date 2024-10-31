@@ -56,10 +56,13 @@ export default function AuthForm({ type }) {
                       <input type="password" autoComplete="new-password" className={styles.txt} />
                   </div>
                   <div className={styles.item}>
-                      <label>CJ World 계정</label>
-                      <input type="text" className={styles.txt} />
-                      <span className={styles.mail_tx}>@cj.net</span>
-                      <span className={styles.email_aply_btn}>
+                      <label>휴대폰번호</label>
+                      <input type="number" className={styles.num} />
+                      <span className={styles.line}>-</span>
+                      <input type="number" className={styles.num} />
+                      <span className={styles.line}>-</span>
+                      <input type="number" className={styles.num} />
+                      <span className={styles.certify_aply_btn}>
                         <button>인증번호 발송</button>
                       </span>
                   </div>
@@ -81,6 +84,14 @@ export default function AuthForm({ type }) {
                     <li><span className={styles.bul_dot}></span>사내망을 통해 다른 직원의 PC에 임의로 접근하여, 파일을 열람, 변조, 삭제하지 않아야 한다.</li>
                     <li><span className={styles.bul_dot}></span>회사는 정보자산의 보호 및 부정행위 예방/대응을 위하여 임직원의 회사 업무용 시스템 사용 내역을 기록하고 모니터링 할 수 있다.</li>
                   </ul>
+                  <p className={styles.chk_p}>
+                    <input type="checkbox" className={styles.chk_box}/>
+                    본인은 상기 내용을 준수하고 동의합니다.
+                  </p>
+                </div>
+                <div className={styles.btn_section}>
+                  <button className={styles.aply_btn}>확인</button>
+                  <button className={styles.cancel_btn}>취소</button>
                 </div>
             </div>
         )}
