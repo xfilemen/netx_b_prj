@@ -74,15 +74,11 @@ export default function LoginPage() {
               <div className={styles.join_section}>
                 <ul>
                   <li>
-                    <button onClick={() => openModal('')}>계정찾기</button>
+                    <button onClick={() => openModal('requestAccount')}>계정생성 요청</button>
                   </li>
                   <li className={styles.line}>ㅣ</li>
                   <li>
                     <button onClick={() => openModal('')}>비밀번호 찾기</button>
-                  </li>
-                  <li className={styles.line}>ㅣ</li>
-                  <li>
-                    <button onClick={() => openModal('requestAccount')}>계정생성 요청</button>
                   </li>
                 </ul>
               </div>
