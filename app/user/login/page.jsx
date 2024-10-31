@@ -30,8 +30,7 @@ export default function LoginPage() {
 
     } else {
       //아이디 저장 체크 여부 확인
-      const checkbox = document.getElementById('id_check');
-      if(checkbox.checked) {
+      if(isChecked) {
         localStorage.setItem('cj_id', cj_id);
       }else{
         localStorage.removeItem('cj_id');
@@ -94,7 +93,6 @@ export default function LoginPage() {
                 />
                 <div className={styles.saveid}>
                   <input
-                    id='id_check'
                     type="checkbox"
                     checked={isChecked}
                     placeholder="아이디 저장"
