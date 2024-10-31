@@ -21,7 +21,7 @@ export default function HeaderPage() {
   };
 
   const handleSignOut = () => {
-    signOut({ callbackUrl: '/login' }); // 로그아웃 처리
+    signOut({ callbackUrl: '/user/login' }); // 로그아웃 처리
   };
 
   useEffect(() => {

@@ -11,9 +11,13 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [modalType, setModalType] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+
+
     const result = await signIn("credentials", {
       redirect: false,
       cj_id,
@@ -25,6 +29,13 @@ export default function LoginPage() {
       alert(result.error);
 
     } else {
+      //아이디 저장 체크 여부 확인
+      if(isChecked) {
+        localStorage.setItem('cj_id', cj_id);
+      }else{
+        localStorage.removeItem('cj_id');
+      }
+
       window.location.href = "/main" 
     }
   }
@@ -38,6 +49,23 @@ export default function LoginPage() {
     setIsModalOpen(false); // 모달 닫기
     setModalType(null); // 모달 타입 초기화
   };
+
+  const idCheck = () => {
+    setIsChecked((prev) => !prev);
+  }
+
+
+
+  useEffect(() => {
+    // 저장된 아이디 있으면 화면에 셋팅
+    const storedId = localStorage.getItem('cj_id');
+    if (storedId) {
+      setUsername(storedId);    
+      setIsChecked(true);
+    }else{
+      localStorage.removeItem('cj_id');
+    }
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -63,9 +91,12 @@ export default function LoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                <div className={styles.saveid}>
-                  <input type="checkbox"/>
-                  <span className={styles.saveidtx}>아이디 저장</span>
+                <div className={styles.saveid}><input
+                    type="checkbox"
+                    checked={isChecked}
+                    placeholder="아이디 저장"
+                    onClick={idCheck}
+                  /> <span className={styles.saveidtx}>아이디 저장</span>
                 </div>
                 <button type="submit" className={styles.login_btn}>로그인</button>
               </form>
