@@ -1,9 +1,5 @@
 import { NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
-//import {getBoardInfo} from '/lib/dao.js';
-//import {authOptions} from '/lib/auth-config.js';
-//import { getServerSession } from 'next-auth';
-//import middleware from "next-auth/middleware";
 
 
 export async function middleware(request) {
@@ -62,28 +58,6 @@ export async function middleware(request) {
   return NextResponse.next();
 }
 
-// export default middleware({
-//     pages: {
-//         signIn: '/user/login',
-//       },
-//     callbacks: {
-//     authorized: ({ req, token }) => {
-//         if (!token){
-//             console.log('토큰값 없음');
-//             return new NextResponse(
-//                 JSON.stringify({ message: 'Unauthorized' }), 
-//                 {
-//                   status: 401, // 401 상태 코드
-//                   headers: { 'Content-Type': 'application/json' }, 
-//                 }
-//               );
-//         }
-//         console.log('token',token);
-
-//         return true; // 기본적으로 false 반환
-//     },
-//     },
-//   });
 // // 미들웨어를 적용할 경로 설정
 export const config = {
   matcher: [

@@ -49,8 +49,10 @@ export async function POST(req) {
             regDt : nowData
           },
         });
-
+        reqDet[i].reqDetId = createdTbReqMgtDet.reqDetId;
       }
+      
+      tbReqMgt.reqDet = reqDet;
 
 
       return new Response(JSON.stringify({ message: '정상적으로 처리되었습니다.', data : tbReqMgt}), {

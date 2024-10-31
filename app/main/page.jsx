@@ -6,7 +6,7 @@ import requstData from '../data/regRequstList.json';
 import styles from '/app/styles/main.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
-import apiHandler from '../../lib/api-handler';
+import apiHandler from '../../utils/api-handler';
 
 
 

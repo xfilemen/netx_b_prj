@@ -9,7 +9,7 @@ import '../styles/datepicker-custom.css';
 import SelectBox from '../components/select';
 import CheckBox from '../components/checkbox';
 import Image from 'next/image';
-import apiHandler from '../../lib/api-handler';
+import apiHandler from '../../utils/api-handler';
 
 export default function RegPage() {
   const [isOpen, setIsOpen] = useState(false);

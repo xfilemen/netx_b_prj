@@ -3,7 +3,7 @@
 import React, { useEffect,useState } from 'react';
 import styles from '../styles/detail.module.css';
 import Image from 'next/image';
-import apiHandler from '../../lib/api-handler';
+import apiHandler from '../../utils/api-handler';
 
 export default function RegularPage({ item }) { 
   const [data, setData] = useState([]);
