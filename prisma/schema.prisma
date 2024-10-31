@@ -83,7 +83,8 @@ model tbReqMgtDet {
   reqOutDt        DateTime? @map("req_out_dt")        // 투입 종료일
   reqMm           Int?      @map("req_mm")            // M/M
   reqLoc          String?   @map("req_loc")           // 근무지
-  reqSkill        String?   @map("req_skill")         // 상세 요구기술
+  reqSkill        String?   @map("req_skill")         // 필수 요구기술
+  reqPrefSkill    String?   @map("req_pref_skill")    // 우대 요구기술
   useYn           String?   @map("use_yn")
   regDt           DateTime? @default(now()) @map("reg_dt") // 등록일
   regId           String?   @map("reg_id")            // 등록ID
@@ -200,4 +201,45 @@ model tbPost {
 
   @@id([pstId, brdId])
   @@map("tb_post")
+}
+
+model tbMenu {
+  menuId     Int      @default(autoincrement()) @map("menu_id")        // 메뉴ID
+  menuName   String   @map("menu_name")                               // 메뉴명
+  menuSeq    Int      @map("menu_seq")                                // 메뉴순서
+  menuUrl    String   @map("menu_url")                                // 메뉴 URL
+  useYn      String   @map("use_yn")                                  // 사용여부
+  regDt      DateTime @default(now()) @map("reg_dt")                   // 등록일
+  regId      String?  @map("reg_id")                                  // 등록ID
+  modDt      DateTime? @map("mod_dt")                                  // 수정일
+  modId      String?  @map("mod_id")                                  // 수정ID
+
+  @@id([menuId])                                                      
+  @@map("tb_menu")                                                   
+}
+
+model tbMenuLog {
+  accsLogSeq Int      @default(autoincrement()) @map("accs_log_seq")     // LOG 순번
+  userId     String   @map("user_id")                                    // CJ WORLD 계정
+  accsMenu   String   @map("accs_menu")                                  // 접근 메뉴
+  accsType   String   @map("accs_type")                                  // 작업유형
+  accsIp     String?  @map("accs_ip")                                    // 접근자 IP
+  accsDt     DateTime? @map("accs_dt")                                   // 접근일
+  accsEtc    String?  @map("accs_etc")                                   // 비고
+
+  @@id([accsLogSeq, userId])                                          
+  @@map("tb_menu_log")                                                   
+}
+
+model tbReqMgtLog {
+  reqLogId    Int      @default(autoincrement()) @map("req_log_id")   // 요청 진행 내역 순번
+  reqId       Int      @map("req_id")                                  // 요청ID
+  reqLogDesc  String?  @map("req_log_desc")                            // 요청 진행 내역 내용
+  regDt       DateTime @default(now()) @map("reg_dt")                  // 등록일
+  regId       String?  @map("reg_id")                                  // 등록ID
+  modDt       DateTime? @map("mod_dt")                                 // 수정일
+  modId       String?  @map("mod_id")                                  // 수정ID
+
+  @@id([reqLogId, reqId])                                              // 복합 Primary Key
+  @@map("tb_req_mgt_log")                                              // 테이블 이름 매핑
 }
