@@ -11,7 +11,7 @@
 .loginSection .content .saveid input[type="checkbox"]{float:left;display:inline;width:18px;height:18px;margin:0;}
 .loginSection .content .saveid .saveidtx{float:left;margin-left:5px;margin-bottom:10px;}
 .loginSection .content .login_btn{width:100%;text-align:center;background-color:#000;color:#fff;font-size:16px;border-radius:4px;padding:14px 0;}
-.loginSection .content .join_section{width:318px;margin:20px auto 0;}
+.loginSection .content .join_section{width:194px;margin:20px auto 0;}
 .loginSection .content .join_section li{float:left;color:#888;}
 .loginSection .content .join_section li.line{color:#D9D9D9;margin:0 14px;}
 
