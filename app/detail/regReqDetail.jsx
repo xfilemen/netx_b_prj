@@ -8,6 +8,7 @@ export default function RegDetail({ item }) {
   
   const [isOpen, setIsOpen] = useState(false);
   const [detailsOpen, setDetailsOpen] = useState([true]); // details 아코디언 상태 배열로 관리
+  const [isStatusVisible, setStatusVisible] = useState(false); // 토글 상태 관리
 
   const getStatusText = (status) => {
     switch (status) {
@@ -53,6 +54,11 @@ export default function RegDetail({ item }) {
     setDetailsOpen(updatedDetailsOpen);
   };
 
+  const handleStatusToggle = () => {
+    setStatusVisible(!isStatusVisible); // 클릭 시 토글
+  };
+
+
   return (
     item && (
       <div className={styles.detail_content}>
@@ -75,8 +81,23 @@ export default function RegDetail({ item }) {
           </ul>
           <progress className={styles.progressbar} value="66" min="0" max="100"></progress>
         </div>
-        <div className={styles.detail_prog_btn}>
-          <button>상세 진행 현황</button>
+        <div className={styles.detail_prog}>
+          <button onClick={handleStatusToggle}>상세 진행 현황</button>
+          <div className={styles.status_list} style={{ display: isStatusVisible ? 'block' : 'none' }}>
+            <div className={styles.header}>
+              상세 진행 현황
+              <div className={styles.close_btn}>
+                <a onClick={handleStatusToggle}>
+                  <Image
+                    src="/images/detail/close_btn.png"
+                    alt="닫기"
+                    width={24}
+                    height={24}
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
         {/* 기본 정보 아코디언 */}
         <div className={styles.accordion}>

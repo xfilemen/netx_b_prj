@@ -89,5 +89,10 @@
 .progressbar::-webkit-progress-bar{background:#E3E3E4;border-radius:10px;}
 .progressbar::-webkit-progress-value{border-radius:10px;background:#1D976C;background:-webkit-linear-gradient(to right, #FFE09C, #FF9700);background: linear-gradient(to right, #FFE09C, #FF9700);}
 
-.content .detail_prog_btn{text-align:right;margin-right:36px;}
-.content .detail_prog_btn button{border:1px solid #000}
+/* 상세 진행 현황 */
+.content .detail_prog{position:relative;text-align:right;margin-right:36px;}
+.content .detail_prog button{border:1px solid #000}
+.content .detail_prog .status_list{position:absolute;top:50px;right:0;width:600px;height:725px;text-align:left;background-color:#fff;border-radius:12px;box-shadow: 0px 8px 8px 0px #0000001F;}
+.content .detail_prog .status_list .header{position:relative;;background-color:#006DCD;color:#fff;border-radius:12px 12px 0 0;padding:17px 30px;font-size:14px}
+.content .detail_prog .status_list .header .close_btn{position:absolute;top:15px;right:30px}
+.content .detail_prog .status_list .header .close_btn a{cursor:pointer;}
