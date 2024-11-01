@@ -79,8 +79,8 @@ model tbReqMgtDet {
   reqJob          String?   @map("req_job")           // 직무구분
   reqJobDet       String?   @map("req_job_det")       // 직무구분상세
   reqGrade        String?   @map("req_grade")         // 등급
-  reqInDt         DateTime? @map("req_in_dt")         // 투입 예정일
-  reqOutDt        DateTime? @map("req_out_dt")        // 투입 종료일
+  reqInDt         String?   @map("req_in_dt")         // 투입 예정일
+  reqOutDt        String?   @map("req_out_dt")        // 투입 종료일
   reqMm           Int?      @map("req_mm")            // M/M
   reqLoc          String?   @map("req_loc")           // 근무지
   reqSkill        String?   @map("req_skill")         // 필수 요구기술
