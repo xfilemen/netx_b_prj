@@ -98,8 +98,8 @@ export default function RegPage() {
       reqId:'',
       reqJob: '',
       reqGrade: '',
-      reqInDt: '',
-      reqOutDt: '',
+      reqInDt: null,
+      reqOutDt: null,
       reqMm: '',
       reqLoc: '',
       reqSkill: '',
@@ -111,11 +111,10 @@ export default function RegPage() {
 
   // 상태 설정
   const [detFormData, setDetFormData] = useState(createDetailData(selectedHeadcount));
+  const [data, setData] = useState([]);
 
   const API_URL1 = '/api/req/regist'; // API 경로를 상수로 관리
-  const API_URL2 = '/api/req/regist/detail';
   const GET_SEQ_URL1 = '/api/req/getReqSeq';
-  const GET_SEQ_URL2 = '/api/req/getDetReqSeq';
 
   // 데이터 저장
   const insertData = async () => {
@@ -126,16 +125,31 @@ export default function RegPage() {
       const seq = await apiHandler.postData(GET_SEQ_URL1);
       console.log('📢 [page.jsx:105]', seq.data);
       formData.reqId = parseInt(seq.data);
-
+      detFormData.reqType = [...checkState];
+      
+      console.log('📢 [page.jsx:130]', formData.reqDet);
       // POST 요청에서 formData 전체 객체를 전달 (객체 단축 속성 사용)
-      const result = await apiHandler.postData(API_URL1, { ...formData });
-
       for (let index = 0; index < detFormData.length; index++) {
-        detFormData[index].reqId = parseInt(seq.data);
-        const seq2 = await apiHandler.postData(GET_SEQ_URL2);
-        detFormData[index].reqDetId = parseInt(seq2.data);
-        await apiHandler.postData(API_URL2, { ...detFormData[index] })
+        console.log('📢 [page.jsx:132]', checkState[index]);
+        const getTrueKeysAsString = (obj) => {
+          if (obj && typeof obj === 'object') {
+              return Object.keys(obj)
+                  .filter(key => obj[key])
+                  .join(', ');
+          }
+          return '';
+        };
+        const trueKeysString = getTrueKeysAsString(checkState[index]);
+        console.log('📢 [page.jsx:133]', trueKeysString);
+        detFormData[index].reqType = trueKeysString;
+        detFormData[index].reqId= parseInt(seq.data);
       }
+      console.log('📢 체크 확인: ',formData.reqDet);
+      formData.reqDet = [...detFormData];
+      formData.reqName = formData.reqTitle;
+      
+      console.log('📢 [page.jsx:151]', data);
+      const result = await apiHandler.postData(API_URL1, { formData });
 
       console.log('📢 [page.jsx:95]', result);
       
@@ -192,31 +206,16 @@ export default function RegPage() {
     if (type === "number") {
       value = parseInt(value);
     }
-    console.log('📢 [page.jsx:189]', type);
-    console.log('📢 [page.jsx:193]', value);
-    console.log('📢 [page.jsx:194]', name);
-    console.log('📢 [page.jsx:195]', index);
-    console.log('📢 [page.jsx:195]', detFormData);
-    setDetFormData((prevData) =>
+
+    if (name == "reqLoc")
+    setCheckState((prevData) =>
       prevData.map((item, i) =>
-        i === index ? { ...item, [name]: value } : item
+        i === index ? { ...item, [name]: false } : item
       )
     );
-    console.log('📢 [page.jsx:189]', detFormData);
-  };
+    
+    console.log('📢 [page.jsx:204]', checkState[index]);
 
-  // 상세 입력 값이 변경될 때
-  const handleDetChkChange = (index, value1) => (event) => {
-    console.log('📢 [page.jsx:190]', selectedHeadcount);
-    let { value, name } = event.target;
-    console.log('📢 [page.jsx:196]', value1);
-    console.log('📢 [page.jsx:193]', value);
-    console.log('📢 [page.jsx:194]', name);
-    console.log('📢 [page.jsx:195]', index);
-    console.log('📢 [page.jsx:195]', detFormData);
-    if(name == 'req_mm') {
-      value = parseInt(value);
-    }
     setDetFormData((prevData) =>
       prevData.map((item, i) =>
         i === index ? { ...item, [name]: value } : item
@@ -256,136 +255,43 @@ export default function RegPage() {
     console.log('📢 [page.jsx:174]', formData);
   };
 
-  const handleCheckboxChange1 = (index) => (e) => {
-    const { name, checked } = e.target;
-    const updatedCheckedItems = [...checkedItems];
-    if (!updatedCheckedItems[index]) {
-      updatedCheckedItems[index] = {}; // 새 객체 생성
-    }
-    updatedCheckedItems[index] = {
-      ...updatedCheckedItems[index],
-      [name]: checked,
-    };
-    setCheckedItems(updatedCheckedItems);
-    handleDetChange(index)(e);
-  };
+  const [checkNullState, setCheckNullState] = useState([]);
+  const [checkState, setCheckState] = useState([]);
+  // 체크박스 상태 변경 함수
+  const handleCheckboxChange = (name, index) => (event) => {
+    console.log('📢 [page.jsx:251]', name);
+    const { checked } = event.target;
 
-  const handleCheckboxChange99 = (index, item, z) => (e) => {
-    console.log('📢 [page.jsx:238]', index, item, z);
-    console.log('📢 [page.jsx:239]', e.target.name);
-    const {name} = e.target;
-    console.log('📢 [page.jsx:241]', name);
-    if (detFormData[index].name == undefined) {
-      console.log('📢 [page.jsx:243]', item.label);
-      console.log('📢 [page.jsx:244]', e.target.value);
+    console.log('📢 [page.jsx:259]', checked);
+    if (!checked) {
+      if(name == "reqLoc" || name == "reqOutDt") {
+        console.log('📢 [page.jsx:253]');
+        detFormData[index][name] = "";
+        console.log('📢 [page.jsx:255]', detFormData[index]);
+      }
+
+      return true;
     } else {
-      handleDetChkChange
+
     }
-  };
+  
+    setCheckState((prevState) => {
+      const updatedState = [...prevState];
+      
+      // 인덱스 위치에 데이터가 없을 경우 초기화
+      if (!updatedState[index]) {
+        updatedState[index] = {};
+      }
+  
+      // 해당 인덱스의 name 값을 업데이트
+      updatedState[index] = {
+        ...updatedState[index],
+        [name]: checked,
+      };
+      return updatedState;
+    });
 
-  const [reqGradeChk, setReqGradeChk] = useState([]); // 초기 상태는 빈 배열
-
-  const handleCheckboxChange = (index, item) => (e) => {
-    console.log('📢 [page.jsx:268]', index);
-    console.log('📢 [page.jsx:269]', item.label);
-    console.log('📢 [page.jsx:270]', e.target);
-    console.log('📢 [page.jsx:271]', e.target.checked);
-    setReqTypeChk([]);
-    console.log('📢 [page.jsx:280]', reqTypeChk);
-    setReqTypeChk(detFormData[index].req_type);
-    console.log('📢 [page.jsx:281]', detFormData[index].req_type);
-    console.log('📢 [page.jsx:28199]', reqTypeChk);
-
-    if(e.target.checked) {
-      addItem(item.label, e.target.name, index);
-      console.log('📢 [page.jsx:282]', );
-    } else {
-      removeItem(item.label, e.target.name, index);
-    }
-
-    console.log('📢 [page.jsx:276]', reqTypeChk);
-    console.log('📢 [page.jsx:283]', reqGradeChk);
-
-    setDetFormData((prevData) =>
-      prevData.map((item, i) =>
-        i === index ? { ...item, [e.target.name]: reqTypeChk } : item
-      )
-    );
-    console.log('📢 [page.jsx:295]', detFormData);
-  };
-
-  // 체크박스 선택시 데이터 추가
-  const addItem = (newItem, name, index) => {
-    console.log('📢 [page.jsx:282]', newItem);
-    console.log('📢 [page.jsx:288]', name);
-    console.log('📢 [page.jsx:293]', index);
-    if (name === "req_type") {
-      setReqTypeChk((prevItems) => {
-        if (!Array.isArray(prevItems)) {
-          // console.error('prevItems is not an array', prevItems);
-          return [newItem]; // prevItems가 배열이 아닌 경우 새 배열 생성
-        }
-        return [...prevItems, newItem]; // 기존 배열에 새 항목 추가
-      });
-    } else {
-      setReqGradeChk((prevItems) => {
-        if (!Array.isArray(prevItems)) {
-          // console.error('prevItems is not an array', prevItems);
-          return [newItem]; // prevItems가 배열이 아닌 경우 새 배열 생성
-        }
-        return [...prevItems, newItem]; // 기존 배열에 새 항목 추가
-      });
-    }
-  };
-
-  // 체크박스 선택시 데이터 추가
-  const addItem2 = (newItem, name, index) => {
-    console.log('📢 [page.jsx:282]', newItem);
-    console.log('📢 [page.jsx:288]', name);
-    console.log('📢 [page.jsx:293]', index);
-    if (name === "req_type") {
-      setReqTypeChk((prevItems) => {
-        if (!Array.isArray(prevItems)) {
-          console.error('prevItems is not an array', prevItems);
-          return [newItem]; // prevItems가 배열이 아닌 경우 새 배열 생성
-        }
-        return [...prevItems, newItem]; // 기존 배열에 새 항목 추가
-      });
-    } else {
-      setReqGradeChk((prevItems) => {
-        if (!Array.isArray(prevItems)) {
-          console.error('prevItems is not an array', prevItems);
-          return [newItem]; // prevItems가 배열이 아닌 경우 새 배열 생성
-        }
-        return [...prevItems, newItem]; // 기존 배열에 새 항목 추가
-      });
-    }
-  };
-
-  // 체크박스 해제시 데이터 삭제
-  const removeItem = (itemToRemove, name) => {
-    console.log('📢 [page.jsx:297]', itemToRemove);
-    console.log('📢 [page.jsx:299]', name);
-    if (name === "req_type") {
-      setReqTypeChk((prevItems) => {
-        // 항목이 존재하는지 확인
-        if (prevItems.includes(itemToRemove)) {
-          // 항목을 제외한 새로운 배열 반환
-          return prevItems.filter(item => item !== itemToRemove);
-        }
-        return prevItems; // 항목이 존재하지 않으면 변경하지 않음
-      });
-    } else {
-      setReqGradeChk((prevItems) => {
-        // 항목이 존재하는지 확인
-        if (prevItems.includes(itemToRemove)) {
-          // 항목을 제외한 새로운 배열 반환
-          return prevItems.filter(item => item !== itemToRemove);
-        }
-        return prevItems; // 항목이 존재하지 않으면 변경하지 않음
-      });
-    }
-    
+    console.log('📢 [page.jsx:318]', checkState);
   };
 
   // 시작일을 개별적으로 설정하는 함수
@@ -422,12 +328,11 @@ export default function RegPage() {
   };
 
   const formatDate = (date) => {
-    const newDate = new Date(date).toISOString(); // "YYYY-MM-DDTHH:MM:SSZ" 형식으로 변환
+    const year = date.getFullYear(); // 년도
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // 월 (0부터 시작하므로 1 더해줌)
+    const day = String(date.getDate()).padStart(2, '0'); // 일
   
-    // return `${year}-${month}-${day}`; // 형식: yyyy-mm-dd
-    
-    // const formattedDate = newDate.toLocaleDateString('sv-SE'); // "YYYY-MM-DD" 형식으로 변환
-    return newDate;
+    return `${year}-${month}-${day}`; // 형식: yyyy-mm-dd
   }
 
   const goMian = () => {
@@ -566,7 +471,7 @@ export default function RegPage() {
                         label={item.label}
                         name="reqType"
                         checked={checkState[item.name]}
-                        onChange={handleCheckboxChange(index,item)}
+                        onChange={handleCheckboxChange(item.label, index)}
                       />
                     ))}
                   </div>
@@ -594,6 +499,8 @@ export default function RegPage() {
                       placeholderText="종료일"
                       selected={lastDates[index]}
                       className={styles.calendar}
+                      name="reqOutDt"
+                      value={detFormData[index].reqOutDt}
                       onChange={handleLastDateChange(index)}
                     />
                     <span className={styles.end_chk}>
@@ -603,36 +510,36 @@ export default function RegPage() {
                           label={item.label}
                           name={item.name}
                           checked={checkState[item.name]}
-                          onChange={handleCheckboxChange}
+                          onChange={handleCheckboxChange("reqOutDt", index)}
                         />
                       ))}
                     </span>
                   </div>
                   <div className={styles.item}>
                     <span className={styles.tx}>투입 공수</span>
-                    <input type="number" placeholder="ex. 1 or 0.5" className={styles.mm_tx} name='reqMm' onChange={handleDetChange(index)}/>
+                    <input type="number" placeholder="ex. 1 or 0.5" className={styles.mm_tx} name='reqMm' value={detFormData[index].reqMm} onChange={handleDetChange(index)}/>
                     <span className={styles.tx}>M/M</span>
                   </div>
                   <div className={styles.item}>
                     <span className={styles.tx}>근무지</span>
-                    <input type="text" placeholder="ex. 지역명 + 빌딩명 or 본사명" className={`${styles.txt} ${styles.w_txt}` } name="reqLoc" onChange={handleDetChange(index)}/>
+                    <input type="text" placeholder="ex. 지역명 + 빌딩명 or 본사명" className={`${styles.txt} ${styles.w_txt}` } name="reqLoc" value={detFormData[index].reqLoc} onChange={handleDetChange(index)}/>
                     {workplace.map((item) => (
                       <CheckBox
                         key={item.name}
                         label={item.label}
                         name={item.name}
                         checked={checkState[item.name]}
-                        onChange={handleCheckboxChange}
+                        onChange={handleCheckboxChange("reqLoc", index)}
                       />
                     ))}
                   </div>
                   <div className={styles.item}>
                     <span className={`${styles.tx} ${styles.v_t}`}>필수<br />요구기술</span>
-                    <textarea name="" placeholder="요구 스킬 기재" className={styles.text_box}></textarea>
+                    <textarea name="reqSkill" placeholder="요구 스킬 기재" className={styles.text_box} onChange={handleDetChange(index)}></textarea>
                   </div>
                   <div className={styles.item}>
                     <span className={`${styles.tx} ${styles.v_t}`}>우대<br />요구기술</span>
-                    <textarea name="" placeholder="요구 스킬 기재" className={styles.text_box}></textarea>
+                    <textarea name="reqPrefSkill" placeholder="요구 스킬 기재" className={styles.text_box} onChange={handleDetChange(index)}></textarea>
                   </div>
                 </div>
               )}
