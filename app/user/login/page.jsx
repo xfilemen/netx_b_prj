@@ -50,8 +50,8 @@ export default function LoginPage() {
     setModalType(null); // 모달 타입 초기화
   };
 
-  const idCheck = () => {
-    setIsChecked((prev) => !prev);
+  const idCheck = (e) => {
+    setIsChecked(e.target.checked); 
   }
 
 
@@ -95,7 +95,7 @@ export default function LoginPage() {
                     type="checkbox"
                     checked={isChecked}
                     placeholder="아이디 저장"
-                    onClick={idCheck}
+                    onChange={idCheck}
                   /> <span className={styles.saveidtx}>아이디 저장</span>
                 </div>
                 <button type="submit" className={styles.login_btn}>로그인</button>
