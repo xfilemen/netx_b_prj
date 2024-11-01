@@ -4,10 +4,13 @@ import React, { useEffect,useState } from 'react';
 import styles from '../styles/detail.module.css';
 import Image from 'next/image';
 import apiHandler from '../../utils/api-handler';
+import Modal from '../test/modal';
 
 export default function RegularPage({ item }) { 
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
+  const [modalType, setModalType] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
 
   
@@ -169,7 +172,7 @@ const reqRegist = async () => {
         main
       }});
       const result = await apiHandler.postData('/api/req/regist',{
-        main
+        data:main
       }); // POST 요청
       console.log('reqRegist : ',result);
       if(result.data === undefined){
@@ -191,7 +194,7 @@ const reqModify = async () => {
       main
     }});
     const result = await apiHandler.postData('/api/req/modify',{
-      main
+      data:main
     }); // POST 요청
     console.log('reqRegist : ',result);
     if(result.data === undefined){
@@ -229,7 +232,7 @@ const boardRegist = async () => {
 };
 const codeSelect = async () => {
   try {
-    const result = await apiHandler.postData('/api/code/select',{
+    const result = await apiHandler.postData('/api/common/code/select',{
       codeGrp : 'G001',
       
     }); // POST 요청
@@ -243,6 +246,17 @@ const codeSelect = async () => {
     console.log('error',error);
     setError(error);
   }
+};
+
+
+const openModal = (type) => {
+  setModalType(type); // 모달 타입 설정
+  setIsModalOpen(true); // 모달 열기
+};
+
+const closeModal = () => {
+  setIsModalOpen(false); // 모달 닫기
+  setModalType(null); // 모달 타입 초기화
 };
 
 
@@ -276,11 +290,13 @@ useEffect(function() {
       <div>
         <button onClick={reqRegist}>요청 등록하기 api 호출</button>
         <button onClick={reqModify}>요청 수정하기 api 호출</button>
-        <button onClick={reqRegist}>요청 상세등록하기 api 호출</button>
+        <button onClick={() => openModal('requestAccount')}>계정생성 요청</button>
       </div>
       <div>
         <button onClick={boardRegist}>게시물 등록하기 api 호출</button>
       </div>
+      
+      <div>{isModalOpen && <Modal type={modalType} />}</div>
     </div>
   );
 }
