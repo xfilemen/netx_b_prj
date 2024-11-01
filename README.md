@@ -14,6 +14,7 @@
    - npx prisma generate
    - npm install next-auth
    - npm install axios
+   - npm install react-hook-form
    - npm i env-cmd
    - npx next build
    - npx next start (수정 작업중에는 npm run dev 입력)

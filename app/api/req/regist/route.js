@@ -1,15 +1,14 @@
 import prisma from '/lib/prisma';
+import {getObjTrimAndNullProc} from '/utils/common-util';
 export async function POST(req) {
   try {
-    
     const data = await req.json();
-    //console.log(data);
-
     const currentTime = await prisma.$queryRaw`SELECT CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Seoul'`;
     const nowData = new Date(currentTime[0].timezone);
 
-    if(data.params.main){
-      const { reqTitle, reqName, reqOrd, reqStatus, reqType, reqPurp, regId, reqDet} = data.params.main;
+    if(data.params.data){
+      const procData = getObjTrimAndNullProc(data.params.data);
+      const { reqTitle, reqName, reqOrd, reqStatus, reqType, reqPurp, regId, reqDet} = procData;
 
       const tbReqMgt = await prisma.tbReqMgt.create({
         data: {
@@ -24,13 +23,11 @@ export async function POST(req) {
         },
       });
 
-      console.log(tbReqMgt);
-
       // 상세
       for(let i in reqDet){
-        console.log(i);
+        const procData = getObjTrimAndNullProc(reqDet[i]);
         let { reqType, reqHeadcount, reqJob, reqJobDet, reqGrade, 
-              reqInDt, reqOutDt, reqMm, reqLoc, reqSkill, regId } = reqDet[i];
+              reqInDt, reqOutDt, reqMm, reqLoc, reqSkill, regId } = procData;
 
         let createdTbReqMgtDet = await prisma.tbReqMgtDet.create({
           data: {
