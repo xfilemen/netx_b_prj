@@ -104,6 +104,8 @@ export default function RegPage() {
       reqLoc: '',
       reqSkill: '',
       reqJob: '',
+      reqOutDtNull: false,
+      reqLocNull: false,
       // reqJobDet: '',
       // 필요한 다른 필드들도 추가하세요
     })
@@ -152,6 +154,9 @@ export default function RegPage() {
       const result = await apiHandler.postData(API_URL1, { data: formData });
 
       console.log('📢 [page.jsx:95]', result);
+
+      // 완료 화면으로 이동
+      // location.href = '/request/complete';
       
     } catch (error) {
       console.error('❌ [page.jsx:100] Error inserting data:', error);
@@ -207,20 +212,20 @@ export default function RegPage() {
       value = parseInt(value);
     }
 
-    if (name == "reqLoc")
-    setCheckState((prevData) =>
-      prevData.map((item, i) =>
-        i === index ? { ...item, [name]: false } : item
-      )
-    );
+    if (name == "reqLoc"){
+      setDetFormData((prevData) =>
+        prevData.map((item, i) =>
+          i === index ? { ...item, ["reqLocNull"]: false, [name]: value } : item
+        )
+      );
+    } else {
+      setDetFormData((prevData) =>
+        prevData.map((item, i) =>
+          i === index ? { ...item, [name]: value } : item
+        )
+      );
+    }
     
-    console.log('📢 [page.jsx:204]', checkState[index]);
-
-    setDetFormData((prevData) =>
-      prevData.map((item, i) =>
-        i === index ? { ...item, [name]: value } : item
-      )
-    );
     console.log('📢 [page.jsx:189]', detFormData);
   };
   
@@ -263,16 +268,20 @@ export default function RegPage() {
     const { checked } = event.target;
 
     console.log('📢 [page.jsx:259]', checked);
-    if (!checked) {
-      if(name == "reqLoc" || name == "reqOutDt") {
-        console.log('📢 [page.jsx:253]');
-        detFormData[index][name] = "";
-        console.log('📢 [page.jsx:255]', detFormData[index]);
-      }
 
-      return true;
-    } else {
+    if(name == "reqLocNull" || name == "reqOutDtNull") {
+      console.log('📢 [page.jsx:253]', name);
+      detFormData[index][name] = "";
+      console.log('📢 [page.jsx:255]');
 
+     console.log('📢 [page.jsx:280]', checkNullState);
+
+      setDetFormData((prevData) =>
+        prevData.map((item, i) =>
+          i === index ? { ...item, [name]: checked, } : item
+        )
+      );
+      console.log('📢 [page.jsx:285]', detFormData);
     }
   
     setCheckState((prevState) => {
@@ -292,6 +301,26 @@ export default function RegPage() {
     });
 
     console.log('📢 [page.jsx:318]', checkState);
+  };
+
+  // 미정 체크박스 상태 변경 함수
+  const handleNullCheckboxChange = (name2, index) => (event) => {
+    const { checked, name, value } = event.target;
+
+    console.log('📢 [page.jsx:259]', checked);
+
+    if(name2 == "reqLocNull" || name2 == "reqOutDtNull") {
+      console.log('📢 [page.jsx:253]', name2);
+      
+      console.log('📢 [page.jsx:255]',name);
+
+      setDetFormData((prevData) =>
+        prevData.map((item, i) =>
+          i === index ? { ...item, [name2]: checked, [name]: '', } : item
+        )
+      );
+      console.log('📢 [page.jsx:285]', detFormData);
+    }
   };
 
   // 시작일을 개별적으로 설정하는 함수
@@ -321,7 +350,7 @@ export default function RegPage() {
     setLastDates(updatedLastDates);
     setDetFormData((prevData) =>
       prevData.map((item, i) =>
-        i === index ? { ...item, ["reqOutDt"]: newDate } : item
+        i === index ? { ...item, ["reqOutDt"]: newDate, ["reqOutDtNull"]: false, } : item
       )
     );
     console.log('📢 [page.jsx:189]', detFormData);
@@ -349,6 +378,8 @@ export default function RegPage() {
             reqId: '',
             reqJob: '',
             reqType: '',
+            reqOutDtNull: false,
+            reqLocNull: false,
             // 필요한 다른 필드들도 추가
           })),
         ];
@@ -359,6 +390,10 @@ export default function RegPage() {
       return prevData; // 변화가 없을 때는 이전 데이터 그대로 반환
     });
   }, [selectedHeadcount]);
+
+  useEffect(() => {
+    console.log('📢 [page.jsx:364]999', detFormData);
+  }, [detFormData]);
 
   return (
     <div className={styles.content}>
@@ -505,12 +540,19 @@ export default function RegPage() {
                     />
                     <span className={styles.end_chk}>
                       {endTimeChk.map((item) => (
+                        // <CheckBox
+                        //   key={item.name}
+                        //   label={item.label}
+                        //   name='reqOutDtNul'
+                        //   checked={checkState[item.name]}
+                        //   onChange={handleCheckboxChange("reqOutDtNull", index)}
+                        // />
                         <CheckBox
                           key={item.name}
                           label={item.label}
-                          name={item.name}
-                          checked={checkState[item.name]}
-                          onChange={handleCheckboxChange("reqOutDt", index)}
+                          name='reqOutDt'
+                          checked={detFormData[index]["reqOutDtNull"]}
+                          onChange={handleNullCheckboxChange("reqOutDtNull", index)}
                         />
                       ))}
                     </span>
@@ -527,9 +569,9 @@ export default function RegPage() {
                       <CheckBox
                         key={item.name}
                         label={item.label}
-                        name={item.name}
-                        checked={checkState[item.name]}
-                        onChange={handleCheckboxChange("reqLoc", index)}
+                        name='reqLoc'
+                        checked={detFormData[index]["reqLocNull"]}
+                        onChange={handleNullCheckboxChange("reqLocNull", index)}
                       />
                     ))}
                   </div>
