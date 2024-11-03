@@ -149,7 +149,7 @@ export default function RegPage() {
       formData.reqName = formData.reqTitle;
       
       console.log('📢 [page.jsx:151]', data);
-      const result = await apiHandler.postData(API_URL1, { formData });
+      const result = await apiHandler.postData(API_URL1, { data: formData });
 
       console.log('📢 [page.jsx:95]', result);
       
