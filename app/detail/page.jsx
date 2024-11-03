@@ -105,7 +105,7 @@ export default function RegularPage({ item }) {
                         <div className={styles.section}>
                           <p className={styles.tit_tx}>{item.reqTitle}</p>
                           <div className={styles.tx_info}>
-                            <div className={styles.priority}>유형 : <span className={styles.prior}>{item.reqType}</span></div>
+                            <div className={styles.priority}>유형 : <span className={styles.prior}>{item.reqType == 1 ? "대내" : "대외"}</span></div>
                             <div className={styles.date}>요청일 {item.regDt.substring(0,10)}</div>
                             <div className={styles.num}>요청인원 {item.reqHeadcount}명</div>
                           </div>
