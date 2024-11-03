@@ -24,7 +24,7 @@ export default function RegularPage({ item }) {
 
   const getData = async (url) => {
     console.log('📢 [page.jsx:26]', url);
-    const result = await apiHandler.postData(url,"param"); // POST 요청
+    const result = await apiHandler.postData(url); // POST 요청
     console.log('요청 전체 조회 : ',result.data);
     setData(result.data);
     isGetData.current = true;
@@ -105,7 +105,7 @@ export default function RegularPage({ item }) {
                         <div className={styles.section}>
                           <p className={styles.tit_tx}>{item.reqTitle}</p>
                           <div className={styles.tx_info}>
-                            <div className={styles.priority}>유형 : <span className={styles.prior}>{item.reqOrd}</span></div>
+                            <div className={styles.priority}>유형 : <span className={styles.prior}>{item.reqType}</span></div>
                             <div className={styles.date}>요청일 {item.regDt.substring(0,10)}</div>
                             <div className={styles.num}>요청인원 {item.reqHeadcount}명</div>
                           </div>
