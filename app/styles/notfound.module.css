@@ -1,0 +1,4 @@
+.wrap{height:800px;border-top:1px solid #dfdfdf;background:#F7F8FC url('../../public/images/detail/notfound_bg.png') no-repeat center;background-color: #F7F8FC;background-size:100%;}
+.not_page{width:500px;margin:290px auto 0;text-align:center;}
+.not_page h2{font-size:30px;margin-bottom:20px;}
+.btn a{display:block;background-color:#006FCD;width:96px;height:40px;border-radius:26px;color:#fff;font-size:16px;margin:36px auto 0;line-height:38px;}
