@@ -4,6 +4,9 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import style from '/app/styles/notfound.module.css';
+import Header from '/app/components/header';
+import Link from 'next/link';
 
 const CustomErrorPage = ({ error }) => {
   const router = useRouter();
@@ -17,10 +20,21 @@ const CustomErrorPage = ({ error }) => {
   }, []);
 
   return (
-    <div style={{ textAlign: 'center', padding: '50px' }}>
-      <h1>오류가 발생했습니다!</h1>
-      <p>{error.message}</p>
-      <p>Redirecting...</p>
+    <div className={style.container}>
+        <Header />
+        <div className={style.content}>
+            <div className={style.wrap}>
+                <div className={style.not_page}>
+                    <h2>잠시 후 다시 확인해 주세요!</h2>
+                    <p>지금 서비스와 연결할 수 없습니다.<br/>문제를 해결하기 위해 열심히 노력하고 있습니다.<br/>잠시 후 다시 확인해 주세요.</p>
+                    <div className={style.btn}>
+                        <Link href={'/main'}>
+                            메인
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
   );
 };

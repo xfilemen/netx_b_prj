@@ -167,6 +167,8 @@ export default function RegPage() {
     const count = Number(e.target.value);
     setSelectedHeadcount(count);
 
+    formData.reqHeadcount = count;
+
     handleChange(e);
 
     // detailsOpen 상태 업데이트
@@ -395,6 +397,10 @@ export default function RegPage() {
     console.log('📢 [page.jsx:364]999', detFormData);
   }, [detFormData]);
 
+  useEffect(() => {
+    console.log('📢 [page.jsx:364]888', formData);
+  }, [formData]);
+
   return (
     <div className={styles.content}>
       <div className={styles.topbanner}>
@@ -451,7 +457,7 @@ export default function RegPage() {
               </div>
               <div className={styles.item}>
                 <label>목적</label>
-                <SelectBox options={reqPurp} name="reqPurp" onChange={handleHeadcountChange}/>
+                <SelectBox options={reqPurp} name="reqPurp" onChange={handleChange}/>
               </div>
             </div>
           )}

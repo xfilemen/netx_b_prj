@@ -136,11 +136,34 @@ export default function AuthForm({ type,closeModal }) {
         {type === 'findPassword' && (
          <div className={`${styles.req_cont} ${styles.resize}`}>
             <h2>비밀번호 찾기</h2>
-            <div className={styles.section}>
+            <div className={styles.area}>
               <div className={styles.item}>
-                <label>소속</label>
-                <input type="text" className={styles.txt} />
+                <label>이름</label>
+                <input type="text" className={styles.txt_input} />
               </div>
+              <div className={styles.item}>
+                <label>CJ World ID</label>
+                <input type="text" className={styles.txt_input} />
+              </div>
+              <div className={styles.item}>
+                <label>휴대폰번호</label>
+                <input type="text" className={styles.txt_input} />
+                <span className={styles.certify_aply_btn}>
+                  <button type="button" onClick={authCodeSend}>인증번호 발송</button>
+                </span>
+              </div>
+              <div className={styles.item}>
+                <label>인증번호</label>
+                <input type="text" className={styles.txt_input} />
+                <span className={styles.certify_num}>{time}</span>
+                <span className={styles.certify_btn}>
+                  <button type="button" onClick={authCodeCheck}>인증</button>
+                </span>
+              </div>
+            </div>
+            <div className={styles.btn_section}>
+              <button className={styles.aply_btn}>확인</button>
+              <button type='button' className={styles.cancel_btn} onClick={closeModal}>취소</button>
             </div>
           </div>
         )}
