@@ -274,7 +274,6 @@ const closeModal2 = () => {
 };
 
 
-
 // 컴포넌트가 마운트될 때 데이터 가져오기
 useEffect(function() {
   // const result = fetchData('/api/req/list');
@@ -310,7 +309,7 @@ useEffect(function() {
       <div>
         <button onClick={boardRegist}>게시물 등록하기 api 호출</button>
       </div>
-      
+     
       <div>{isModalOpen && <Modal type={modalType} />}</div>
       <div>{isModalOpen2 && <Modal2 type={modalType2} closeModal={closeModal2} />}</div>
     </div>

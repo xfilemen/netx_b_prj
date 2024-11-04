@@ -24,6 +24,10 @@ export default function HeaderPage() {
     signOut({ callbackUrl: '/user/login' }); // 로그아웃 처리
   };
 
+  const asdfasdfasdf = () => {
+    sdfsdf()
+  }
+
   useEffect(() => {
     console.log(session);
   }, [session]);
@@ -72,7 +76,7 @@ export default function HeaderPage() {
               </div>
               <div className={styles.team_info_tx}>{userInfo.compName}<br/>{userInfo.deptName}</div>
               <div className={styles.logout_btn}>
-                <button onClick={handleSignOut}>로그아웃</button>
+                <button onClick={asdfasdfasdf}>로그아웃</button>
               </div>
           </div>
         </div>
