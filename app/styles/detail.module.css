@@ -92,7 +92,18 @@
 /* 상세 진행 현황 */
 .content .detail_prog{position:relative;text-align:right;margin-right:36px;}
 .content .detail_prog button{border:1px solid #000}
-.content .detail_prog .status_list{position:absolute;top:50px;right:0;width:600px;height:725px;text-align:left;background-color:#fff;border-radius:12px;box-shadow: 0px 8px 8px 0px #0000001F;}
+.content .detail_prog .status_list{position:absolute;top:50px;right:0;width:600px;overflow:hidden;text-align:left;background-color:#fff;border-radius:12px;box-shadow: 0px 8px 8px 0px #0000001F;}
 .content .detail_prog .status_list .header{position:relative;;background-color:#006DCD;color:#fff;border-radius:12px 12px 0 0;padding:17px 30px;font-size:14px}
 .content .detail_prog .status_list .header .close_btn{position:absolute;top:15px;right:30px}
 .content .detail_prog .status_list .header .close_btn a{cursor:pointer;}
+.content .detail_prog .status_list .content{padding:30px 30px 0 30px;overflow-y:scroll;height:600px}
+.content .detail_prog .status_list .content li{background-color:#F7F7F7;padding:20px;border-radius:10px;margin-top:20px}
+.content .detail_prog .status_list .content li:first-child{margin-top:0}
+.content .detail_prog .status_list .content li .line{border-bottom:1px solid #DFDFDF;padding-bottom:14px;margin-bottom:14px;}
+.content .detail_prog .status_list .content li .name{font-weight:700;}
+.content .detail_prog .status_list .comment_section{overflow:hidden;padding:30px;}
+.content .detail_prog .status_list .comment_section textarea{float:left;width:439px;height:92px;resize:none;padding:16px 20px;border:1px solid #dfdfdf;border-radius:10px;}
+.content .detail_prog .status_list .comment_section button{float:left;width:91px;height:92px;margin-left:10px;background-color:#40464f;color:#fff;}
+.content .detail_prog .status_list .content::-webkit-scrollbar, .content .detail_prog .status_list .content::-webkit-scrollbar{width:4px;}
+.content .detail_prog .status_list .content::-webkit-scrollbar-thumb, .content .detail_prog .status_list .content::-webkit-scrollbar-thumb{background-color:#DFDFDF;border-radius:10px;}
+.content .detail_prog .status_list .content::-webkit-scrollbar-track, .content .detail_prog .status_list .content::-webkit-scrollbar-track{background-color:rgba(220, 20, 60, .0);}
