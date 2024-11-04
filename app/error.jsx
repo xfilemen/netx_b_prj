@@ -25,8 +25,8 @@ const CustomErrorPage = ({ error }) => {
         <div className={style.content}>
             <div className={style.wrap}>
                 <div className={style.not_page}>
-                    <h2>다시 한번 확인해 주세요!</h2>
-                    <p>지금 입력하신 주소의 페이지는 삭제되었거나 다른 페이지로 변경되었습니다.<br />주소를 다시 확인해 주세요.1212</p>
+                    <h2>잠시 후 다시 확인해 주세요!</h2>
+                    <p>지금 서비스와 연결할 수 없습니다.<br/>문제를 해결하기 위해 열심히 노력하고 있습니다.<br/>잠시 후 다시 확인해 주세요.</p>
                     <div className={style.btn}>
                         <Link href={'/main'}>
                             메인
