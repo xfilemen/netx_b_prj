@@ -3,12 +3,10 @@ import bcryptObj from "/lib/bcrypt";
 export async function POST(req) {
   try {
     const data = await req.json();
-    console.log("데이타 어케들어오지:", data);
 
     const currentTime =
       await prisma.$queryRaw`SELECT CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Seoul'`;
     const nowData = new Date(currentTime[0].timezone);
-
     if (data.params) {
       const {
         userId,
@@ -32,8 +30,19 @@ export async function POST(req) {
       });
 
       if (userPwd) {
+        const tbLoginOne = await prisma.tbLogin.findMany({
+          where: {
+            userId,
+          },
+        });
+
         const tbLogin = await prisma.tbLogin.update({
-          where: { userId },
+          where: {
+            userId_seq: {
+              userId: tbUser.userId,
+              seq: tbLoginOne[0].seq,
+            },
+          },
           data: {
             userPwd: bcryptObj.getEcrypt(userPwd),
             modId,

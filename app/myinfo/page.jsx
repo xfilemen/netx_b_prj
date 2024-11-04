@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import styles from "/app/styles/myinfo.module.css";
 import SelectBox from "../components/select";
@@ -18,10 +18,14 @@ export default function myInfoPage() {
     userName: "",
     comCd: "",
     deptName: "",
-    password: "",
+    userPwd: "",
     confirmPassword: "",
     modId: "",
   });
+
+  // useRef 훅을 사용하여 input 참조 생성
+  const deptRef = useRef(null);
+  const confirmPwdRef = useRef(null);
 
   let userInfo = {};
   userInfo = session?.user || {};
@@ -45,7 +49,7 @@ export default function myInfoPage() {
       authName: userInfo.authName || "",
       userName: userInfo.userName || "",
       deptName: userInfo.deptName || "",
-      password: "",
+      userPwd: "",
       confirmPassword: "",
       modId: userInfo.userId || "",
     });
@@ -77,11 +81,10 @@ export default function myInfoPage() {
       console.log("formData:", formData);
       const result = await apiHandler.postData("/api/user/modify", formData); // POST 요청
 
+      console.log("result::", result);
       if (result.data === undefined) {
         console.log("실패", result.data);
       } else {
-        // 성공
-        console.log("asdf", result.data);
         // 로그아웃 -> 로그인 화면 이동.
         handleSignOut();
       }
@@ -92,6 +95,38 @@ export default function myInfoPage() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
+    // 필수 값 체크 및 포커스 설정
+    if (!formData.comCd) {
+      alert("그룹사를 선택해 주세요.");
+      // groupRef.current.focus();
+      return;
+    }
+    if (!formData.deptName.trim()) {
+      alert("소속을 입력해 주세요.");
+      deptRef.current.focus();
+      return;
+    }
+
+    if (formData.confirmPassword.trim() && !formData.userPwd.trim()) {
+      alert("비밀번호를 입력해 주세요.");
+      confirmPwdRef.current.focus();
+      return;
+    }
+
+    if (formData.userPwd.trim()) {
+      if (!formData.confirmPassword.trim()) {
+        alert("비밀번호 확인을 입력해 주세요.");
+        confirmPwdRef.current.focus();
+        return;
+      }
+      if (formData.userPwd !== formData.confirmPassword) {
+        alert("비밀번호가 다릅니다. 확인해주세요.");
+        confirmPwdRef.current.focus();
+        return;
+      }
+    }
+
     console.log("Form Data Submitted:", formData);
     if (window.confirm("나의 정보를 수정하시겠습니까?")) {
       // 수정 api
@@ -100,7 +135,6 @@ export default function myInfoPage() {
   };
   const handleFormCancel = (e) => {
     e.preventDefault();
-    console.log("Form Data Submitted:", formData);
     if (
       window.confirm(
         "수정하신 내용이 저장 되지않습니다. 그래도 취소하시겠습니까?"
@@ -156,6 +190,7 @@ export default function myInfoPage() {
                   name="deptName"
                   className={styles.txt}
                   value={formData.deptName}
+                  ref={deptRef} // ref 추가
                   onChange={handleInputChange}
                 />
               </span>
@@ -165,9 +200,9 @@ export default function myInfoPage() {
               <span className={styles.p_tx}>
                 <input
                   type="password"
-                  name="password"
+                  name="userPwd"
                   className={styles.txt}
-                  value={formData.password}
+                  value={formData.userPwd}
                   onChange={handleInputChange}
                 />
               </span>
@@ -180,6 +215,7 @@ export default function myInfoPage() {
                   name="confirmPassword"
                   className={styles.txt}
                   value={formData.confirmPassword}
+                  ref={confirmPwdRef} // ref 추가
                   onChange={handleInputChange}
                 />
               </span>
