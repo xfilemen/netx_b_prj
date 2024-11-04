@@ -1,14 +1,28 @@
-import SelectBox from '../../components/select';
-import styles from '../../styles/modal.module.css';
+import SelectBox from '@components/select';
+import styles from '@styles/modal.module.css';
 import React, { useEffect,useState } from 'react';
 import { useForm } from "react-hook-form";
-import {nameValid,passwordValid,mobNumValid,required,matchValid} from '../../../utils/user-validation';
-import {maxLength,timer} from '../../../utils/common-util';
+import {nameValid,passwordValid,mobNumValid,required,matchValid} from '@utils/user-validation';
+import {maxLength,timer} from '@utils/common-util';
+import apiHandler from '@utils/api-handler';
 
 export default function AuthForm({ type,closeModal }) {
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
   const { register, handleSubmit, watch , getValues, control, formState: { errors }} = useForm();
   const [isVisible, setIsVisible] = useState(false);
   const { time, start, stop, reset, isActive } = timer("03:00");
+
+  const [groupType, setGroupType] = useState([
+    // { value: 'U001', label: '디아이웨어' },
+    // { value: 'U002', label: 'CJ 올리브네트웍스' },
+  ]);
+
+  const [accountType, setAccountType] = useState([
+    { value: 'request', label: '요청자' },
+    { value: 'approve', label: '승인자' },
+  ]);
+
 
 
   //인증번호 발송
@@ -48,16 +62,32 @@ export default function AuthForm({ type,closeModal }) {
     // }
   };
 
-  const accountType = [
-      { value: 'request', label: '요청자' },
-      { value: 'approve', label: '승인자' },
-  ];  
+  const codeSelect = async () => {
+    try {
+      const result = await apiHandler.postData('/api/common/code/select',{
+        codeGrp : 'G001',
+        
+      });
+      if(result.data){
+        let groupType = result.data.map(item => ({
+          value: item.code,
+          label: item.codeName
+        }));
+        setGroupType(groupType);
+      }else{
+        console.log(result.data);
+      }
+    } catch (error) {
+      console.log('error',error);
+      setError(error);
+    }
+  };
 
-  const groupType = [
-      { value: 'U001', label: '디아이웨어' },
-      { value: 'U002', label: 'CJ 올리브네트웍스' },
-  ];
-
+  
+  // 컴포넌트가 마운트될 때 데이터 가져오기
+  useEffect(function() {
+    codeSelect();
+  }, []);
 
     return (
       <form onSubmit={handleSubmit(onSubmit,onError)}>
