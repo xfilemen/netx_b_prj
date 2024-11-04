@@ -13,8 +13,8 @@ const passwordValid = () => ({
         value: 10,
         message: "비밀번호는 최소 10자리 이상이어야 합니다",
     },
-    pattern: {
-        value: /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]+$/,
+    pattern: { 
+        value: /^(?=.*[a-zA-Z])(?=.*[0-9]).*$/,
         message: "비밀번호는 영문자와 숫자를 포함해야 합니다."
       },
     // pattern: {

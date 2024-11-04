@@ -67,7 +67,7 @@ export default function AuthForm({ type,closeModal }) {
                 <div className={styles.area}>
                   <div className={styles.item_half_left}>
                       <label>계정구분</label>
-                      <SelectBox register={register("authCd", required("authCd"))} options={accountType}/>
+                      <SelectBox register={register("authCd", required("authCd"))} options={accountType} name="authCd"/>
                   </div>
                   <div className={styles.item_half_right}>
                       <label>이름</label>
