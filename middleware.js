@@ -64,9 +64,14 @@ export const config = {
     '/'
     ,'/user/login'
     ,'/main/:path*'
+    ,'/board/:path*'
+    ,'/req/:path*'
+
     ,'/notice/:path*'
     ,'/detail/:path*'
-    ,'/board/:path*'
+    ,'/myinfo/:path*'
+    ,'/request/:path*'
+
     ,'/api/req/:path*'
     ,'/api/brd/:path*'
   ]

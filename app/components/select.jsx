@@ -17,20 +17,36 @@ class SelectBox extends Component {
     };
 
     render() {
-        const { options, name } = this.props;
-        return (
-            <span className={styles.select_box}>
-                <select name={name} value={this.state.selectedOption} onChange={this.handleChange} className={styles.custom_select}>
-                    <option value="">선택</option>
-                    {options.map((option) => (
-                    <option key={option.value} value={option.value}>
-                        {option.label}
-                    </option>
-                    ))}
-                </select>
-                {/* <p>선택한 옵션: {this.state.selectedOption}</p> */}
-            </span>
-        )
+        const { register, defaultValue, options, name } = this.props;
+        if(!defaultValue){
+            return (
+                <span className={styles.select_box}>
+                    <select {...register} name={name} value={this.state.selectedOption} onChange={this.handleChange} className={styles.custom_select}>
+                        <option value="">선택</option>
+                        {options.map((option) => (
+                        <option key={option.value} value={option.value}>
+                            {option.label}
+                        </option>
+                        ))}
+                    </select>
+                    {/* <p>선택한 옵션: {this.state.selectedOption}</p> */}
+                </span>
+            )
+        } else {
+            return (
+                <span className={styles.select_box}>
+                    <select {...register} defaultValue={defaultValue} name={name} value={this.state.selectedOption} onChange={this.handleChange} className={styles.custom_select}>
+                        <option value="">선택</option>
+                        {options.map((option) => (
+                        <option key={option.value} value={option.value}>
+                            {option.label}
+                        </option>
+                        ))}
+                    </select>
+                    {/* <p>선택한 옵션: {this.state.selectedOption}</p> */}
+                </span>
+            )
+        }
     }
 }
 

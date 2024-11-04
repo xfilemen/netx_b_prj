@@ -111,7 +111,7 @@ export default function LoginPage() {
                   </li>
                 </ul>
               </div>
-              {isModalOpen && <Modal type={modalType} />}
+              {isModalOpen && <Modal type={modalType} closeModal={closeModal}/>}
             </div>
         </div>
       </div>

@@ -23,26 +23,26 @@ const postData = async (url,paramObj) => {
     }
   };
 
-  const getData = async (url,paramObj) => {
-    try {
-      const response = await axios.get(url, {
-        params: paramObj,
-      });
-      
-      return response.data;
+const getData = async (url,paramObj) => {
+  try {
+    const response = await axios.get(url, {
+      params: paramObj,
+    });
+    
+    return response.data;
 
-    } catch (error) {        
+  } catch (error) {        
 
-        //alert(error.response.data.message || error.message);
-        if(error.status == '440'){ // 세션 만료 시 로그인 페이지로 이동
-            location.href = '/user/login';
-        }
+      //alert(error.response.data.message || error.message);
+      if(error.status == '440'){ // 세션 만료 시 로그인 페이지로 이동
+          location.href = '/user/login';
+      }
 
-        return {
-            message : error.message,
-            status : error.status
-        };
-    }
-  };
+      return {
+          message : error.message,
+          status : error.status
+      };
+  }
+};
   
 export default {postData,getData};

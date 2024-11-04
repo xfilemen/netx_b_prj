@@ -5,12 +5,15 @@ import styles from '../styles/detail.module.css';
 import Image from 'next/image';
 import apiHandler from '../../utils/api-handler';
 import Modal from '../test/modal';
+import Modal2 from '../test/modal2';
 
 export default function RegularPage({ item }) { 
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [modalType, setModalType] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType2, setModalType2] = useState(null);
+  const [isModalOpen2, setIsModalOpen2] = useState(false);
 
 
   
@@ -260,6 +263,17 @@ const closeModal = () => {
 };
 
 
+const openModal2 = (type) => {
+  setModalType2(type); // 모달 타입 설정
+  setIsModalOpen2(true); // 모달 열기
+};
+
+const closeModal2 = () => {
+  setIsModalOpen2(false); // 모달 닫기
+  setModalType2(null); // 모달 타입 초기화
+};
+
+
 
 // 컴포넌트가 마운트될 때 데이터 가져오기
 useEffect(function() {
@@ -291,12 +305,14 @@ useEffect(function() {
         <button onClick={reqRegist}>요청 등록하기 api 호출</button>
         <button onClick={reqModify}>요청 수정하기 api 호출</button>
         <button onClick={() => openModal('requestAccount')}>계정생성 요청</button>
+        <button onClick={() => openModal2('requestAccount')}>계정생성 요청2</button>
       </div>
       <div>
         <button onClick={boardRegist}>게시물 등록하기 api 호출</button>
       </div>
       
       <div>{isModalOpen && <Modal type={modalType} />}</div>
+      <div>{isModalOpen2 && <Modal2 type={modalType2} closeModal={closeModal2} />}</div>
     </div>
   );
 }

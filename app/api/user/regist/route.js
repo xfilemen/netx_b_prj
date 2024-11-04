@@ -19,7 +19,7 @@ export async function POST(req) {
           compCd,
           deptName,
           userName,
-          agrYn : 'Y',
+          agrYn,
           regId,
           regDt : nowData,
         },

@@ -1,9 +1,9 @@
-import SelectBox from '../../components/select';
-import styles from '../../styles/modal.module.css';
 import React, { useEffect,useState } from 'react';
+import SelectBox from './select';
+import styles from '../styles/modal.module.css';
 import { useForm } from "react-hook-form";
-import {nameValid,passwordValid,mobNumValid,required,matchValid} from '../../../utils/user-validation';
-import {maxLength,timer} from '../../../utils/common-util';
+import {nameValid,passwordValid,mobNumValid,required,matchValid} from '../../utils/user-validation';
+import {maxLength,timer} from '../../utils/common-util';
 
 export default function AuthForm({ type,closeModal }) {
   const { register, handleSubmit, watch , getValues, control, formState: { errors }} = useForm();

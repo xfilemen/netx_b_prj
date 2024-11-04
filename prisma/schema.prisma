@@ -21,6 +21,9 @@ model tbUser {
   compCd   String?   @map("comp_cd") @unique 
   deptName String?   @map("dept_name")
   userName String?   @map("user_name")
+  mobNum1  String?   @map("mob_num_1")
+  mobNum2  String?   @map("mob_num_2")
+  mobNum3  String?   @map("mob_num_3")
   agrYn    String?   @map("agr_yn")
   regDt    DateTime? @map("reg_dt")
   regId    String?   @map("reg_id")
