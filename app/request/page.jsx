@@ -42,6 +42,7 @@ export default function RegPage() {
     { value: '1', label: '구축' },
     { value: '2', label: '운영' },
     { value: '3', label: '개선/개발' },
+    { value: '4', label: '기타' },
   ];
 
   // 직무 구분 데이터
@@ -106,6 +107,8 @@ export default function RegPage() {
       reqJob: '',
       reqOutDtNull: false,
       reqLocNull: false,
+      reqJobCategory: '',
+      reqPrefSkill: '',
       // reqJobDet: '',
       // 필요한 다른 필드들도 추가하세요
     })
@@ -120,6 +123,20 @@ export default function RegPage() {
 
   // 데이터 저장
   const insertData = async () => {
+
+    // 유효성 체크 로직
+    console.log('📢 [page.jsx:126]formData :: ', formData);
+    if (formData.reqTitle == '') {
+      alert('요청명을 입력하지 않았습니다.')
+      return true;
+    } else if (formData.reqType == '') {
+      alert('대내/외 구분을 선택하지 않았습니다.')
+      return true;
+    } else if (formData.reqPurp == '') {
+      alert('목적을 선택하지 않았습니다.')
+      return true;
+    }
+
     try {
       console.log('📢 [page.jsx:81] insertData:: ', API_URL1);
 
@@ -132,6 +149,7 @@ export default function RegPage() {
       console.log('📢 [page.jsx:130]', formData.reqDet);
       // POST 요청에서 formData 전체 객체를 전달 (객체 단축 속성 사용)
       for (let index = 0; index < detFormData.length; index++) {
+
         console.log('📢 [page.jsx:132]', checkState[index]);
         const getTrueKeysAsString = (obj) => {
           if (obj && typeof obj === 'object') {
@@ -143,6 +161,33 @@ export default function RegPage() {
         };
         const trueKeysString = getTrueKeysAsString(checkState[index]);
         console.log('📢 [page.jsx:133]', trueKeysString);
+
+        // 유효성 체크 로직
+        console.log('📢 [page.jsx:126]detFormData[index]:: ', detFormData[index]);
+        const checkNum = index + 1;
+        if (detFormData[index].reqJob == '') {
+          alert((checkNum) + '번째 직무 구분이 입력되지 않았습니다.');
+          return true;
+        } else if (trueKeysString == '') {
+          alert((checkNum) + '번째 유형을 체크하지 않았습니다.');
+          return true;
+        } else if (detFormData[index].reqGrade == '') {
+          alert((checkNum) + '번째 등급을 입력하지 않았습니다.');
+          return true;
+        } else if (detFormData[index].reqInDt == '' || detFormData[index].reqInDt == null) {
+          alert((checkNum) + '번째 투입 예정일을 입력하지 않았습니다.');
+          return true;
+        } else if (detFormData[index].reqMm == '') {
+            alert((checkNum) + '번째 투입 공수를 입력하지 않았습니다.');
+            return true;
+        } else if (detFormData[index].reqLoc == '') {
+          alert((checkNum) + '번째 근무지를 입력하지 않았습니다.');
+          return true;
+        } else if (detFormData[index].reqSkill == '') {
+          alert((checkNum) + '번째 필수 요구기술을 입력하지 않았습니다.');
+          return true;
+        }
+
         detFormData[index].reqType = trueKeysString;
         detFormData[index].reqId= parseInt(seq.data);
       }
@@ -203,7 +248,7 @@ export default function RegPage() {
     const updatedJobSelections = [...jobSelections];
     updatedJobSelections[index] = { category: selectedCategory, jobs };
     setJobSelections(updatedJobSelections);
-
+    detFormData[index].reqJobCategory = selectedCategory;
   };
 
   // 상세 입력 값이 변경될 때
@@ -212,6 +257,16 @@ export default function RegPage() {
     let { value, name, type } = event.target;
     if (type === "number") {
       value = parseInt(value);
+    }
+
+    console.log('📢 [page.jsx:259]', value.length);
+    // 유효성 체크 로직
+    if (name == 'reqSkill' && value.length > 500) {
+      alert("최대 500자까지 입력 가능합니다.");
+      return true;
+    } else if (name == 'reqPrefSkill' && value.length > 500) {
+      alert("최대 500자까지 입력 가능합니다.");
+      return true;
     }
 
     if (name == "reqLoc"){
@@ -247,6 +302,12 @@ export default function RegPage() {
   const handleChange = (event) => {
     let { name, value } = event.target;  // 입력 필드의 이름(name)과 값(value)을 가져옴
     console.log('📢 [page.jsx:173]', typeof value);
+    console.log('📢 [page.jsx:250]', value.length);
+    // 유효성 체크 로직
+    if (name == 'reqTitle' && value.length > 40) {
+      alert("최대 40자 까지 입력 가능합니다.");
+      return true;
+    }
 
     if (name == "reqHeadcount") {
       value = parseInt(value);
@@ -331,6 +392,12 @@ export default function RegPage() {
     console.log('📢 [page.jsx:370]', date);
     const newDate = formatDate(date);
     console.log('📢 [page.jsx:372]', newDate);
+    
+    if (newDate > detFormData[index].reqOutDt) {
+      alert("투입 예정일은 투입 종료일보다 이전이어야 합니다.");
+      return true;
+    }
+
     updatedStartDates[index] = newDate;
     setStartDates(updatedStartDates);
     console.log('📢 [page.jsx:372]', startDates[index]);
@@ -348,6 +415,10 @@ export default function RegPage() {
     console.log('📢 [page.jsx:370]', date);
     const newDate = formatDate(date);
     console.log('📢 [page.jsx:372]', newDate);
+    if (newDate < detFormData[index].reqInDt) {
+      alert("투입 종료일은 투입 예정일보다 이후이어야 합니다.");
+      return true;
+    }
     updatedLastDates[index] = newDate;
     setLastDates(updatedLastDates);
     setDetFormData((prevData) =>
@@ -399,6 +470,11 @@ export default function RegPage() {
 
   useEffect(() => {
     console.log('📢 [page.jsx:364]888', formData);
+
+    // 요청명 유효성체크
+    if (formData.reqName.length > 10) {
+
+    }
   }, [formData]);
 
   return (
@@ -583,11 +659,11 @@ export default function RegPage() {
                   </div>
                   <div className={styles.item}>
                     <span className={`${styles.tx} ${styles.v_t}`}>필수<br />요구기술</span>
-                    <textarea name="reqSkill" placeholder="요구 스킬 기재" className={styles.text_box} onChange={handleDetChange(index)}></textarea>
+                    <textarea name="reqSkill" placeholder="요구 스킬 기재" className={styles.text_box} value={detFormData[index].reqSkill} onChange={handleDetChange(index)}></textarea>
                   </div>
                   <div className={styles.item}>
                     <span className={`${styles.tx} ${styles.v_t}`}>우대<br />요구기술</span>
-                    <textarea name="reqPrefSkill" placeholder="요구 스킬 기재" className={styles.text_box} onChange={handleDetChange(index)}></textarea>
+                    <textarea name="reqPrefSkill" placeholder="요구 스킬 기재" className={styles.text_box} value={detFormData[index].reqPrefSkill} onChange={handleDetChange(index)}></textarea>
                   </div>
                 </div>
               )}

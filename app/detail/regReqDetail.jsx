@@ -156,7 +156,7 @@ export default function RegDetail({ item }) {
                 <li><span className={styles.tit_tx}>요청명</span><span className={styles.p_tx}>{item.reqName}</span></li>
                 <li className={styles.half_line1}><span className={styles.tit_tx}>대내·외 구분</span><span className={styles.p_tx}>{item.reqType == 1 ? '대내' : '대외'}</span></li>
                 <li className={styles.half_line2}><span className={styles.tit_tx}>인원</span><span className={styles.p_tx}>{item.reqHeadcount}명</span></li>
-                <li><span className={styles.tit_tx}>목적</span><span className={styles.p_tx}>{item.reqPurp == 1 ? '구축' : item.reqPurp == 2 ? '운영' : '개선/개발'}</span></li>
+                <li><span className={styles.tit_tx}>목적</span><span className={styles.p_tx}>{item.reqPurp == 1 ? '구축' : item.reqPurp == 2 ? '운영' : item.reqPurp == 3 ? '개선/개발' : '기타'}</span></li>
               </ul>
             </div>
           )}

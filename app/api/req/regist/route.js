@@ -30,7 +30,7 @@ export async function POST(req) {
       for(let i in reqDet){
         const procData = getObjTrimAndNullProc(reqDet[i]);
         let { reqType, reqHeadcount, reqJob, reqJobDet, reqGrade, 
-              reqInDt, reqOutDt, reqMm, reqLoc, reqSkill } = procData;
+              reqInDt, reqOutDt, reqMm, reqLoc, reqSkill, reqPrefSkill } = procData;
 
         let createdTbReqMgtDet = await prisma.tbReqMgtDet.create({
           data: {
@@ -45,6 +45,7 @@ export async function POST(req) {
             reqMm,
             reqLoc,
             reqSkill,
+            reqPrefSkill,
             regId : user.userId,
             regDt : nowData
           },
