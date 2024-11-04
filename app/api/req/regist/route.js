@@ -10,7 +10,7 @@ export async function POST(req) {
 
     if(data.params.data){
       const procData = getObjTrimAndNullProc(data.params.data);
-      const { reqTitle, reqName, reqOrd, reqStatus, reqType, reqPurp, reqDet} = procData;
+      const { reqTitle, reqName, reqOrd, reqStatus, reqType, reqPurp, reqDet, reqHeadcount} = procData;
 
       const tbReqMgt = await prisma.tbReqMgt.create({
         data: {
@@ -20,6 +20,7 @@ export async function POST(req) {
           reqStatus,
           reqType,
           reqPurp,
+          reqHeadcount,
           regId : user.userId,
           regDt : nowData
         },
