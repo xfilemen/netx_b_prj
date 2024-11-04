@@ -155,8 +155,8 @@ export default function RegDetail({ item }) {
               <ul>
                 <li><span className={styles.tit_tx}>요청명</span><span className={styles.p_tx}>{item.reqName}</span></li>
                 <li className={styles.half_line1}><span className={styles.tit_tx}>대내·외 구분</span><span className={styles.p_tx}>{item.reqType == 1 ? '대내' : '대외'}</span></li>
-                <li className={styles.half_line2}><span className={styles.p_tx}>인원</span><span className={styles.p_tx}>{item.reqHeadcount}명</span></li>
-                <li><span className={styles.tit_tx}>목적</span><span className={styles.p_tx}>{item.reqPurp}</span></li>
+                <li className={styles.half_line2}><span className={styles.tit_tx}>인원</span><span className={styles.p_tx}>{item.reqHeadcount}명</span></li>
+                <li><span className={styles.tit_tx}>목적</span><span className={styles.p_tx}>{item.reqPurp == 1 ? '구축' : item.reqPurp == 2 ? '운영' : '개선/개발'}</span></li>
               </ul>
             </div>
           )}
@@ -190,12 +190,12 @@ export default function RegDetail({ item }) {
                 <div className={styles.content}>
                   <ul>
                     <li className={styles.half_line1}><span className={styles.tit_tx}>유형</span><span className={styles.p_tx}>{detail.reqType}</span></li>
-                    <li className={styles.half_line2}><span className={styles.p_tx}>직무 구분</span><span className={styles.p_tx}>{detail.reqJob}</span></li>
+                    <li className={styles.half_line2}><span className={styles.tit_tx}>직무 구분</span><span className={styles.p_tx}>{detail.reqJob}</span></li>
                     <li><span className={styles.tit_tx}>등급</span><span className={styles.p_tx}>{detail.reqGrade}</span></li>
                     <li className={styles.half_line3}><span className={styles.tit_tx}>투입 예정일</span><span className={styles.p_tx}>{detail.reqInDt.substring(0,10)}</span></li>
                     <li className={styles.half_line4}><span className={styles.tit_tx}>투입 종료일</span><span className={styles.p_tx}>{detail.reqOutDt ? detail.reqOutDt.substring(0,10) : '미정'}</span></li>
                     <li className={styles.half_line3}><span className={styles.tit_tx}>M/M</span><span className={styles.p_tx}>{detail.reqMm}</span></li>
-                    <li className={styles.half_line4}><span className={styles.p_tx}>근무지</span><span className={styles.p_tx}>{detail.reqLoc}</span></li>
+                    <li className={styles.half_line4}><span className={styles.tit_tx}>근무지</span><span className={styles.p_tx}>{detail.reqLoc}</span></li>
                     <li><span className={styles.tit_tx}>상세<br />요구기술</span><span className={styles.p_tx}>{detail.reqSkill}</span></li>
                   </ul>
                 </div>
