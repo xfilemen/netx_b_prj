@@ -4,7 +4,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -47,7 +48,7 @@ model tbLogin {
   modDt         DateTime? @map("mod_dt")         // 수정일
   modId         String?   @map("mod_id")         // 수정ID
 
-  @@id([userId, seq], map: "TB_LOGIN_pkey")   
+  @@id([userId, seq], map: "TB_LOGIN_pkey")
   @@map("tb_login")
 }
 

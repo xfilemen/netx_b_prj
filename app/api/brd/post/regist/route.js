@@ -3,9 +3,8 @@ export async function POST(req) {
   try {
 
     const data = await req.json();
-    if(data.params){
-      const {brdId,pstTitle,pstContents,viewYn,regId,modId} = data.params;
-
+    if(data.params.data){
+      const {brdId,pstTitle,pstContents,viewYn,regId,modId} = data.params.data;
       const post = await prisma.tbPost.create({
         data: {
           brdId,pstTitle,pstContents,viewYn,regId,modId

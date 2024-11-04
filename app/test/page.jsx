@@ -172,10 +172,10 @@ export default function RegularPage({ item }) {
 const reqRegist = async () => {
     try {
       console.log({params:{
-        main
+        data
       }});
       const result = await apiHandler.postData('/api/req/regist',{
-        data:main
+        data:data
       }); // POST 요청
       console.log('reqRegist : ',result);
       if(result.data === undefined){
@@ -213,14 +213,14 @@ const reqModify = async () => {
 
 const boardRegist = async () => {
   try {
-    const result = await apiHandler.postData('/api/brd/post/regist',{
+    const result = await apiHandler.postData('/api/brd/post/regist',{data : {
       brdId : 3,
       pstTitle : '공지사항 제목 test',
       pstContents : '공지사항 내용 test',
       viewYn : 'Y',
       regId : 'test',
       modId : 'test'
-      
+    }
     }); // POST 요청
     console.log('reqRegist : ',result);
     if(result.data === undefined){

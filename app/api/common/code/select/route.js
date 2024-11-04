@@ -6,11 +6,17 @@ export async function POST(req) {
     if(data.params){
       const {codeGrp} = data.params;
 
-
-      const tbComCode = await prisma.tbComCode.findMany({
-        where: {
+      let where = {}
+      //요청자일 때는 본인 요청내역만 조회
+      if(codeGrp){
+        where = {
           codeGrp: codeGrp
         }
+      }
+
+
+      const tbComCode = await prisma.tbComCode.findMany({
+        where
       })
       return new Response(JSON.stringify({ message: '정상적으로 조회되었습니다.', data : tbComCode}), {
         status: 200,
