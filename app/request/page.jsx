@@ -156,7 +156,7 @@ export default function RegPage() {
       console.log('📢 [page.jsx:95]', result);
 
       // 완료 화면으로 이동
-      // location.href = '/request/complete';
+      location.href = '/request/complete';
       
     } catch (error) {
       console.error('❌ [page.jsx:100] Error inserting data:', error);
