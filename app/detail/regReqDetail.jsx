@@ -74,12 +74,42 @@ export default function RegDetail({ item }) {
           <div className={styles.num}>요청인원 {item.reqHeadcount}명</div>
         </div>
         <div className={styles.progress_section}>
-          <ul>
-            <li>✓ 접수</li>
-            <li>✓ 진행</li>
-            <li>완료</li>
-          </ul>
-          <progress className={styles.progressbar} value="66" min="0" max="100"></progress>
+        {item.reqStatus == 'register' ?
+          
+            <ul>
+              <li>✓ 접수</li>
+              <li>진행</li>
+              <li>완료</li>
+            </ul>
+          
+          : item.reqStatus == 'progress' ?
+              <ul>
+                <li>✓ 접수</li>
+                <li>✓ 진행</li>
+                <li>완료</li>
+              </ul>
+            
+            : item.reqStatus == 'cancel' ?
+              <ul>
+                <li>✓ 접수</li>
+                <li>✓ 취소</li>
+              </ul>
+              :
+              <ul>
+                <li>✓ 접수</li>
+                <li>✓ 진행</li>
+                <li>✓ 완료</li>
+              </ul>
+        }
+        {item.reqStatus == 'register' ?
+          ""
+          : item.reqStatus == 'progress' ?
+            <progress className={styles.progressbar} value="66" min="0" max="100"></progress>
+            : item.reqStatus == 'cancel' ?
+              ""
+              :
+              ""
+        }
         </div>
         <div className={styles.detail_prog}>
           <button onClick={handleStatusToggle}>상세 진행 현황</button>
