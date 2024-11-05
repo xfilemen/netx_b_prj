@@ -75,7 +75,6 @@ export default function RegDetail({ item }) {
         </div>
         <div className={styles.progress_section}>
         {item.reqStatus == 'register' ?
-          
             <ul>
               <li className={styles.chk_tx}>✓ 접수</li>
               <li>진행</li>
@@ -84,20 +83,21 @@ export default function RegDetail({ item }) {
           
           : item.reqStatus == 'progress' ?
               <ul>
-                <li className={styles.chk_tx}>✓ 접수</li>
+                <li>✓ 접수</li>
                 <li className={styles.chk_tx}>✓ 진행</li>
                 <li>완료</li>
-              </ul>
-            
+              </ul>   
+
             : item.reqStatus == 'cancel' ?
               <ul>
-                <li className={`${styles.chk_tx} ${styles.half}`}>✓ 접수</li>
+                <li className={styles.half}>✓ 접수</li>
                 <li className={`${styles.chk_tx} ${styles.half}`}>✓ 취소</li>
               </ul>
+
               :
               <ul>
-                <li className={styles.chk_tx}>✓ 접수</li>
-                <li className={styles.chk_tx}>✓ 진행</li>
+                <li>✓ 접수</li>
+                <li>✓ 진행</li>
                 <li className={styles.chk_tx}>✓ 완료</li>
               </ul>
         }
