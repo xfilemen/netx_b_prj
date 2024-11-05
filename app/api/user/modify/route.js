@@ -1,5 +1,6 @@
-import prisma from "/lib/prisma";
-import bcryptObj from "/lib/bcrypt";
+import prisma from "@lib/prisma";
+import bcryptObj from "@lib/bcrypt";
+import {setSessionUpdate} from "@utils/data-access";
 export async function POST(req) {
   try {
     const data = await req.json();
@@ -51,8 +52,11 @@ export async function POST(req) {
         });
       }
 
+      //세션 갱신 데이터
+      const retData = await setSessionUpdate(req);
+
       return new Response(
-        JSON.stringify({ message: "정상적으로 처리되었습니다.", data: tbUser }),
+        JSON.stringify({ message: "정상적으로 처리되었습니다.", data: retData }),
         {
           status: 200,
         }

@@ -9,7 +9,7 @@ import apiHandler from "../../utils/api-handler.js";
 import { useRouter } from "next/navigation";
 
 export default function myInfoPage() {
-  const { data: session } = useSession();
+  const { data: session , update } = useSession();
   const [selectedGroup, setSelectedGroup] = useState(null);
   const router = useRouter(); // useRouter 훅 사용
   const [formData, setFormData] = useState({
@@ -85,8 +85,12 @@ export default function myInfoPage() {
       if (result.data === undefined) {
         console.log("실패", result.data);
       } else {
+        console.log("성공", result);
+        const user1 = result.data;
+        update(user1); // 세션 업데이트
+        router.refresh();
         // 로그아웃 -> 로그인 화면 이동.
-        handleSignOut();
+        //handleSignOut();
       }
     } catch (error) {
       console.log("/api/user/modify myinfo", error);

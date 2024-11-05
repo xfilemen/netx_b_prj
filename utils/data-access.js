@@ -51,5 +51,35 @@ async function getAuthCheck(authCd){
   }
   return false;
 }
+
+
+/*
+* 세션 업데이트
+*/
+async function setSessionUpdate(req){
+  const session = await getServerSession(authOptions);
+  if(session.user){
+    const getUser = await prisma.tbUser.findMany({
+      where: {
+          userId: session.user.userId,
+      },
+      include: {
+          comCode: {
+          where: {
+              codeGrp: 'G001',
+          },
+          }
+      }
+    })
+    
+    return {
+      deptName : getUser[0]?.deptName || '', 
+      compName : getUser[0]?.comCode[0]?.codeName || '',
+    };
+  }
+  return null;
+
+
+}
   
-export {getComCode,getBoardInfo,getSession,getAuthCheck};
+export {getComCode,getBoardInfo,getSession,getAuthCheck,setSessionUpdate};
