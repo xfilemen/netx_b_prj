@@ -58,7 +58,6 @@ export default function RegPage() {
   const typeChk = [
     { label: '정규직', name: '1' },
     { label: 'BP', name: '2' },
-    { label: '기타', name: '3' },
   ];
 
   const deploymentTime = [
