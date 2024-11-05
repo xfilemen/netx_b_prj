@@ -163,7 +163,7 @@ export default function RegPage() {
 
         // 유효성 체크 로직
         console.log('📢 [page.jsx:126]detFormData[index]:: ', detFormData[index]);
-        const checkNum = index + 1;
+        const checkNum = "요청 상세 정보 " + (index + 1);
         if (detFormData[index].reqJob.trim() == '') {
           alert((checkNum) + '번째 직무 구분이 입력되지 않았습니다.');
           return true;
@@ -452,6 +452,9 @@ export default function RegPage() {
             reqType: '',
             reqOutDtNull: false,
             reqLocNull: false,
+            reqLoc: '',
+            reqSkill: '',
+            reqMm: '',
             // 필요한 다른 필드들도 추가
           })),
         ];
