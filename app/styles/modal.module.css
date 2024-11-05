@@ -22,6 +22,6 @@
 .content .req_cont .info_tx .chk_p{text-align:center;margin-top:30px;font-size:14px;}
 .content .req_cont .info_tx .chk_p .chk_box{display:inline-block;width:16px;height:16px;margin-bottom:2px;vertical-align:middle;margin-right:10px;}
 .content .btn_section{text-align:center;margin-top:30px;}
-.content .btn_section .aply_btn{width:128px;height:52px;margin-right:10px;border-radius:25px;background-color:#191F28;color:#fff;}
-.content .btn_section .cancel_btn{width:128px;height:52px;border-radius:25px;}
+.content .btn_section .aply_btn{width:96px;margin-right:10px;border-radius:25px;background-color:#191F28;color:#fff;}
+.content .btn_section .cancel_btn{width:96px;border-radius:25px;}
 

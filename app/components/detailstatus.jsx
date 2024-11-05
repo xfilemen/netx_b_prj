@@ -1,8 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '@styles/detail.module.css';
+import apiHandler from '../../utils/api-handler.js';
 import Image from 'next/image';
 
 export default function DetailStatusPage({onClose}) {
+  const [data, setData] = useState([]);
+
+  // 컴포넌트가 마운트될 때 데이터 가져오기
+  useEffect(function() {
+    console.log("API 호출");
+    getData('/api/req/log/list');
+  }, []);
+
+  useEffect(function() {
+    console.log('📢 [page.jsx:56]', data);
+  }, [data]);
+
+  const getData = async (url) => {
+    const result = await apiHandler.postData(url);
+    setData(result.data);
+  }
+
   return (
     <div className={styles.status_list}>
         <div className={styles.header}>

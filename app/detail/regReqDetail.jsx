@@ -194,6 +194,10 @@ export default function RegDetail({ item }) {
             </div>
           );
         })}
+        <div className={styles.btn_section}>
+          <button className={styles.cancel_btn}>요청취소</button>
+          <button className={styles.aply_btn}>수정</button>
+        </div>
       </div>
     )
   );
