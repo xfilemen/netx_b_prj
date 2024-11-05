@@ -16,7 +16,7 @@ export default function myInfoPage() {
     userId: "",
     authName: "",
     userName: "",
-    comCd: "",
+    compCd: "",
     deptName: "",
     userPwd: "",
     confirmPassword: "",
@@ -45,7 +45,7 @@ export default function myInfoPage() {
     // 계정 정보 초기화
     setFormData({
       userId: userInfo.userId,
-      comCd: selectedGroup?.value || "",
+      compCd: selectedGroup?.value || "",
       authName: userInfo.authName || "",
       userName: userInfo.userName || "",
       deptName: userInfo.deptName || "",
@@ -97,7 +97,7 @@ export default function myInfoPage() {
     e.preventDefault();
 
     // 필수 값 체크 및 포커스 설정
-    if (!formData.comCd) {
+    if (!formData.compCd) {
       alert("그룹사를 선택해 주세요.");
       // groupRef.current.focus();
       return;
@@ -176,7 +176,7 @@ export default function myInfoPage() {
               <span className={styles.p_tx}>
                 <SelectBox
                   options={groupType}
-                  name="comCd"
+                  name="compCd"
                   defaultValue={selectedGroup}
                   onChange={handleInputChange} // 상태 업데이트 핸들러 추가
                 />
