@@ -126,13 +126,13 @@ export default function RegPage() {
 
     // 유효성 체크 로직
     console.log('📢 [page.jsx:126]formData :: ', formData);
-    if (formData.reqTitle == '') {
+    if (formData.reqTitle.trim() == '') {
       alert('요청명을 입력하지 않았습니다.')
       return true;
-    } else if (formData.reqType == '') {
+    } else if (formData.reqType.trim() == '') {
       alert('대내/외 구분을 선택하지 않았습니다.')
       return true;
-    } else if (formData.reqPurp == '') {
+    } else if (formData.reqPurp.trim() == '') {
       alert('목적을 선택하지 않았습니다.')
       return true;
     }
@@ -165,25 +165,25 @@ export default function RegPage() {
         // 유효성 체크 로직
         console.log('📢 [page.jsx:126]detFormData[index]:: ', detFormData[index]);
         const checkNum = index + 1;
-        if (detFormData[index].reqJob == '') {
+        if (detFormData[index].reqJob.trim() == '') {
           alert((checkNum) + '번째 직무 구분이 입력되지 않았습니다.');
           return true;
-        } else if (trueKeysString == '') {
+        } else if (trueKeysString.trim() == '') {
           alert((checkNum) + '번째 유형을 체크하지 않았습니다.');
           return true;
-        } else if (detFormData[index].reqGrade == '') {
+        } else if (detFormData[index].reqGrade.trim() == '') {
           alert((checkNum) + '번째 등급을 입력하지 않았습니다.');
           return true;
-        } else if (detFormData[index].reqInDt == '' || detFormData[index].reqInDt == null) {
+        } else if (detFormData[index].reqInDt.trim() == '' || detFormData[index].reqInDt == null) {
           alert((checkNum) + '번째 투입 예정일을 입력하지 않았습니다.');
           return true;
-        } else if (detFormData[index].reqMm == '') {
+        } else if (detFormData[index].reqMm.trim() == '') {
             alert((checkNum) + '번째 투입 공수를 입력하지 않았습니다.');
             return true;
-        } else if (detFormData[index].reqLoc == '') {
+        } else if (detFormData[index].reqLoc.trim() == '') {
           alert((checkNum) + '번째 근무지를 입력하지 않았습니다.');
           return true;
-        } else if (detFormData[index].reqSkill == '') {
+        } else if (detFormData[index].reqSkill.trim() == '') {
           alert((checkNum) + '번째 필수 요구기술을 입력하지 않았습니다.');
           return true;
         }
