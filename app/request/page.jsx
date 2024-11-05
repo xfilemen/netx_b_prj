@@ -86,7 +86,7 @@ export default function RegPage() {
     reqOrd : 'Medium',
     reqStatus : 'register',
     reqType : '',
-    reqHeadcount : 0,
+    reqHeadcount : 1,
     reqPurp : '',
     reqDet : [{}]
   });
@@ -173,10 +173,10 @@ export default function RegPage() {
         } else if (detFormData[index].reqGrade.trim() == '') {
           alert((checkNum) + '번째 등급을 입력하지 않았습니다.');
           return true;
-        } else if (detFormData[index].reqInDt.trim() == '' || detFormData[index].reqInDt == null) {
+        } else if (detFormData[index].reqInDt == '' || detFormData[index].reqInDt == null) {
           alert((checkNum) + '번째 투입 예정일을 입력하지 않았습니다.');
           return true;
-        } else if (detFormData[index].reqMm.trim() == '') {
+        } else if (detFormData[index].reqMm == '') {
             alert((checkNum) + '번째 투입 공수를 입력하지 않았습니다.');
             return true;
         } else if (detFormData[index].reqLoc.trim() == '') {
