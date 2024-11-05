@@ -138,11 +138,13 @@ export default function RegularPage({ item }) {
                           {getStatusText(item.reqStatus)}
                         </div>
                         <div className={styles.section}>
-                          <p className={styles.tit_tx}>{item.reqTitle}</p>
+                          <p className={styles.tit_tx}>{item.reqTitle}</p> 
                           <div className={styles.tx_info}>
-                            <div className={styles.priority}>유형 : <span className={styles.prior}>{item.reqType2}</span></div>
-                            <div className={styles.date}>요청일 {item.regDt.substring(0,10)}</div>
-                            <div className={styles.num}>요청인원 {item.reqHeadcount}명</div>
+                            <span className={styles.priority}>유형 : {item.reqType2}</span>
+                            <span className={styles.blt}>•</span>
+                            <span className={styles.date}>요청일 {item.regDt.substring(0,10)}</span>
+                            <span className={styles.blt}>•</span>
+                            <span className={styles.num}>요청인원 {item.reqHeadcount}명</span>
                           </div>
                         </div>
                       </li>
