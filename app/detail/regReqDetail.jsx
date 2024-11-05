@@ -102,13 +102,13 @@ export default function RegDetail({ item }) {
               </ul>
         }
         {item.reqStatus == 'register' ?
-          ""
+          <progress className={styles.progressbar} value="33" min="0" max="100"></progress>
           : item.reqStatus == 'progress' ?
             <progress className={styles.progressbar} value="66" min="0" max="100"></progress>
             : item.reqStatus == 'cancel' ?
-              ""
+              <progress className={styles.progressbar} value="66" min="0" max="100"></progress>
               :
-              ""
+              <progress className={styles.progressbar} value="99" min="0" max="100"></progress>
         }
         </div>
         <div className={styles.detail_prog}>
