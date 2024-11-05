@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import styles from '/app/styles/notice.module.css';
+import styles from '@styles/notice.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 

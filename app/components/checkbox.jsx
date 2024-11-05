@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from '../styles/request.module.css';
+import styles from '@styles/request.module.css';
 
 const CheckBox = ({ label, name, checked, onChange }) => {
   return (

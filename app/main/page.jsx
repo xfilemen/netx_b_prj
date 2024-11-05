@@ -2,13 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { useSession, signIn, signOut } from "next-auth/react";
-import requstData from '../data/regRequstList.json';
-import styles from '/app/styles/main.module.css';
+import styles from '@styles/main.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import apiHandler from '../../utils/api-handler';
-
-
 
 export default function MainPage() {
     const { data: session } = useSession();

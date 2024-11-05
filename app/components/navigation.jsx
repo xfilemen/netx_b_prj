@@ -1,6 +1,6 @@
 "use client";
 
-import styles from '/app/styles/header.module.css';
+import styles from '@styles/header.module.css';
 import React, { Component } from 'react';
 import Link from 'next/link';
 

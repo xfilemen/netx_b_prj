@@ -4,8 +4,8 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import style from '/app/styles/notfound.module.css';
-import Header from '/app/components/header';
+import style from '@styles/notfound.module.css';
+import Header from '@components/header';
 import Link from 'next/link';
 
 const CustomErrorPage = ({ error }) => {

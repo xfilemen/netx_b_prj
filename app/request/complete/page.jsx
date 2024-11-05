@@ -1,4 +1,4 @@
-import styles from '/app/styles/complete.module.css';
+import styles from '@styles/complete.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 

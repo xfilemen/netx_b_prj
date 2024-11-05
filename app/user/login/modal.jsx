@@ -1,6 +1,6 @@
 
 import AuthForm from './authForm';
-import styles from '../../styles/modal.module.css';
+import styles from '@styles/modal.module.css';
 
 export default function Modal({ type,closeModal }) {
 

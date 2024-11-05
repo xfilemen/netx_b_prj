@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styles from "../styles/slectbox.module.css";
+import styles from "@styles/slectbox.module.css";
 
 class SelectBox extends Component {
   constructor(props) {

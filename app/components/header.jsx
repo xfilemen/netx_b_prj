@@ -2,8 +2,8 @@
 import { useEffect, useState } from 'react';
 import { useSession, signIn, signOut } from "next-auth/react"
 import { usePathname } from 'next/navigation';
-import styles from "../styles/header.module.css";
-import NaviList from '/app/components/navigation.jsx';
+import styles from "@styles/header.module.css";
+import NaviList from '@components/navigation.jsx';
 import Image from 'next/image';
 import Link from 'next/link';
 

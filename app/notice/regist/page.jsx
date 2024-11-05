@@ -1,7 +1,7 @@
 "use client";
 import React, { useState,useEffect,useRef } from 'react';
 import { useSession } from 'next-auth/react';
-import styles from '/app/styles/notice.module.css';
+import styles from '@styles/notice.module.css';
 import Image from 'next/image';
 
 import dynamic from 'next/dynamic';

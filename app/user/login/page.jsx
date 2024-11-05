@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import styles from '/app/styles/main.module.css';
+import styles from '@styles/main.module.css';
 import { signIn, signOut } from "next-auth/react";
 import Modal from '../login/modal';
 import Link from 'next/link';

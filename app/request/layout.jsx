@@ -1,6 +1,6 @@
-import styles from '../styles/detail.module.css';
-import Header from '../components/header';
-import Footer from '../components/footer';
+import styles from '@styles/detail.module.css';
+import Header from '@components/header';
+import Footer from '@components/footer';
 
 export const metadata = {
   title: '인력요청시스템',

@@ -3,11 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import DatePicker from "react-datepicker";
 import { it, ko } from 'date-fns/locale';
-import styles from '../styles/request.module.css';
 import "react-datepicker/dist/react-datepicker.css";
-import '../styles/datepicker-custom.css';
-import SelectBox from '../components/select';
-import CheckBox from '../components/checkbox';
+import '@styles/datepicker-custom.css';
+import styles from '@styles/request.module.css';
+import SelectBox from '@components/select';
+import CheckBox from '@components/checkbox';
 import Image from 'next/image';
 import apiHandler from '../../utils/api-handler';
 

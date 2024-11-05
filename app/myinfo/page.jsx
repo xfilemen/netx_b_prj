@@ -2,8 +2,8 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import styles from "/app/styles/myinfo.module.css";
-import SelectBox from "../components/select";
+import styles from "@styles/myinfo.module.css";
+import SelectBox from "@components/select";
 import Image from "next/image";
 import apiHandler from "../../utils/api-handler.js";
 import { useRouter } from "next/navigation";
