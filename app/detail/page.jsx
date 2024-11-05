@@ -15,6 +15,8 @@ export default function RegularPage({ item }) {
 
   const isGetData = useRef(false);
 
+  const [typeData, setTypeData] = useState('');
+
   const showDetailPage = (index, item) => {
     setListSelectIdx(index);
     setPageSelectItem(item);
@@ -26,6 +28,35 @@ export default function RegularPage({ item }) {
     console.log('📢 [page.jsx:26]', url);
     const result = await apiHandler.postData(url); // POST 요청
     console.log('요청 전체 조회 : ',result.data);
+    for (let index = 0; index < result.data.length; index++) {
+
+      let typeData2 = '';
+      if (result.data[index].reqDet.length > 0) {
+        for (let index2 = 0; index2 < result.data[index2].reqDet.length; index2++) {
+          console.log('📢 [page.jsx:37]** 확인 :: ', result.data[index].reqDet[index2].reqType);
+          if (result.data[index].reqDet[index2].reqType.includes('BP') && result.data[index].reqDet[index2].reqType.includes('정규직')) {
+            result.data[index].reqDet[index2].reqType = '정규직, BP';
+
+            typeData2 = typeData2 + '정규직, BP';
+          }else if (result.data[index].reqDet[index2].reqType.includes('BP')){
+            typeData2 = typeData2 + 'BP';
+          } else if (result.data[index].reqDet[index2].reqType.includes('정규직')) {
+            typeData2 = typeData2 + '정규직';
+          }
+          console.log('📢 [page.jsx:37]** 확인2 :: ', result.data[index].reqDet[index2].reqType);
+        }
+      }
+
+      if (typeData2.includes('BP') && typeData2.includes('정규직')) {
+        result.data[index].reqType2 = '정규직, BP';
+      } else if (typeData2.includes('BP')) {
+        result.data[index].reqType2 = 'BP';
+      } else if (typeData2.includes('정규직')) {
+        result.data[index].reqType2 = '정규직';
+      }
+      
+    }
+    
     setData(result.data);
     isGetData.current = true;
     // ++isGetData.current;
@@ -71,6 +102,10 @@ export default function RegularPage({ item }) {
       getData('/api/req/list');
   }, []);
 
+  useEffect(function() {
+    console.log('📢 [page.jsx:56]', data);
+  }, [data]);
+
   return (
     <div className={styles.content}>
       <div className={styles.topbanner}>
@@ -105,7 +140,7 @@ export default function RegularPage({ item }) {
                         <div className={styles.section}>
                           <p className={styles.tit_tx}>{item.reqTitle}</p>
                           <div className={styles.tx_info}>
-                            <div className={styles.priority}>유형 : <span className={styles.prior}>{item.reqType == 1 ? "대내" : "대외"}</span></div>
+                            <div className={styles.priority}>유형 : <span className={styles.prior}>{item.reqType2}</span></div>
                             <div className={styles.date}>요청일 {item.regDt.substring(0,10)}</div>
                             <div className={styles.num}>요청인원 {item.reqHeadcount}명</div>
                           </div>
