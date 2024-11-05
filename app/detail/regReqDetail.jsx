@@ -77,28 +77,28 @@ export default function RegDetail({ item }) {
         {item.reqStatus == 'register' ?
           
             <ul>
-              <li>✓ 접수</li>
+              <li className={styles.chk_tx}>✓ 접수</li>
               <li>진행</li>
               <li>완료</li>
             </ul>
           
           : item.reqStatus == 'progress' ?
               <ul>
-                <li>✓ 접수</li>
-                <li>✓ 진행</li>
+                <li className={styles.chk_tx}>✓ 접수</li>
+                <li className={styles.chk_tx}>✓ 진행</li>
                 <li>완료</li>
               </ul>
             
             : item.reqStatus == 'cancel' ?
               <ul>
-                <li>✓ 접수</li>
-                <li>✓ 취소</li>
+                <li className={`${styles.chk_tx} ${styles.half}`}>✓ 접수</li>
+                <li className={`${styles.chk_tx} ${styles.half}`}>✓ 취소</li>
               </ul>
               :
               <ul>
-                <li>✓ 접수</li>
-                <li>✓ 진행</li>
-                <li>✓ 완료</li>
+                <li className={styles.chk_tx}>✓ 접수</li>
+                <li className={styles.chk_tx}>✓ 진행</li>
+                <li className={styles.chk_tx}>✓ 완료</li>
               </ul>
         }
         {item.reqStatus == 'register' ?
@@ -106,9 +106,9 @@ export default function RegDetail({ item }) {
           : item.reqStatus == 'progress' ?
             <progress className={styles.progressbar} value="66" min="0" max="100"></progress>
             : item.reqStatus == 'cancel' ?
-              <progress className={styles.progressbar} value="66" min="0" max="100"></progress>
+              <progress className={styles.progressbar_cancel} value="100" min="0" max="100"></progress>
               :
-              <progress className={styles.progressbar} value="99" min="0" max="100"></progress>
+              <progress className={styles.progressbar_cancel} value="99" min="0" max="100"></progress>
         }
         </div>
         <div className={styles.detail_prog}>

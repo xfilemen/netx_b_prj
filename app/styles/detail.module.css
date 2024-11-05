@@ -85,9 +85,14 @@
 
 .progress_section{margin:24px 0;overflow:hidden;}
 .progress_section li{width:293px;float:left;font-size:17px;font-weight:600;color:#aaa;text-align:center;}
+.progress_section li.chk_tx{color:#000}
+.progress_section li.chk_tx.half{width:50% !important}
 .progressbar{appearance:none;width:845px;height:14px;margin-top:10px;}
 .progressbar::-webkit-progress-bar{background:#E3E3E4;border-radius:10px;}
 .progressbar::-webkit-progress-value{border-radius:10px;background:#1D976C;background:-webkit-linear-gradient(to right, #FFE09C, #FF9700);background: linear-gradient(to right, #FFE09C, #FF9700);}
+.progressbar_cancel{appearance:none;width:845px;height:14px;margin-top:10px;}
+.progressbar_cancel::-webkit-progress-bar{background:#E3E3E4;border-radius:10px;}
+.progressbar_cancel::-webkit-progress-value{border-radius:10px;background:#1D976C;background:-webkit-linear-gradient(to right, #ccc, #666);background: linear-gradient(to right, #ccc, #666);}
 
 /* 상세 진행 현황 */
 .content .detail_prog{position:relative;text-align:right;margin-right:36px;}
