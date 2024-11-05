@@ -9,7 +9,7 @@ import apiHandler from "../../utils/api-handler.js";
 import { useRouter } from "next/navigation";
 
 export default function myInfoPage() {
-  const { data: session , update } = useSession();
+  const { data: session, update } = useSession();
   const [selectedGroup, setSelectedGroup] = useState(null);
   const router = useRouter(); // useRouter 훅 사용
   const [formData, setFormData] = useState({
@@ -27,10 +27,17 @@ export default function myInfoPage() {
   const deptRef = useRef(null);
   const confirmPwdRef = useRef(null);
 
+  // 그룹
+  const groupType = [
+    { value: "U001", label: "디아이웨어" },
+    { value: "U002", label: "CJ올리브네트웍스" },
+    { value: "U003", label: "CJ올리브영" },
+  ];
+
   let userInfo = {};
   userInfo = session?.user || {};
+
   useEffect(() => {
-    console.log("session::", session);
     // 그룹사가 session의 user.compName과 같은 label 값을 가지는 경우 초기 선택값으로 설정
     if (session?.user?.compName) {
       const matchingGroup = groupType.find(
@@ -38,14 +45,13 @@ export default function myInfoPage() {
       );
       if (matchingGroup) {
         setSelectedGroup(matchingGroup.value);
-        console.log("(matchingGroup) ", matchingGroup);
       }
     }
 
     // 계정 정보 초기화
     setFormData({
       userId: userInfo.userId,
-      compCd: selectedGroup?.value || "",
+      compCd: selectedGroup || "",
       authName: userInfo.authName || "",
       userName: userInfo.userName || "",
       deptName: userInfo.deptName || "",
@@ -54,13 +60,6 @@ export default function myInfoPage() {
       modId: userInfo.userId || "",
     });
   }, [session]);
-
-  // 그룹
-  const groupType = [
-    { value: "U001", label: "디아이웨어" },
-    { value: "U002", label: "CJ올리브네트웍스" },
-    { value: "U003", label: "CJ올리브영" },
-  ];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -72,25 +71,28 @@ export default function myInfoPage() {
 
   // 로그아웃 처리
   const handleSignOut = () => {
-    window.alert("로그인 화면으로 이동합니다.");
+    window.alert("수정되었습니다. 로그인 화면으로 이동합니다.");
     signOut({ callbackUrl: "/user/login" });
   };
 
   const submitData = async (formData) => {
     try {
-      console.log("formData:", formData);
       const result = await apiHandler.postData("/api/user/modify", formData); // POST 요청
 
-      console.log("result::", result);
       if (result.data === undefined) {
         console.log("실패", result.data);
       } else {
         console.log("성공", result);
         const user1 = result.data;
-        update(user1); // 세션 업데이트
-        router.refresh();
-        // 로그아웃 -> 로그인 화면 이동.
-        //handleSignOut();
+
+        if (formData.userPwd && formData.confirmPassword) {
+          // 로그아웃 -> 로그인 화면 이동.
+          handleSignOut();
+        } else {
+          window.alert("수정되었습니다.");
+          update(user1); // 세션 업데이트
+          router.refresh();
+        }
       }
     } catch (error) {
       console.log("/api/user/modify myinfo", error);
@@ -103,7 +105,6 @@ export default function myInfoPage() {
     // 필수 값 체크 및 포커스 설정
     if (!formData.compCd) {
       alert("그룹사를 선택해 주세요.");
-      // groupRef.current.focus();
       return;
     }
     if (!formData.deptName.trim()) {
@@ -131,7 +132,6 @@ export default function myInfoPage() {
       }
     }
 
-    console.log("Form Data Submitted:", formData);
     if (window.confirm("나의 정보를 수정하시겠습니까?")) {
       // 수정 api
       submitData(formData);
@@ -181,7 +181,7 @@ export default function myInfoPage() {
                 <SelectBox
                   options={groupType}
                   name="compCd"
-                  defaultValue={selectedGroup}
+                  selectedValue={selectedGroup}
                   onChange={handleInputChange} // 상태 업데이트 핸들러 추가
                 />
               </span>

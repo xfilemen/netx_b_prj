@@ -9,6 +9,12 @@ class SelectBox extends Component {
     };
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.selectedValue !== this.props.selectedValue) {
+      this.setState({ selectedOption: this.props.selectedValue });
+    }
+  }
+
   handleChange = (event) => {
     this.setState({ selectedOption: event.target.value });
     if (this.props.onChange) {
