@@ -33,8 +33,8 @@ export async function middleware(request) {
     response.cookies.set('next-auth.session-token', '', { maxAge: -1 });
     return response;
   }
-  console.log('Request URL:', pathname); // 요청 URL 출력
-  console.log('Auth Token:', token); // 토큰 값 출력
+  //console.log('Request URL:', pathname); // 요청 URL 출력
+  //console.log('Auth Token:', token); // 토큰 값 출력
 
 
   if (pathname === '/') {
