@@ -67,11 +67,11 @@ export default function RegDetail({ item }) {
         </div>
         <h2>{item.reqTitle}</h2>
         <div className={styles.tx_info}>
-          <div className={styles.priority}>
-            유형 <span className={`${styles.prior} ${getPriorityClass(item.reqOrd)}`}>{item.reqOrd}</span>
-          </div>
-          <div className={styles.date}>요청일 {item.regDt.substring(0,10)}</div>
-          <div className={styles.num}>요청인원 {item.reqHeadcount}명</div>
+          <span className={styles.priority}>유형 : {item.reqType2}</span>
+          <span className={styles.blt}>•</span>
+          <span className={styles.date}>요청일 {item.regDt.substring(0,10)}</span>
+          <span className={styles.blt}>•</span>
+          <span className={styles.num}>요청인원 {item.reqHeadcount}명</span>
         </div>
         <div className={styles.progress_section}>
         {item.reqStatus == 'register' ?
