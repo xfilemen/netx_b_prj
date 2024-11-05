@@ -138,7 +138,7 @@ export default function RegularPage({ item }) {
                           {getStatusText(item.reqStatus)}
                         </div>
                         <div className={styles.section}>
-                          <p className={styles.tit_tx}>{item.reqTitle}</p>
+                          <p className={styles.tit_tx}>{item.reqTitle}</p> 
                           <div className={styles.tx_info}>
                             <span className={styles.priority}>유형 : {item.reqType2}</span>
                             <span className={styles.blt}>•</span>

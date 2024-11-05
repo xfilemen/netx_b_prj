@@ -59,7 +59,7 @@ export default function RegDetail({ item }) {
     setStatusVisible(!isStatusVisible); // 클릭 시 토글
   };
 
-  return (
+  return ( 
     item && (
       <div className={styles.detail_content}>
         <div className={`${styles.state} ${getStatusClass(item.reqStatus)}`}>
