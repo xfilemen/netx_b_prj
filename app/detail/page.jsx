@@ -32,7 +32,7 @@ export default function RegularPage({ item }) {
 
       let typeData2 = '';
       if (result.data[index].reqDet.length > 0) {
-        for (let index2 = 0; index2 < result.data[index2].reqDet.length; index2++) {
+        for (let index2 = 0; index2 < result.data[index].reqDet.length; index2++) {
           console.log('📢 [page.jsx:37]** 확인 :: ', result.data[index].reqDet[index2].reqType);
           if (result.data[index].reqDet[index2].reqType.includes('BP') && result.data[index].reqDet[index2].reqType.includes('정규직')) {
             result.data[index].reqDet[index2].reqType = '정규직, BP';
