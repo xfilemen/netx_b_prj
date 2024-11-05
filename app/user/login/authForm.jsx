@@ -125,11 +125,12 @@ export default function AuthForm({ type,closeModal }) {
                   </div>
                   <div className={styles.item}>
                       <label>휴대폰번호</label>
-                      <input {...register("mobNum1", mobNumValid(3))} type="number" className={styles.num} onKeyDown={(e) => maxLength(e,3)} />
+                      <input {...register("mobNum1", mobNumValid(11))} type="number" onKeyDown={(e) => maxLength(e,11)} className={styles.txt} />
+                      {/* <input {...register("mobNum1", mobNumValid(3))} type="number" className={styles.num} onKeyDown={(e) => maxLength(e,3)} />
                       <span className={styles.line}>-</span>
                       <input {...register("mobNum2", mobNumValid(4))} type="number" className={styles.num} onKeyDown={(e) => maxLength(e,4)} />
                       <span className={styles.line}>-</span>
-                      <input {...register("mobNum3", mobNumValid(4))} type="number" className={styles.num} onKeyDown={(e) => maxLength(e,4)} />
+                      <input {...register("mobNum3", mobNumValid(4))} type="number" className={styles.num} onKeyDown={(e) => maxLength(e,4)} /> */}
                       <span className={styles.certify_aply_btn}>
                         <button type="button" onClick={authCodeSend}>인증번호 발송</button>
                       </span>
