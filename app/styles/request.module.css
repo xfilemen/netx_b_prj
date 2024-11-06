@@ -13,7 +13,7 @@
 .content .wrap .accordion .title h3 img{margin-right:10px}
 .content .wrap .accordion .title span{float:right;margin-top:16px;}
 .content .wrap .accordion .title span .arrowIcon{width:18px;height:9px;}
-.content .wrap .accordion .content{overflow:hidden;border-top:1px solid #DFDFDF;padding:30px;}
+.content .wrap .accordion .content{position:relative;overflow:hidden;border-top:1px solid #DFDFDF;padding:30px;}
 .content .wrap .accordion .content .item{overflow:hidden;margin-bottom:30px;clear:both;}
 .content .wrap .accordion .content .item:last-child{margin-bottom:0}
 .content .wrap .accordion .content .tx{display:inline-block;color:#888;font-size:14px;width:70px;margin-right:40px}
@@ -26,9 +26,9 @@
 .content .wrap .accordion .content .chk{display:inline-block}
 .content .wrap .accordion .content .chk input{width:16px;height:16px;margin-right:10px;vertical-align:middle;}
 .content .wrap .accordion .content .chk label{color:#191F28;font-size:14px;vertical-align:middle;cursor:pointer;margin-right:30px;}
-.content .wrap .accordion .content .calendar{padding:12px;border:1px solid #ebebeb;border-radius:4px;}
+.content .wrap .accordion .content .calendar{width:200px;padding:12px;border:1px solid #ebebeb;border-radius:4px;}
 .content .wrap .accordion .content .end_chk{margin-left:10px;}
-.content .wrap .accordion .content .item input.mm_tx{width:150px;margin-right:5px;border:1px solid #ebebeb;padding:12px;font-size:14px;color:#888;border-radius:4px;}
+.content .wrap .accordion .content .item input.mm_tx{width:200px;margin-right:5px;border:1px solid #ebebeb;padding:12px;font-size:14px;color:#888;border-radius:4px;}
 .content .wrap .accordion .content .item input.txt.w_txt{width:875px;margin-right:20px;}
 .content .wrap .accordion .content .item .text_box{border:1px solid #EBEBEB;width:1000px;height:260px;padding:12px;border-radius:4px;resize:none;}
 .content .wrap .accordion .content .tx.v_t{vertical-align:top;}
@@ -36,3 +36,9 @@
 .content .btn_section button{width:96px;font-size:16px;font-weight:600;border-radius:30px}
 .content .btn_section button.cancel_btn{border:1px solid #191F28}
 .content .btn_section button.aply_btn{margin-left:10px;color:#fff;background-color:#191F28;}
+.content .del_btn_section{width:100%;position:absolute;bottom:0;left:0;border-top:1px solid #DFDFDF;}
+.content .del_btn_section .del_btn{width:100%;background-color:#FAFAFA;color:#000;font-size:16px;border-radius:0 0 12px 12px;border:none;}
+.content .add_btn_section .del_btn .delIcon{vertical-align:bottom;}
+.content .add_btn_section{width:100%}
+.content .add_btn_section .add_btn{width:100%;;background-color:#006FCD;color:#fff;margin-top:24px;font-size:16px;border-radius:12px;}
+.content .add_btn_section .add_btn .addIcon{vertical-align:bottom;}

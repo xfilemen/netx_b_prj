@@ -1,4 +1,5 @@
 /* Custom datepicker styles */
+.react-datepicker__tab-loop{display:inline-block}
 .react-datepicker{font-family:'Arial', sans-serif;background-color:#fff;color:#fff;border:1px solid #e0e0e0;}
 .react-datepicker__header{background-color:#0a3e68;}
 .react-datepicker__day--selected{background-color:#00ff00;color:white;}
