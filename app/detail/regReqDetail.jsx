@@ -5,11 +5,13 @@ import styles from '@styles/detail.module.css';
 import Detailstatus from '@components/detailstatus';
 import Image from 'next/image';
 
-export default function RegDetail({ item }) {
+export default function RegDetail({ item, initialValue }) {
   
   const [isOpen, setIsOpen] = useState(false);
-  const [detailsOpen, setDetailsOpen] = useState([true]); // details 아코디언 상태 배열로 관리
-  const [isStatusVisible, setStatusVisible] = useState(false); // 토글 상태 관리
+  const [detailsOpen, setDetailsOpen] = useState([true]);          // details 아코디언 상태 배열로 관리
+  const [isStatusVisible, setStatusVisible] = useState(false);     // 토글 상태 관리
+  const [isEditing, setIsEditing] = useState(false);               // 수정 상태 변경
+  const [value, setValue] = useState(initialValue);                // 입력 값 상태
 
   const getStatusText = (status) => {
     switch (status) {
@@ -32,19 +34,6 @@ export default function RegDetail({ item }) {
     return styles[status] || '';
   };
 
-  const getPriorityClass = (priority) => {
-    switch (priority) {
-      case 'High':
-        return styles['h'];
-      case 'Medium':
-        return styles['m'];
-      case 'Low':
-        return styles['l'];
-      default:
-        return priority;
-    }
-  };
-
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
@@ -57,6 +46,14 @@ export default function RegDetail({ item }) {
 
   const handleStatusToggle = () => {
     setStatusVisible(!isStatusVisible); // 클릭 시 토글
+  };
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleInputChange = (e) => {
+    setValue(e.target.value);
   };
 
   return ( 
@@ -187,16 +184,192 @@ export default function RegDetail({ item }) {
               {isDetailOpen && (
                 <div className={styles.content}>
                   <ul>
-                    <li className={styles.half_line1}><span className={styles.tit_tx}>인원</span><span className={styles.p_tx}>{item.reqHeadcount}명</span></li>
-                    <li className={styles.half_line2}><span className={styles.tit_tx}>직무 구분</span><span className={styles.p_tx}>{detail.reqJob}</span></li>                    
-                    <li className={`${styles.half_line1} ${styles.pt}`}><span className={styles.tit_tx}>유형</span><span className={styles.p_tx}>{detail.reqType}</span></li>
-                    <li className={`${styles.half_line2} ${styles.pt}`}><span className={styles.tit_tx}>등급</span><span className={styles.p_tx}>{detail.reqGrade}</span></li>
-                    <li className={`${styles.half_line1} ${styles.pt}`}><span className={styles.tit_tx}>투입 예정일</span><span className={styles.p_tx}>{detail.reqInDt.substring(0,10)}</span></li>
-                    <li className={`${styles.half_line2} ${styles.pt}`}><span className={styles.tit_tx}>투입 종료일</span><span className={styles.p_tx}>{detail.reqOutDt ? detail.reqOutDt.substring(0,10) : '미정'}</span></li>
-                    <li className={`${styles.half_line1} ${styles.pt}`}><span className={styles.tit_tx}>투입 공수</span><span className={styles.p_tx}>{detail.reqMm} M/M</span></li>
-                    <li className={`${styles.half_line2} ${styles.pt}`}><span className={styles.tit_tx}>근무지</span><span className={styles.p_tx}>{detail.reqLoc}</span></li>
-                    <li><span className={styles.tit_tx}>필수<br />요구기술</span><span className={styles.p_tx}>{detail.reqSkill}</span></li>
-                    <li><span className={styles.tit_tx}>우대기술</span><span className={styles.p_tx}>{detail.reqPrefSkill}</span></li>
+                    <li className={styles.half_line1}>
+                      {isEditing ? (
+                        <div>
+                          <span className={styles.tit_tx_edit}>인원</span>
+                          <input
+                            type="text"
+                            placeholder={`${item.reqHeadcount}`}
+                            onChange={handleInputChange}
+                            className={styles.txt}
+                          />
+                        </div>
+                      ) : (
+                        <div>
+                          <span className={styles.tit_tx}>인원</span>
+                          <span className={styles.p_tx}>{item.reqHeadcount}명</span>
+                        </div>
+                      )}                   
+                    </li>
+                    <li className={styles.half_line2}>
+                      {isEditing ? (
+                        <div>
+                          <span className={styles.tit_tx_edit}>직무 구분</span>
+                          <input
+                            type="text"
+                            placeholder={`${detail.reqJob}`}
+                            onChange={handleInputChange}
+                            className={styles.txt}
+                          />
+                        </div>
+                      ) : (
+                        <div>
+                          <span className={styles.tit_tx}>직무 구분</span>
+                          <span className={styles.p_tx}>{detail.reqJob}</span>
+                        </div>
+                      )}                       
+                    </li>
+                    <li className={`${styles.half_line1} ${styles.pt}`}>
+                      {isEditing ? (
+                        <div>
+                          <span className={styles.tit_tx_edit}>유형</span>
+                          <input
+                            type="text"
+                            placeholder={`${detail.reqType}`}
+                            onChange={handleInputChange}
+                            className={styles.txt}
+                          />
+                        </div>
+                      ) : (
+                        <div>
+                          <span className={styles.tit_tx}>유형</span>
+                          <span className={styles.p_tx}>{detail.reqType}</span>
+                        </div>
+                      )}                      
+                    </li>
+                    <li className={`${styles.half_line2} ${styles.pt}`}>
+                      {isEditing ? (
+                        <div>
+                          <span className={styles.tit_tx_edit}>등급</span>
+                          <input
+                            type="text"
+                            placeholder={`${detail.reqGrade}`}
+                            onChange={handleInputChange}
+                            className={styles.txt}
+                          />
+                        </div>
+                      ) : (
+                        <div>
+                          <span className={styles.tit_tx}>등급</span>
+                          <span className={styles.p_tx}>{detail.reqGrade}</span>
+                        </div>
+                      )}                      
+                    </li>
+                    <li className={`${styles.half_line1} ${styles.pt}`}>
+                      {isEditing ? (
+                        <div>
+                          <span className={styles.tit_tx_edit}>투입 예정일</span>
+                          <input
+                            type="text"
+                            placeholder={`${detail.reqInDt.substring(0,10)}`}
+                            onChange={handleInputChange}
+                            className={styles.txt}
+                          />
+                        </div>
+                      ) : (
+                        <div>
+                          <span className={styles.tit_tx}>투입 예정일</span>
+                          <span className={styles.p_tx}>{detail.reqInDt.substring(0,10)}</span>
+                        </div>
+                      )}
+                    </li>
+                    <li className={`${styles.half_line2} ${styles.pt}`}>
+                      {isEditing ? (
+                        <div>
+                          <span className={styles.tit_tx_edit}>투입 종료일</span>
+                          <input
+                            type="text"
+                            placeholder={`${detail.reqOutDt ? detail.reqOutDt.substring(0,10) : '미정'}`}
+                            onChange={handleInputChange}
+                            className={styles.txt}
+                          />
+                        </div>
+                      ) : (
+                        <div>
+                          <span className={styles.tit_tx}>투입 종료일</span>
+                          <span className={styles.p_tx}>{detail.reqOutDt ? detail.reqOutDt.substring(0,10) : '미정'}</span>
+                        </div>
+                      )}
+                    </li>
+
+
+                    <li className={`${styles.half_line1} ${styles.pt}`}>
+                      {isEditing ? (
+                        <div>
+                          <span className={styles.tit_tx_edit}>투입 공수</span>
+                          <input
+                            type="text"
+                            placeholder={`${detail.reqMm}`}
+                            onChange={handleInputChange}
+                            className={styles.txt}
+                          />
+                          M/M
+                        </div>
+                      ) : (
+                        <div>
+                          <span className={styles.tit_tx}>투입 공수</span>
+                          <span className={styles.p_tx}>{detail.reqMm} M/M</span>
+                        </div>
+                      )}
+                    </li>
+
+
+                    <li className={`${styles.half_line2} ${styles.pt}`}>
+                      {isEditing ? (
+                        <div>
+                          <span className={styles.tit_tx_edit}>근무지</span>
+                          <input
+                            type="text"
+                            placeholder={`${detail.reqLoc}`}
+                            onChange={handleInputChange}
+                            className={styles.txt}
+                          />
+                        </div>
+                      ) : (
+                        <div>
+                          <span className={styles.tit_tx}>근무지</span>
+                          <span className={styles.p_tx}>{detail.reqLoc}</span>
+                        </div>
+                      )}
+                    </li>
+
+                    <li>
+                      {isEditing ? (
+                        <div>
+                          <span className={styles.tit_tx_edit_line}>필수<br />요구기술</span>
+                          <textarea
+                            name="reqSkill"
+                            placeholder={`${detail.reqSkill}`}
+                            className={styles.text_box}
+                            onChange={handleInputChange}
+                          ></textarea>
+                        </div>
+                      ) : (
+                        <div>
+                          <span className={styles.tit_tx}>필수<br />요구기술</span>
+                          <span className={styles.p_tx}>{detail.reqSkill}</span>
+                        </div>
+                      )}
+                    </li>
+                    <li>
+                      {isEditing ? (
+                        <div>
+                          <span className={styles.tit_tx_edit_line}>우대기술</span>
+                          <textarea
+                            name="reqPrefSkill"
+                            placeholder={`${detail.reqPrefSkill}`}
+                            className={styles.text_box}
+                            onChange={handleInputChange}
+                          ></textarea>
+                        </div>
+                      ) : (
+                        <div>
+                          <span className={styles.tit_tx}>우대기술</span>
+                          <span className={styles.p_tx}>{detail.reqPrefSkill}</span>
+                        </div>
+                      )}
+                    </li>
                   </ul>
                 </div>
               )}
@@ -205,7 +378,7 @@ export default function RegDetail({ item }) {
         })}
         <div className={styles.btn_section}>
           <button className={styles.cancel_btn}>요청취소</button>
-          <button className={styles.aply_btn}>수정</button>
+          <button className={styles.aply_btn} onClick={handleEditClick}>수정</button>
         </div>
       </div>
     )
