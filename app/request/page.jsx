@@ -523,6 +523,16 @@ export default function RegPage() {
                 <label>대내외 구분</label>
                 <SelectBox options={reqType} name="reqType" onChange={handleChange}/>
               </div>
+              <div className={styles.item_half}>
+                <label>인원</label>
+                <select name="reqHeadcount" onChange={handleHeadcountChange} className={styles.custom_select}>
+                  {reqHeadcount.map(option => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
               <div className={styles.item}>
                 <label>목적</label>
                 <SelectBox options={reqPurp} name="reqPurp" onChange={handleChange}/>
@@ -543,7 +553,7 @@ export default function RegPage() {
                     width={46}
                     height={46}
                   />
-                  요청 상세 정보
+                  요청 상세 정보 <span className={styles.acc_num}>{index + 1}</span>
                 </h3>
                 <span>
                   <Image
@@ -558,20 +568,11 @@ export default function RegPage() {
               {isDetailOpen && (
                 <div className={styles.content}>
                   <div className={styles.item}>
-                    <label>인원</label>
-                    <select name="reqHeadcount" onChange={handleHeadcountChange} className={styles.custom_select}>
-                      {reqHeadcount.map(option => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className={styles.item}>
                     <label>직무 구분</label>
                     <SelectBox
                       options={jobData.categories}
                       name={`reqCategory-${index}`}
+                      
                       onChange={handleJobCategoryChange(index)}
                     />
                     <span className={styles.blt}>&gt;</span> 
@@ -647,7 +648,7 @@ export default function RegPage() {
                   </div>
                   <div className={styles.item}>
                     <span className={styles.tx}>근무지</span>
-                    <input type="text" placeholder="ex. 지역명 + 빌딩명 or 본사명" className={`${styles.txt} ${styles.w_txt}`} name="reqLoc" value={detFormData[index].reqLoc} onChange={handleDetChange(index)}/>
+                    <input type="text" placeholder="ex. 지역명 + 빌딩명 or 본사명" className={`${styles.txt} ${styles.w_txt}` } name="reqLoc" value={detFormData[index].reqLoc} onChange={handleDetChange(index)}/>
                     {workplace.map((item) => (
                       <CheckBox
                         key={item.name}
