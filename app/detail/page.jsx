@@ -83,19 +83,6 @@ export default function RegularPage({ item }) {
     return styles[status] || '';
   };
 
-  const getPriorityClass = (priority) => {
-    switch (priority) {
-      case 'High':
-        return styles['h'];
-      case 'Medium':
-        return styles['m'];
-      case 'Low':
-        return styles['l'];
-      default:
-        return '';
-    }
-  };
-
   // 컴포넌트가 마운트될 때 데이터 가져오기
   useEffect(function() {
       console.log("API 호출");

@@ -1,17 +1,20 @@
 "use client"
 
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSession } from "next-auth/react"
 import styles from '@styles/detail.module.css';
 import Detailstatus from '@components/detailstatus';
 import Image from 'next/image';
 
-export default function RegDetail({ item, initialValue }) {
-  
+export default function RegDetail({ item, initialValue }) {  
   const [isOpen, setIsOpen] = useState(false);
   const [detailsOpen, setDetailsOpen] = useState([true]);          // details 아코디언 상태 배열로 관리
   const [isStatusVisible, setStatusVisible] = useState(false);     // 토글 상태 관리
   const [isEditing, setIsEditing] = useState(false);               // 수정 상태 변경
   const [value, setValue] = useState(initialValue);                // 입력 값 상태
+  const { data: session } = useSession();
+  let userInfo = {};
+  userInfo = session?.user || {};
 
   const getStatusText = (status) => {
     switch (status) {
@@ -55,6 +58,10 @@ export default function RegDetail({ item, initialValue }) {
   const handleInputChange = (e) => {
     setValue(e.target.value);
   };
+
+  useEffect(() => {
+    console.log(session);
+  }, [session]);
 
   return ( 
     item && (
@@ -105,7 +112,7 @@ export default function RegDetail({ item, initialValue }) {
                 <li className={styles.chk_tx}>✓ 반려</li>
               </ul>
         }
-        {item.reqStatus == 'register' ?
+        {item.reqStatus == 'register' ? 
           <progress className={styles.progressbar} value="33" min="0" max="100"></progress>
           : item.reqStatus == 'progress' ?
             <progress className={styles.progressbar} value="66" min="0" max="100"></progress>
@@ -292,8 +299,6 @@ export default function RegDetail({ item, initialValue }) {
                         </div>
                       )}
                     </li>
-
-
                     <li className={`${styles.half_line1} ${styles.pt}`}>
                       {isEditing ? (
                         <div>
@@ -313,8 +318,6 @@ export default function RegDetail({ item, initialValue }) {
                         </div>
                       )}
                     </li>
-
-
                     <li className={`${styles.half_line2} ${styles.pt}`}>
                       {isEditing ? (
                         <div>
@@ -333,7 +336,6 @@ export default function RegDetail({ item, initialValue }) {
                         </div>
                       )}
                     </li>
-
                     <li>
                       {isEditing ? (
                         <div>
@@ -376,10 +378,31 @@ export default function RegDetail({ item, initialValue }) {
             </div>
           );
         })}
-        <div className={styles.btn_section}>
-          <button className={styles.cancel_btn}>요청취소</button>
-          <button className={styles.aply_btn} onClick={handleEditClick}>수정</button>
-        </div>
+
+        {userInfo.authCd == 'request' ? (
+          item.reqStatus == 'cancel' ? (
+            <div className={styles.btn_section}>
+              <button className={styles.aply_btn}>요청재개</button>
+            </div>
+          ) : (
+            <div className={styles.btn_section}>
+              <button className={styles.cancel_btn}>요청취소</button>
+              <button className={styles.aply_btn} onClick={handleEditClick}>수정</button>
+            </div>
+          )
+        ):(
+          item.reqStatus == 'register' ? (
+            <div className={styles.btn_section}>
+              <button className={styles.aply_btn}>진행</button>
+            </div>
+          ) : item.reqStatus == 'progress' ? (
+            <div className={styles.btn_section}>
+              <button className={styles.cancel_btn}>반려</button>
+              <button className={styles.aply_btn}>완료</button>
+            </div>
+          ) : null
+        )}
+
       </div>
     )
   );
