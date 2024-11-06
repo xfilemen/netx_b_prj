@@ -1,8 +1,8 @@
 import NextAuth from 'next-auth';
 import { authConfig } from './auth-config';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import prisma from '/lib/prisma';
-import bcryptObj from "/lib/bcrypt";
+import prisma from '@lib/prisma';
+import bcryptObj from "@lib/bcrypt";
 
 export const authOptions = {
     ...authConfig,
@@ -26,23 +26,17 @@ export const authOptions = {
             }
         }
         })
-
-        console.log(getUser)
-
+        console.log('getUser',getUser)
         if(getUser.length == 0){
-        throw new Error("존재하지 않는 계정");
+            throw new Error("계정 정보를 확인해주세요");
 
-        } 
-        /*
-        const maxSeq = await prisma.TBLogin.aggregate({
-        _max: {
-            seq: true,
-        },
-        where: {
-            userId: credentials.cj_id
-        },
-        });
-        */
+        }else if(getUser[0].userStatus === '000'){
+            //throw new Error("생성 승인 대기 계정입니다");
+
+        }else if(getUser[0].userStatus !== '001'){
+            //throw new Error("계정 정보를 확인해주세요");
+        }
+
         const getPwd = await prisma.tbLogin.findMany({
         where: {
             userId: credentials.cj_id 
@@ -50,11 +44,11 @@ export const authOptions = {
         })
 
         if(getPwd.length == 0){
-        throw new Error("존재하지 않는 계정");
+            throw new Error("계정 정보를 확인해주세요");
         } 
 
         if (!bcryptObj.compare(credentials.password,getPwd[0].userPwd)) {
-        throw new Error("패스워드 불일치");
+            throw new Error("계정 정보를 확인해주세요");
         }
 
         //권한 조회
@@ -78,12 +72,12 @@ export const authOptions = {
         // });
 
 
-        const user = { userId: getUser[0].userId,  
-                        userName: getUser[0].userName, 
-                        deptName:getUser[0].deptName, 
-                        compName:getUser[0]['comCode'][0]['codeName'] || '',
-                        authCd:getAuth[0]['authCd'] || '',
-                        authName:getAuth[0]['auth']['authName'] || ''
+        const user = { userId: getUser[0]?.userId,  
+                        userName: getUser[0]?.userName, 
+                        deptName:getUser[0]?.deptName, 
+                        compName:getUser[0]?.comCode[0]?.codeName || '',
+                        authCd:getAuth[0]?.authCd || '',
+                        authName:getAuth[0]?.auth?.authName || ''
                     }
     
 

@@ -43,7 +43,13 @@ const timer = (initialTime) => {
     setIsActive(false);
   };
 
-  return { time, start, stop, reset, isActive };
+  const remove = () => {
+    setTime('');
+    setIsActive(false);
+  };
+
+
+  return { time, start, stop, reset, remove, isActive };
 };
 
 export default timer;

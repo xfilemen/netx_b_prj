@@ -9,9 +9,11 @@ import apiHandler from '@utils/api-handler';
 export default function AuthForm({ type,closeModal }) {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
-  const { register, handleSubmit, watch , getValues, control, formState: { errors }} = useForm();
+  const { register, handleSubmit, watch , getValues, setValue, control, formState: { errors }} = useForm();
   const [isVisible, setIsVisible] = useState(false);
-  const { time, start, stop, reset, isActive } = timer("03:00");
+  const { time, start, stop, reset, remove, isActive } = timer("03:00");
+  const [authData, setAuthData] = useState({});
+  const [isAuthDisabled, setIsAuthDisabled] = useState(false);
 
   const [groupType, setGroupType] = useState([
     // { value: 'U001', label: '디아이웨어' },
@@ -26,63 +28,137 @@ export default function AuthForm({ type,closeModal }) {
 
 
   //인증번호 발송
-  const authCodeSend = () => {
-    const mobNum = watch(["mobNum1", "mobNum2", "mobNum3"]);
-    if(mobNum[0].length !== 3 || mobNum[1].length !== 4 || mobNum[2].length !== 4){
-      alert("휴대폰번호를 입력하세요");
+  const authCodeSend = async () => {
+    const mobileNum = watch("mobileNum");
+
+    if(mobileNum.length !== 11){
+      console.log(mobileNum.length);
+      alert("휴대폰번호를 입력하세요 ");
       return;
     }
-    setIsVisible(true);
-    reset();
-    start();
+    await apiHandler.fetchPostData('/api/user/auth/sms/send',{
+      data :{
+        serialnum : '',
+        status : '',
+        type : '',
+        phone : mobileNum,
+        callback : '',
+        msg : ''
+      }
+      },
+      (result,error)=>{
+        if(result.data?.authSmsId){
+          alert("인증번호가 발송되었습니다");
+          console.log(result.data.authSmsId);
+          setAuthData(result.data);
+          setIsVisible(true);
+          reset();
+          start();
+        }
+      }
+    );
   };
 
   //인증번호 확인
-  const authCodeCheck = () => {
-    reset();
+  const authCodeVerify = async () => {
+    const authSmsCd = watch("authSmsCd");
+    await apiHandler.fetchPostData('/api/user/auth/sms/verify',{
+       data :{
+          ...authData,
+          authSmsCd
+        }
+      },
+      (result,error)=>{
+        console.log(result,error)
+        if(result.data?.authSmsStatus == '001'){
+          setValue("authVerify",authSmsCd);
+          setIsAuthDisabled(true);
+          remove();
+          alert("인증이 완료되었습니다");
+        }
+      }
+    );
   };
 
-
-  //form submit
-  const onSubmit = (data) => {
-    if (window.confirm("계정 생성을 요청하시겠습니까?")) {
+  //계성생성 신청
+  const onSubmit = async (data) => {
+    let userCount = 1;
+    const userId = watch("userId");
+    //계정 중복 여부
+    await apiHandler.fetchPostData('/api/user/find/id',{
+      data : {userId}
+      },
+      (result,error)=>{
+        console.log(result);
+        userCount = result.data?.userCount;
+        if(userCount !== 0){
+          alert("이미 사용 중인 계정입니다. CJ World 계정 확인 후, 다시 입력해 주세요.");
+        }
+      }
+    );
+    
+    if (userCount === 0 && window.confirm("계정 생성을 요청하시겠습니까?")) {
       console.log("폼 데이터:", data);
-      console.log(errors);
-    }
+      await apiHandler.fetchPostData('/api/user/regist',{
+        data : data
+        },
+        (result,error)=>{
+          console.log(result);
+          if(result.data?.proc === 'success'){
+            alert("계정 생성 요청이 완료되었습니다");
+            closeModal();
+          }
+        }
+      );
+    };
   };
 
   //validation 체크
   const onError = () => {
     console.log(errors);
-    // if (Object.keys(errors).length > 0) {
-    //   const errorMessages = Object.values(errors) 
-    //                               .map(error => error.message) 
-    //                               .join(','); 
-    //   alert(`${errorMessages}이 누락되었습니다.`);
-    // }
-  };
-
-  const codeSelect = async () => {
-    try {
-      const result = await apiHandler.postData('/api/common/code/select',{
-        codeGrp : 'G001',
-        
+    if (Object.keys(errors).length > 0) {
+      const form = document.getElementById("form1");
+      const formData = new FormData(form);
+      let itemKey = new Array();
+      formData.forEach((value, key) => {
+        itemKey.push(key);
       });
-      if(result.data){
-        let groupType = result.data.map(item => ({
-          value: item.code,
-          label: item.codeName
-        }));
-        setGroupType(groupType);
-      }else{
-        console.log(result.data);
+      itemKey.push('agrYn');
+      for(const item of itemKey){
+        const errror = errors[item];
+        if(errror?.message){
+          alert(errror.message);
+          return;
+        }
       }
-    } catch (error) {
-      console.log('error',error);
-      setError(error);
     }
   };
 
+  // 그룹사 코드 호출
+  const codeSelect = async () => {
+    await apiHandler.fetchPostData('/api/common/code/select',{
+        codeGrp : 'G001',
+      },
+      (result,error)=>{
+        if(result.data){
+          let groupType = result.data.map(item => ({
+            value: item.code,
+            label: item.codeName
+          }));
+          setGroupType(groupType);
+        }else{
+          console.log(result.data);
+        }
+      }
+    );
+  };
+
+  const canCelBtnClick = () => {
+    if (window.confirm("입력하신 내용이 초기화됩니다. 그래도 취소하시겠습니까?")) {
+      closeModal();
+    };
+  }
+  
   
   // 컴포넌트가 마운트될 때 데이터 가져오기
   useEffect(function() {
@@ -90,7 +166,7 @@ export default function AuthForm({ type,closeModal }) {
   }, []);
 
     return (
-      <form onSubmit={handleSubmit(onSubmit,onError)}>
+      <form id="form1" onSubmit={handleSubmit(onSubmit,onError)}>
            {type === 'requestAccount' && (
             <div className={styles.req_cont}>
                 <h2>계정생성요청</h2>
@@ -125,22 +201,18 @@ export default function AuthForm({ type,closeModal }) {
                   </div>
                   <div className={styles.item}>
                       <label>휴대폰번호</label>
-                      <input {...register("mobNum1", mobNumValid(11))} type="number" onKeyDown={(e) => maxLength(e,11)} className={styles.txt} />
-                      {/* <input {...register("mobNum1", mobNumValid(3))} type="number" className={styles.num} onKeyDown={(e) => maxLength(e,3)} />
-                      <span className={styles.line}>-</span>
-                      <input {...register("mobNum2", mobNumValid(4))} type="number" className={styles.num} onKeyDown={(e) => maxLength(e,4)} />
-                      <span className={styles.line}>-</span>
-                      <input {...register("mobNum3", mobNumValid(4))} type="number" className={styles.num} onKeyDown={(e) => maxLength(e,4)} /> */}
+                      <input {...register("mobileNum", mobNumValid(11))} type="number" onKeyDown={(e) => maxLength(e,11)} className={styles.txt} />
                       <span className={styles.certify_aply_btn}>
-                        <button type="button" onClick={authCodeSend}>인증번호 발송</button>
+                        <button type="button" onClick={authCodeSend} disabled={isAuthDisabled}>인증번호 발송</button>
                       </span>
                   </div>
-                  <div className={styles.item} id="authCheck" style={{ display: isVisible ? "block" : "none" }}>
+                  <div className={styles.item} style={{ display: isVisible ? "block" : "none" }}>
                       <label>인증번호</label>
-                      <input type="text" className={styles.txt} />
+                      <input {...register("authSmsCd")} type="text" className={styles.txt} disabled={isAuthDisabled} />
                       <span className={styles.certify_num}>{time}</span>
                       <span className={styles.certify_btn}>
-                        <button type="button" onClick={authCodeCheck}>인증</button>
+                        <button type="button" onClick={authCodeVerify} disabled={isAuthDisabled}>{isAuthDisabled ? "인증완료" : "인증"}</button>
+                        <input {...register("authVerify")} type="hidden" className={styles.txt} />
                       </span>
                   </div>
                 </div>
@@ -160,7 +232,7 @@ export default function AuthForm({ type,closeModal }) {
                 </div>
                 <div className={styles.btn_section}>
                   <button className={styles.aply_btn}>확인</button>
-                  <button type='button' className={styles.cancel_btn} onClick={closeModal}>취소</button>
+                  <button type='button' className={styles.cancel_btn} onClick={canCelBtnClick}>취소</button>
                 </div>
             </div>
         )}

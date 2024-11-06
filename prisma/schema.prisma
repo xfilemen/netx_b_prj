@@ -18,18 +18,20 @@ model User {
 }
 
 model tbUser {
-  userId   String    @id @map("user_id")
-  compCd   String?   @map("comp_cd") @unique 
-  deptName String?   @map("dept_name")
-  userName String?   @map("user_name")
-  mobNum1  String?   @map("mob_num_1")
-  mobNum2  String?   @map("mob_num_2")
-  mobNum3  String?   @map("mob_num_3")
-  agrYn    String?   @map("agr_yn")
-  regDt    DateTime? @map("reg_dt")
-  regId    String?   @map("reg_id")
-  modDt    DateTime? @map("mod_dt")
-  modId    String?   @map("mod_id")
+  userId     String    @id @map("user_id")
+  compCd     String?   @map("comp_cd") @unique 
+  deptName   String?   @map("dept_name")
+  userName   String?   @map("user_name")
+  mobileNum  String?   @map("mobile_num")
+  userStatus String?   @map("user_status")
+  mobNum1    String?   @map("mob_num_1")
+  mobNum2    String?   @map("mob_num_2")
+  mobNum3    String?   @map("mob_num_3")
+  agrYn      String?   @map("agr_yn")
+  regDt      DateTime? @map("reg_dt")
+  regId      String?   @map("reg_id")
+  modDt      DateTime? @map("mod_dt")
+  modId      String?   @map("mod_id")
 
   comCode  tbComCode[] @relation("userCompCd")
   post1     tbPost[] @relation("userPostReg")
@@ -246,4 +248,45 @@ model tbReqMgtLog {
 
   @@id([reqLogId, reqId])                                              // 복합 Primary Key
   @@map("tb_req_mgt_log")                                              // 테이블 이름 매핑
+}
+
+model smsMsg {
+  msgkey        Int      @id @default(autoincrement()) @map("msgkey")   // 메시지 키
+  reqdate       DateTime @map("reqdate")                                // 요청 날짜
+  serialnum     Int?     @map("serialnum")                              // 일련번호 (nullable)
+  id            String?  @map("id") @db.VarChar(16)                     // ID (nullable)
+  status        String   @default("1") @map("status") @db.VarChar(1)    // 상태
+  rslt          String?  @default("00") @map("rslt") @db.VarChar(2)     // 결과 (nullable)
+  type          String   @default("0") @map("type") @db.VarChar(1)      // 타입
+  repcnt        Int      @default(0) @map("repcnt")                     // 반복 카운트
+  phone         String   @default("") @map("phone") @db.VarChar(16)     // 전화번호
+  callback      String   @default("") @map("callback") @db.VarChar(16)  // 콜백 번호
+  rsltdate      DateTime? @map("rsltdate")                              // 결과 날짜 (nullable)
+  reportdate    DateTime? @map("reportdate")                            // 보고 날짜 (nullable)
+  msg           String   @map("msg")                                    // 메시지
+  net           String?  @map("net") @db.VarChar(4)                     // 네트워크 (nullable)
+  etc1          String?  @map("etc1") @db.VarChar(160)                  // 기타1 (nullable)
+  etc2          String?  @map("etc2") @db.VarChar(160)                  // 기타2 (nullable)
+  etc3          String?  @map("etc3") @db.VarChar(160)                  // 기타3 (nullable)
+  etc4          String?  @map("etc4") @db.VarChar(160)                  // 기타4 (nullable)
+  etc5          String?  @map("etc5") @db.VarChar(160)                  // 기타5 (nullable)
+  etc6          String?  @map("etc6") @db.VarChar(160)                  // 기타6 (nullable)
+  campaign_code String?  @map("campaign_code") @db.VarChar(20)          // 캠페인 코드 (nullable)
+  origin_cid    String?  @map("origin_cid") @db.VarChar(10)             // 원본 CID (nullable)
+
+  @@map("sms_msg")  // 테이블 이름
+  @@index([status, reqdate], name: "idx_sms_msg_1")     // 인덱스 정의
+  @@index([phone], name: "idx_sms_msg_2")               // 인덱스 정의
+}
+
+model tbAuthSmsVerify {
+  authSmsId      Int       @id @default(autoincrement()) @map("auth_sms_id")
+  authSmsCd      String    @db.VarChar(10) @map("auth_sms_cd")
+  authSmsStatus  String    @default("000") @db.VarChar(10) @map("auth_sms_status")
+  regDt          DateTime  @default(now()) @map("reg_dt")
+  regId          String?   @db.VarChar(20) @map("reg_id")
+  modDt          DateTime? @map("mod_dt")
+  modId          String?   @db.VarChar(20) @map("mod_id")
+
+  @@map("tb_auth_sms_verify")
 }

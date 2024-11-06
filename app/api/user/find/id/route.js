@@ -3,22 +3,24 @@ export async function POST(req) {
   try {
 
     const data = await req.json();
-    if(data.params){
-      const { userId, compCd, deptName, userName } = data.params;
+    if(data.params.data){
+      const { userId, compCd, deptName, userName } = data.params.data;
+
+      if(!userId){
+        throw new Error('ID 입력 오류');
+      }
 
       const getUser = await prisma.tbUser.findMany({
-        where: {
-            userId: userId ,
-        }
+        where: { userId }
       });
 
       console.log(getUser);
       if(getUser.length > 0){
-          return new Response(JSON.stringify({ message: '정상적으로 처리되었습니다.', data : getUser}), {
+          return new Response(JSON.stringify({ message: '정상적으로 처리되었습니다.', data : {userCount : 1}}), {
             status: 200,
           })
       }else {
-          return new Response(JSON.stringify({ message: '존재하지 않는 계정입니다.', data : getUser}), {
+          return new Response(JSON.stringify({ message: '존재하지 않는 계정입니다.', data : {userCount : 0}}), {
             status: 200,
           })
       }
