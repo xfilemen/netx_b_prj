@@ -380,15 +380,17 @@ export default function RegDetail({ item, initialValue }) {
         })}
 
         {userInfo.authCd == 'request' ? (
-          item.reqStatus == 'cancel' ? (
-            <div className={styles.btn_section}>
-              <button className={styles.aply_btn}>요청재개</button>
-            </div>
-          ) : (
+          item.reqStatus == 'register' ? (
             <div className={styles.btn_section}>
               <button className={styles.cancel_btn}>요청취소</button>
               <button className={styles.aply_btn} onClick={handleEditClick}>수정</button>
             </div>
+          ) : item.reqStatus == 'cancel' ? (
+            <div className={styles.btn_section}>
+              <button className={styles.aply_btn}>요청재개</button>
+            </div>
+          ) : (
+            <div></div>
           )
         ):(
           item.reqStatus == 'register' ? (
@@ -400,7 +402,9 @@ export default function RegDetail({ item, initialValue }) {
               <button className={styles.cancel_btn}>반려</button>
               <button className={styles.aply_btn}>완료</button>
             </div>
-          ) : null
+          ) : (
+            <div></div>
+          )
         )}
 
       </div>
