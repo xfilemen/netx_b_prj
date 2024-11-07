@@ -106,20 +106,20 @@ export default function RegularPage({ item }) {
     if (param == 'Edit') {
       setIsEditing(true);
     } else {
-
-      modiApi(param);
-      
+      console.log('📢 [page.jsx:109]', pageSelectItem);
+      pageSelectItem.reqStatus = param;
+      modiApi();
     }
   };
 
   const [isEditing, setIsEditing] = useState(false);               // 수정 상태 변경
 
-  const modiApi = (data) => {
-    console.log('📢 [page.jsx:104]', data);
-    // const result =  apiHandler.postData('/api/req/modify',{
-    //   data:data
-    // }); // POST 요청
-    // console.log('reqRegist : ',result);
+  const modiApi = () => {
+    console.log('📢 [page.jsx:104]', pageSelectItem);
+    const result =  apiHandler.postData('/api/req/modify',{
+      data:pageSelectItem
+    }); // POST 요청
+    console.log('reqRegist : ',result);
   }
 
   return (
