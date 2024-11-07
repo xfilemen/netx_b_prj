@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from 'react';
+
 import RegDetail from '../detail/regReqDetail.jsx';
 import styles from '@styles/detail.module.css';
 import Image from 'next/image';
@@ -19,7 +20,7 @@ export default function RegularPage({ item }) {
   const [typeData, setTypeData] = useState('');
 
   const [_, forceRender] = useState(0);
-
+  
   const showDetailPage = (index, item) => {
     setListSelectIdx(index);
     setPageSelectItem(item);
@@ -30,6 +31,16 @@ export default function RegularPage({ item }) {
   const { data: session } = useSession();
   let userInfo = {};
   userInfo = session?.user || {};
+
+  // 상태를 사용하여 comment 값 관리
+  const [reqStatusData, setReqStatusData] = useState({
+    reqId: '', 
+    reqLogDesc: "", 
+    reqLogType: 1, 
+    regId: userInfo.userId
+  });
+
+
   console.log(userInfo);
   console.log('📢 [page.jsx:29]', session);
 
@@ -123,7 +134,7 @@ export default function RegularPage({ item }) {
       } else {
         console.log('📢 [page.jsx:109]', pageSelectItem);
         pageSelectItem.reqStatus = param;
-        modiApi();
+        modiApi(param);
         forceRender(prev => prev + 1); // 상태 값을 변경하여 강제 렌더링
       }
       console.log('📢 [regReqDetail.jsx:56]', param);
@@ -136,11 +147,46 @@ export default function RegularPage({ item }) {
 
   const [isEditing, setIsEditing] = useState(false);               // 수정 상태 변경
 
-  const modiApi = () => {
-    console.log('📢 [page.jsx:104]', pageSelectItem);
-    const result =  apiHandler.postData('/api/req/modify',{
+  const modiApi = async(param) => {
+    console.log('📢 [page.jsx:104]호호', pageSelectItem);
+
+    const result =  await apiHandler.postData('/api/req/modify',{
       data:pageSelectItem
     }); // POST 요청
+
+    let reqLogDesc = '';
+    if (param == 'cancel') {
+      reqLogDesc='정규 인력 요청 취소';
+    } else if (param == 'return') {
+      reqLogDesc='정규 인력 요청 반려';
+    } else if (param == 'complete') {
+      reqLogDesc='정규 인력 요청 완료';
+    } else if (param == 'register') {
+      reqLogDesc='정규 인력 요청 재개';
+    } else if (param == 'progress') {
+      reqLogDesc='정규 인력 요청 진행';
+    }
+
+    setReqStatusData({
+      reqId: pageSelectItem.reqId, 
+      reqLogDesc: reqLogDesc, 
+      reqLogType: 1, 
+      regId: userInfo.userId
+    });
+
+    console.log('ReqStatusData::', reqStatusData);
+    
+    await apiHandler.fetchPostData('/api/req/log/regist', {
+      data: reqStatusData , // 요청내역 reqId 변수
+    }, (result, error) => {
+      if (result?.data) {
+        console.log('요청내역 Submit 성공', result.data);
+      } else {
+        console.log('No data found', result); // 응답 객체 구조 확인
+      }          
+    });
+
+    console.log('ReqStatusData::', reqStatusData);
     console.log('reqRegist : ',result);
   }
 
