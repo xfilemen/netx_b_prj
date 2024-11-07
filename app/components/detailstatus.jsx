@@ -60,7 +60,7 @@ export default function DetailStatusPage({onClose}) {
           <ul>
             {data.map((item, index) => (
               <li key={index}>
-                <div className={styles.line}><span className={styles.name}>[처리자] 디아이웨어 {item.tbUserReg.userName}님</span> | {formatDate(item.regDt)}</div>
+                <div className={styles.line}><span className={styles.name}>[{item.authName}] 디아이웨어 {item.tbUserReg.userName}님</span> | {formatDate(item.regDt)}</div>
                 <div> <span className={styles.emoji}>{item.reqLogType === 1 ? "❗" : "✍"}</span> {item.reqLogDesc}</div>
               </li>
             ))}
