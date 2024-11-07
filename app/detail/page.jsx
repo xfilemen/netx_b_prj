@@ -19,15 +19,6 @@ export default function RegularPage({ item }) {
 
   const [typeData, setTypeData] = useState("");
 
-  const [logData, setLogData] = useState([
-    {
-      reqId: 0,
-      reqLogDesc: "",
-      reqLogType: 0,
-      regId: "",
-    },
-  ]);
-
   const [_, forceRender] = useState(0);
 
   const showDetailPage = (index, item) => {
@@ -40,6 +31,15 @@ export default function RegularPage({ item }) {
   const { data: session } = useSession();
   let userInfo = {};
   userInfo = session?.user || {};
+
+  const [logData, setLogData] = useState([
+    {
+      reqId: 0,
+      reqLogDesc: "",
+      reqLogType: 0,
+      regId: userInfo.userId,
+    },
+  ]);
 
   console.log(userInfo);
   console.log("📢 [page.jsx:29]", session);
@@ -160,11 +160,11 @@ export default function RegularPage({ item }) {
           reqId: parseInt(pageSelectItem.reqId),
           reqLogDesc: logDesc,
           reqLogType: parseInt(1),
-          regId: userInfo.regId,
+          regId: userInfo.userId,
         });
         console.log("📢 [page.jsx:141]logData:: ", logData);
         await modiApi();
-        // await addLog();
+        await addLog();
         forceRender((prev) => prev + 1); // 상태 값을 변경하여 강제 렌더링
       }
       console.log("📢 [regReqDetail.jsx:56]", param);
@@ -196,10 +196,10 @@ export default function RegularPage({ item }) {
     console.log("📢 [page.jsx:129]", pageSelectItem);
   }, [pageSelectItem]);
 
-  useEffect(() => {
-    console.log("📢 [page.jsx:129]logData:: ", logData);
-    addLog();
-  }, [logData]);
+  // useEffect(() => {
+  //   console.log("📢 [page.jsx:129]logData:: ", logData);
+  //   addLog();
+  // }, [logData]);
 
   return (
     <div className={styles.content}>
