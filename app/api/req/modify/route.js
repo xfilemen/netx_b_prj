@@ -2,7 +2,7 @@ import prisma from '/lib/prisma';
 import {getObjTrimAndNullProc} from '/utils/common-util';
 /**
  * @swagger
- * /req/log/modify:
+ * /req/modify:
  *   post:
  *     tags:
  *       - request

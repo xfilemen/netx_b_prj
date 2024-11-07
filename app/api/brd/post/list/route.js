@@ -49,9 +49,6 @@ export async function POST(req) {
         where : {
           brdId
         },
-        orderBy: {
-          createdAt: 'desc', 
-        },
         include: {
           tbUserReg: {
             select : {

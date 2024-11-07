@@ -2,9 +2,10 @@ import prisma from '/lib/prisma';
 export async function POST(req) {
   try {
 
-    const data = await req.json();
-    if(data.params){
-      const { userId, seq, userPwd, pwdWrongCnt, modId } = data.params;
+    const {params} = await req.json();
+    const data = params?.data || params;
+    if(data){
+      const { userId, seq, userPwd, pwdWrongCnt, modId } = data;
 
       const updatedTbLogin = await prisma.tbLogin.update({
         where: { 

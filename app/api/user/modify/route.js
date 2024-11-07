@@ -38,12 +38,12 @@ import {setSessionUpdate} from "@utils/data-access";
  */
 export async function POST(req) {
   try {
-    const data = await req.json();
-
+    const {params} = await req.json();
+    const data = params?.data || params;
     const currentTime =
       await prisma.$queryRaw`SELECT CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Seoul'`;
     const nowData = new Date(currentTime[0].timezone);
-    if (data.params) {
+    if (data) {
       const {
         userId,
         compCd,
@@ -53,7 +53,7 @@ export async function POST(req) {
         authCd,
         agrYn,
         modId,
-      } = data.params;
+      } = data;
 
       const tbUser = await prisma.tbUser.update({
         where: { userId },
