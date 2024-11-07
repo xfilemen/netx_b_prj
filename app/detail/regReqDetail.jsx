@@ -1,12 +1,12 @@
 "use client"
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import styles from '@styles/detail.module.css';
 import Detailstatus from '@components/detailstatus';
 import Image from 'next/image';
 
 export default function RegDetail({ item, initialValue, userInfo, handleEditClick,isEditing }) {
-  
+  const detailRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [detailsOpen, setDetailsOpen] = useState([true]);          // details 아코디언 상태 배열로 관리
   const [isStatusVisible, setStatusVisible] = useState(false);     // 토글 상태 관리
@@ -33,6 +33,7 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
     }
   };
 
+  
   const getStatusClass = (status) => {
     return styles[status] || '';
   };
@@ -54,6 +55,25 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
   const handleInputChange = (e) => {
     setValue(e.target.value);
   };
+
+
+  // 컴포넌트 외부 클릭 감지
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (detailRef.current && !detailRef.current.contains(event.target)) {
+        // 외부 클릭 시 handleStatusToggle 실행
+        setStatusVisible(false);
+      }
+    }
+
+    // 클릭 이벤트 리스너 추가
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // 컴포넌트 언마운트 시 이벤트 리스너 제거
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
 
   return ( 
     item && (
@@ -116,10 +136,10 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
                 <progress className={styles.progressbar_cancel} value="100" min="0" max="100"></progress>
         }
         </div>
-        <div className={styles.detail_prog}>
+        <div className={styles.detail_prog} ref={detailRef}>
           <button onClick={handleStatusToggle}>상세 진행 현황</button>
           {isStatusVisible && (
-            <Detailstatus onClose={handleStatusToggle}/>
+            <Detailstatus reqInfo={item} onClose={handleStatusToggle}/>
           )}
         </div>
         {/* 기본 정보 아코디언 */}
