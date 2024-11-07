@@ -39,8 +39,9 @@ export default function myInfoPage() {
 
   useEffect(() => {
     // 그룹사가 session의 user.compName과 같은 label 값을 가지는 경우 초기 선택값으로 설정
+    let matchingGroup = {};
     if (session?.user?.compName) {
-      const matchingGroup = groupType.find(
+      matchingGroup = groupType.find(
         (group) => group.label === session.user.compName
       );
       if (matchingGroup) {
@@ -51,7 +52,7 @@ export default function myInfoPage() {
     // 계정 정보 초기화
     setFormData({
       userId: userInfo.userId,
-      compCd: selectedGroup || "",
+      compCd: matchingGroup.value || "",
       authName: userInfo.authName || "",
       userName: userInfo.userName || "",
       deptName: userInfo.deptName || "",
