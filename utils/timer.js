@@ -38,7 +38,7 @@ const timer = (initialTime) => {
     setIsActive(false);
   };
 
-  const reset = () => {
+  const resetTimer = () => {
     setTime(initialTime);
     setIsActive(false);
   };
@@ -49,7 +49,7 @@ const timer = (initialTime) => {
   };
 
 
-  return { time, start, stop, reset, remove, isActive };
+  return { time, start, stop, resetTimer, remove, isActive };
 };
 
 export default timer;

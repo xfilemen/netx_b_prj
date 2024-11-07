@@ -9,11 +9,12 @@ import apiHandler from '@utils/api-handler';
 export default function AuthForm({ type,closeModal }) {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
-  const { register, handleSubmit, watch , getValues, setValue, control, formState: { errors }} = useForm();
+  const { register, handleSubmit, watch , reset, getValues, trigger, setValue, control, formState: { errors }} = useForm();
   const [isVisible, setIsVisible] = useState(false);
-  const { time, start, stop, reset, remove, isActive } = timer("03:00");
+  const { time, start, stop, resetTimer, remove, isActive } = timer("03:00");
   const [authData, setAuthData] = useState({});
   const [isAuthDisabled, setIsAuthDisabled] = useState(false);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
 
   const [groupType, setGroupType] = useState([
     // { value: 'U001', label: '디아이웨어' },
@@ -30,12 +31,25 @@ export default function AuthForm({ type,closeModal }) {
   //인증번호 발송
   const authCodeSend = async () => {
     const mobileNum = watch("mobileNum");
+    // if(mobileNum.length === 0){
+    //   console.log(mobileNum.length);
+    //   alert("휴대폰번호를 입력하세요 ");
+    //   return;
+    // }
+    // if(mobileNum.length !== 11){
+    //   console.log(mobileNum.length);
+    //   alert("휴대폰번호는 11자리를 입력해야 합니다 ");
+    //   return;
+    // }
 
-    if(mobileNum.length !== 11){
-      console.log(mobileNum.length);
-      alert("휴대폰번호를 입력하세요 ");
+
+    const isPhoneNumberValid = await trigger("mobileNum");
+    if(!isPhoneNumberValid){
+      alert(errors.mobileNum?.message);
       return;
     }
+
+
     await apiHandler.fetchPostData('/api/user/auth/sms/send',{
       data :{
         serialnum : '',
@@ -52,7 +66,7 @@ export default function AuthForm({ type,closeModal }) {
           console.log(result.data.authSmsId);
           setAuthData(result.data);
           setIsVisible(true);
-          reset();
+          resetTimer();
           start();
         }
       }
@@ -82,6 +96,7 @@ export default function AuthForm({ type,closeModal }) {
 
   //계성생성 신청
   const onSubmit = async (data) => {
+    await setIsSubmitDisabled(true);
     let userCount = 1;
     const userId = watch("userId");
     //계정 중복 여부
@@ -107,14 +122,19 @@ export default function AuthForm({ type,closeModal }) {
           if(result.data?.proc === 'success'){
             alert("계정 생성 요청이 완료되었습니다");
             closeModal();
+          }else{
+            setIsSubmitDisabled(false);
           }
         }
       );
-    };
+    }else{
+      setIsSubmitDisabled(false);
+    }
   };
 
   //validation 체크
   const onError = () => {
+    setIsSubmitDisabled(false);
     console.log(errors);
     if (Object.keys(errors).length > 0) {
       const form = document.getElementById("form1");
@@ -162,8 +182,9 @@ export default function AuthForm({ type,closeModal }) {
   
   // 컴포넌트가 마운트될 때 데이터 가져오기
   useEffect(function() {
+    reset();
     codeSelect();
-  }, []);
+  }, [reset]);
 
     return (
       <form id="form1" onSubmit={handleSubmit(onSubmit,onError)}>
@@ -201,7 +222,7 @@ export default function AuthForm({ type,closeModal }) {
                   </div>
                   <div className={styles.item}>
                       <label>휴대폰번호</label>
-                      <input {...register("mobileNum", mobNumValid(11))} type="number" onKeyDown={(e) => maxLength(e,11)} className={styles.txt} />
+                      <input {...register("mobileNum", mobNumValid(11))} type="number" onKeyDown={(e) => maxLength(e,11)} className={styles.txt} disabled={isAuthDisabled} />
                       <span className={styles.certify_aply_btn}>
                         <button type="button" onClick={authCodeSend} disabled={isAuthDisabled}>인증번호 발송</button>
                       </span>
@@ -231,7 +252,7 @@ export default function AuthForm({ type,closeModal }) {
                   </p>
                 </div>
                 <div className={styles.btn_section}>
-                  <button className={styles.aply_btn}>확인</button>
+                <button className={styles.aply_btn} disabled={isSubmitDisabled}>확인</button>
                   <button type='button' className={styles.cancel_btn} onClick={canCelBtnClick}>취소</button>
                 </div>
             </div>

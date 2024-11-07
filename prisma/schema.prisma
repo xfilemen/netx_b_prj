@@ -62,6 +62,7 @@ model tbReqMgt {
   reqOrd        String?   @map("req_ord")               // 우선순위
   reqStatus     String?   @map("req_status")            // 진행상황
   reqType       String?   @map("req_type")              // 대내/외 구분
+  reqIntExtType String?   @map("req_int_ext_type")      // 대내/외 구분
   reqHeadcount  Int?      @map("req_headcount")         // 인원
   reqPurp       String?   @map("req_purp")              // 목적
   useYn         String?   @map("use_yn")                // 사용 여부
