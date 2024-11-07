@@ -259,8 +259,9 @@ export default function AuthForm({ type,closeModal }) {
                 <label>인증번호</label>
                 <input type="text" className={styles.txt_input} />
                 <span className={styles.certify_num}>{time}</span>
-                <span className={styles.certify_btn}>
-                  <button type="button" >인증</button>
+                <span className={styles.certify_btn}>                
+                <button type="button" onClick={authCodeVerify} disabled={isAuthDisabled}>{isAuthDisabled ? "인증완료" : "인증"}</button>
+                        <input {...register("authVerify")} type="hidden" className={styles.txt} />
                 </span>
               </div>
             </div>
