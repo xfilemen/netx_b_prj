@@ -23,7 +23,7 @@ export default function AuthForm({ type,closeModal }) {
 
   const [accountType, setAccountType] = useState([
     { value: 'request', label: '요청자' },
-    { value: 'approve', label: '승인자' },
+    { value: 'approve', label: '처리자' },
   ]);
 
 
