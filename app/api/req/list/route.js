@@ -1,5 +1,25 @@
 import prisma from '/lib/prisma';
 import {getSession} from '/utils/data-access';
+/**
+ * @swagger
+ * /req/list:
+ *   post:
+ *     tags:
+ *       - request
+ *     summary: 요청 내역 조회
+ *     parameters:
+ *       - in: 
+ *         name: 
+ *         required: 
+ *         schema:
+ *           type: 
+ *         description: 
+ *     responses:
+ *       200:
+ *         description: 요청 내역 조회. 요청자일때는 본인 요청 내역만 가져오고 승인자일 경우 전체 내역 가져옴
+ *       401:
+ *         description: 오류 코드
+ */
 export async function POST(req) {
   try {
     const {user} = await getSession();

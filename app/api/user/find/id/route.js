@@ -1,4 +1,30 @@
 import prisma from '/lib/prisma';
+/**
+ * @swagger
+ * /user/find/id:
+ *   post:
+ *     tags:
+ *       - user
+ *     summary: 아이디 확인 / 아이디 찾기
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               params:
+ *                 type: object
+ *                 properties:
+ *                   userId:
+ *                     type: string
+ *                     description: CJ WORLD 계정
+ *     responses:
+ *       200:
+ *         description: 아이디 확인 / 아이디 찾기
+ *       401:
+ *         description: 오류 코드
+ */
 export async function POST(req) {
   try {
 

@@ -1,6 +1,57 @@
 import prisma from "@lib/prisma";
 import bcryptObj from "@lib/bcrypt";
 import {encrypt} from "@lib/crypto";
+
+/**
+ * @swagger
+ * /user/regist:
+ *   post:
+ *     tags:
+ *       - user
+ *     summary: 계정생성 신청
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               params:
+ *                 type: object
+ *                 properties:
+ *                   userId:
+ *                     type: string
+ *                     description: CJ WORLD 계정
+ *                   compCd:
+ *                     type: string
+ *                     description: 그룹사코드
+ *                   deptName:
+ *                     type: string
+ *                     description: 소속명
+ *                   userName:
+ *                     type: string
+ *                     description: 이름
+ *                   mobileNum:
+ *                     type: string
+ *                     description: 휴대폰번호
+ *                   userPwd:
+ *                     type: string
+ *                     description: 비밀번호
+ *                   authCd:
+ *                     type: string
+ *                     description: 계정구분
+ *                   agrYn:
+ *                     type: string
+ *                     description: 동의여부
+ *                   authVerify:
+ *                     type: string
+ *                     description: 인증코드
+ *     responses:
+ *       200:
+ *         description: 계정생성 신청
+ *       401:
+ *         description: 오류 코드
+ */
 export async function POST(req) {
   try {
     const data = await req.json();
