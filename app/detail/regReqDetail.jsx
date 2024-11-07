@@ -343,7 +343,7 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
                       ) : (
                         <div>
                           <span className={styles.tit_tx}>필수<br />요구기술</span>
-                          <span className={styles.p_tx}>{detail.reqSkill}</span>
+                          <span className={styles.p_tx} style={{ whiteSpace: 'pre-wrap' }}>{detail.reqSkill}</span>
                         </div>
                       )}
                     </li>
@@ -361,7 +361,7 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
                       ) : (
                         <div>
                           <span className={styles.tit_tx}>우대기술</span>
-                          <span className={styles.p_tx}>{detail.reqPrefSkill}</span>
+                          <span className={styles.p_tx} style={{ whiteSpace: 'pre-wrap' }}>{detail.reqPrefSkill}</span>
                         </div>
                       )}
                     </li>
