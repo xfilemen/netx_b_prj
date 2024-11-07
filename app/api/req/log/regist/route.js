@@ -40,7 +40,7 @@ export async function POST(req) {
     
     const {params} = await req.json();
     const data = params?.data || params;
-    //console.log(data);
+    console.log('상세진행 내역: req', data);
 
     const currentTime = await prisma.$queryRaw`SELECT CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Seoul'`;
     const nowData = new Date(currentTime[0].timezone);

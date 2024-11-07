@@ -4,12 +4,22 @@ import styles from '@styles/detail.module.css';
 import apiHandler from '../../utils/api-handler.js'; 
 import Image from 'next/image';
 
-export default function DetailStatusPage({onClose}) {
+export default function DetailStatusPage({reqInfo,onClose}) {
   const { data: session } = useSession();
   const [data, setData] = useState([]);
   let userInfo = {};
   userInfo = session?.user || {};
 
+  // 상태를 사용하여 comment 값 관리
+  const [comment, setComment] = useState('');
+  const [commentData, setCommentData] = useState({
+    reqId: reqInfo.reqId, 
+    reqLogDesc: "", 
+    reqLogType: 2, 
+    regId: userInfo.userId
+  });
+
+  
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -21,23 +31,73 @@ export default function DetailStatusPage({onClose}) {
     return `${year}-${month}-${day} ${hours}:${minutes}`;
   };
 
+
+  // 입력 값을 업데이트하는 함수
+  const handleInputChange = (event) => {
+    setComment(event.target.value);
+    setCommentData({
+      reqId: reqInfo.reqId, 
+      reqLogDesc: event.target.value, 
+      reqLogType: 2, 
+      regId: userInfo.userId
+    });
+  };
+
+  const handleButtonClick = () => {
+    if(!comment || !comment.trim()) {
+      alert('코멘트를 입력해 주세요.');
+      setComment('');
+      return;
+    }
+    handleSubmit();
+  };
+
+
+  const handleSubmit = async () => {
+    try {
+      await apiHandler.fetchPostData('/api/req/log/regist', {
+        data: commentData , // 요청내역 reqId 변수
+      }, (result, error) => {
+        if (result?.data) {
+          console.log('handleSubmit 성공', result.data);
+          setCommentData({
+            reqId: reqInfo.reqId, 
+            reqLogDesc: "", 
+            reqLogType: 2, 
+            regId: userInfo.userId
+          })
+          setComment('');
+
+          tbReqMgtLog();
+          // setData(Array.isArray(result.data) ? result.data : [result.data]);
+        } else {
+          console.log('No data found', result); // 응답 객체 구조 확인
+        }          
+      });
+    } catch (error) {
+      console.error('AxiosError', error);
+    }
+  };
+
+  const tbReqMgtLog = async () => {
+    try {
+      await apiHandler.fetchPostData('/api/req/log/list', {
+        data: { reqId: reqInfo.reqId }, // 요청내역 reqId 변수
+        // data: { reqId: 4 }, // 요청내역 reqId 변수
+      }, (result, error) => {
+        if (result?.data) {
+          console.log('tbReqMgtLog', result.data);
+          setData(Array.isArray(result.data) ? result.data : [result.data]);
+        } else {
+          console.log('No data found', result); // 응답 객체 구조 확인
+        }          
+      });
+    } catch (error) {
+      console.error('AxiosError', error);
+    }
+  };
+
   useEffect(() => {
-    const tbReqMgtLog = async () => {
-      try {
-        await apiHandler.fetchPostData('/api/req/log/list', {
-          data: { reqId: 4 }, // 요청내역 reqId 변수
-        }, (result, error) => {
-          if (result?.data) {
-            console.log('tbReqMgtLog', result.data);
-            setData(Array.isArray(result.data) ? result.data : [result.data]);
-          } else {
-            console.log('No data found', result); // 응답 객체 구조 확인
-          }          
-        });
-      } catch (error) {
-        console.error('AxiosError', error);
-      }
-    };
     tbReqMgtLog();
   }, []);
 
@@ -91,8 +151,12 @@ export default function DetailStatusPage({onClose}) {
         </div>
         {userInfo.authCd == 'approve' ? (
           <div className={styles.comment_section}>
-              <textarea placeholder="코멘트를 입력해 주세요." name="" id=""></textarea>
-              <button>comment</button>
+              <textarea
+                placeholder="코멘트를 입력해 주세요."
+                value={comment}
+                onChange={handleInputChange} // textarea 값 변경 핸들러
+              ></textarea>
+             <button onClick={handleButtonClick}>comment</button>
           </div>
         ) : (
           ""

@@ -43,11 +43,15 @@ const mobNumValid = (length) => ({
     required: "휴대폰번호를 입력해주세요",
     maxLength: {
         value: length,
-        message: `휴대폰번호는 ${length}자리까지 입력 가능합니다`,
+        message: `휴대폰번호는 ${length}자리를 입력해야 합니다`,
+    },
+    minLength: {
+        value: length,
+        message: `휴대폰번호는 ${length}자리를 입력해야 합니다`,
     },
     pattern: {
-        value: /^[0-9]+$/,
-        message: "휴대폰번호는 숫자만 입력할 수 있습니다",
+        value: /^010\d{7,8}$/,
+        message: "휴대폰번호는 010으로 시작하는 11자리 숫자만 입력할 수 있습니다",
     },
 });
 
@@ -57,10 +61,6 @@ const deptValid = (length) => ({
     maxLength: {
         value: length,
         message: `소속은 ${length}자리까지 입력 가능합니다`,
-    },
-    pattern: {
-        value: /^[0-9]+$/,
-        message: "휴대폰번호는 숫자만 입력할 수 있습니다",
     },
 });
 
