@@ -14,6 +14,8 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
 
   console.log('📢 [regReqDetail.jsx:16]', userInfo);
 
+  console.log('📢 [regReqDetail.jsx:17]', item);
+
   const getStatusText = (status) => {
     switch (status) {
       case 'register':
@@ -279,6 +281,7 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
                             type="text"
                             placeholder={`${detail.reqOutDt ? detail.reqOutDt.substring(0,10) : '미정'}`}
                             onChange={handleInputChange}
+                            value={detail.reqOutDt}
                             className={styles.txt}
                           />
                         </div>
@@ -314,7 +317,7 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
                           <span className={styles.tit_tx_edit}>근무지</span>
                           <input
                             type="text"
-                            placeholder={`${detail.reqLoc}`}
+                            placeholder={`${detail.reqLoc ? detail.reqLoc : '미정'}`}
                             onChange={handleInputChange}
                             className={styles.txt}
                           />
@@ -322,7 +325,7 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
                       ) : (
                         <div>
                           <span className={styles.tit_tx}>근무지</span>
-                          <span className={styles.p_tx}>{detail.reqLoc}</span>
+                          <span className={styles.p_tx}>{detail.reqLoc ? detail.reqLoc : '미정'}</span>
                         </div>
                       )}
                     </li>
