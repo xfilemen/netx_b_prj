@@ -104,15 +104,34 @@ export default function RegularPage({ item }) {
   }, [data]);
 
   const handleEditClick = (param) => {
-    console.log('📢 [regReqDetail.jsx:56]', param);
-    if (param == 'Edit') {
-      setIsEditing(true);
-    } else {
-      console.log('📢 [page.jsx:109]', pageSelectItem);
-      pageSelectItem.reqStatus = param;
-      modiApi();
-      forceRender(prev => prev + 1); // 상태 값을 변경하여 강제 렌더링
+    let msg = '';
+    if (param == 'cancel') {
+      msg='요청취소';
+    } else if (param == 'return') {
+      msg='반려처리';
+    } else if (param == 'complete') {
+      msg='완료처리';
+    } else if (param == 'register') {
+      msg='요청재개';
+    } else if (param == 'progress') {
+      msg='진행처리';
     }
+    if (confirm(`${msg} 하시겠습니까?`) == true){    //확인
+
+      if (param == 'Edit') {
+        setIsEditing(true);
+      } else {
+        console.log('📢 [page.jsx:109]', pageSelectItem);
+        pageSelectItem.reqStatus = param;
+        modiApi();
+        forceRender(prev => prev + 1); // 상태 값을 변경하여 강제 렌더링
+      }
+      console.log('📢 [regReqDetail.jsx:56]', param);
+    } else{   //취소
+  
+        return true;
+    }
+    
   };
 
   const [isEditing, setIsEditing] = useState(false);               // 수정 상태 변경
@@ -125,6 +144,9 @@ export default function RegularPage({ item }) {
     console.log('reqRegist : ',result);
   }
 
+  useEffect(() => {
+    console.log('📢 [page.jsx:129]', pageSelectItem);
+  }, [pageSelectItem]);
   return (
     <div className={styles.content}>
       <div className={styles.topbanner}>
@@ -178,7 +200,7 @@ export default function RegularPage({ item }) {
           </div>
         </div>
         <div className={styles.right_section}>
-            <RegDetail item={pageSelectItem} userInfo={userInfo} handleEditClick={handleEditClick} isEditing={isEditing}/>
+            <RegDetail item={pageSelectItem} userInfo={userInfo} handleEditClick={handleEditClick} isEditing={isEditing} initialValue={pageSelectItem}/>
         </div>
       </div>
     </div>

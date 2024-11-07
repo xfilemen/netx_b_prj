@@ -179,7 +179,7 @@ export default function RegPage() {
         } else if (detFormData[index].reqMm == '') {
             alert((checkNum) + '번째 투입 공수를 입력하지 않았습니다.');
             return true;
-        } else if (detFormData[index].reqLoc.trim() == '') {
+        } else if (!detFormData[index].reqLocNull && detFormData[index].reqLoc.trim() == '') {
           alert((checkNum) + '번째 근무지를 입력하지 않았습니다.');
           return true;
         } else if (detFormData[index].reqSkill.trim() == '') {
