@@ -18,6 +18,8 @@ export default function RegularPage({ item }) {
 
   const [typeData, setTypeData] = useState('');
 
+  const [_, forceRender] = useState(0);
+
   const showDetailPage = (index, item) => {
     setListSelectIdx(index);
     setPageSelectItem(item);
@@ -109,6 +111,7 @@ export default function RegularPage({ item }) {
       console.log('📢 [page.jsx:109]', pageSelectItem);
       pageSelectItem.reqStatus = param;
       modiApi();
+      forceRender(prev => prev + 1); // 상태 값을 변경하여 강제 렌더링
     }
   };
 
