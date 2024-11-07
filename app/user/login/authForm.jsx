@@ -185,7 +185,7 @@ export default function AuthForm({ type,closeModal }) {
                   </div>
                   <div className={styles.item_half_right}>
                       <label>소속</label>
-                      <input {...register("deptName", required("deptName"))} type="text" placeholder="ex. 테이터 마케팅팀" autoComplete="new-group" className={styles.txt} />
+                      <input {...register("deptName", required("deptName"))} type="text" placeholder="ex. 데이터 마케팅팀" autoComplete="new-group" className={styles.txt} />
                   </div>
                   <div className={styles.item_half_left}>
                       <label>비밀번호</label>

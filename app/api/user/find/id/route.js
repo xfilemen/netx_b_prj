@@ -28,9 +28,10 @@ import prisma from '/lib/prisma';
 export async function POST(req) {
   try {
 
-    const data = await req.json();
-    if(data.params.data){
-      const { userId, compCd, deptName, userName } = data.params.data;
+    const {params} = await req.json();
+    const data = params?.data || params;
+    if(data){
+      const { userId, compCd, deptName, userName } = data;
 
       if(!userId){
         throw new Error('ID 입력 오류');

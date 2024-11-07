@@ -54,13 +54,14 @@ import {encrypt} from "@lib/crypto";
  */
 export async function POST(req) {
   try {
-    const data = await req.json();
+    const {params} = await req.json();
+    const data = params?.data || params;
     const currentTime =
       await prisma.$queryRaw`SELECT CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Seoul'`;
     const nowDate = new Date(currentTime[0].timezone);
     console.log(process.env.NEXTAUTH_SECRET);
     console.log("data", data);
-    if (data.params) {
+    if (data) {
       const {
         userId,
         compCd,
@@ -73,7 +74,7 @@ export async function POST(req) {
         agrYn,
         authSmsCd,
         authVerify,
-      } = data.params.data;
+      } = data;
 
       
 
