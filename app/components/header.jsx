@@ -65,13 +65,12 @@ export default function HeaderPage() {
                 height={51}
               />
               <div className={styles.user_info_tx}>
-                <Link href={'/myinfo'}>
                   {userInfo.userName ? `${userInfo.userName}님` : ''}
-                </Link>
                 <span className={styles.type_req_tx}>({userInfo.authName})</span>
               </div>
               <div className={styles.team_info_tx}>{userInfo.compName}<br/>{userInfo.deptName}</div>
               <div className={styles.logout_btn}>
+                <Link href={'/myinfo'} className={styles.info_btn}>정보수정</Link>
                 <button onClick={handleSignOut}>로그아웃</button>
               </div>
           </div>
