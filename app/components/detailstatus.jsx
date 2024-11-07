@@ -1,25 +1,45 @@
 import React, { useEffect, useState } from 'react';
+import { useSession } from "next-auth/react";
 import styles from '@styles/detail.module.css';
-import apiHandler from '../../utils/api-handler.js';
+import apiHandler from '../../utils/api-handler.js'; 
 import Image from 'next/image';
 
 export default function DetailStatusPage({onClose}) {
+  const { data: session } = useSession();
   const [data, setData] = useState([]);
+  let userInfo = {};
+  userInfo = session?.user || {};
 
-  // 컴포넌트가 마운트될 때 데이터 가져오기
-  useEffect(function() {
-    console.log("API 호출");
-    getData('/api/req/log/list');
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 1을 더해줍니다.
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+  
+    return `${year}-${month}-${day} ${hours}:${minutes}`;
+  };
+
+  useEffect(() => {
+    const tbReqMgtLog = async () => {
+      try {
+        await apiHandler.fetchPostData('/api/req/log/list', {
+          data: { reqId: 4 }, // 요청내역 reqId 변수
+        }, (result, error) => {
+          if (result?.data) {
+            console.log('tbReqMgtLog', result.data);
+            setData(Array.isArray(result.data) ? result.data : [result.data]);
+          } else {
+            console.log('No data found', result); // 응답 객체 구조 확인
+          }          
+        });
+      } catch (error) {
+        console.error('AxiosError', error);
+      }
+    };
+    tbReqMgtLog();
   }, []);
-
-  useEffect(function() {
-    console.log('📢 [page.jsx:56]', data);
-  }, [data]);
-
-  const getData = async (url) => {
-    const result = await apiHandler.postData(url);
-    setData(result.data);
-  }
 
   return (
     <div className={styles.status_list}>
@@ -37,7 +57,15 @@ export default function DetailStatusPage({onClose}) {
             </div>
         </div>
         <div className={styles.content}>
-            <ul>
+          <ul>
+            {data.map((item, index) => (
+              <li key={index}>
+                <div className={styles.line}><span className={styles.name}>[처리자] 디아이웨어 {item.tbUserReg.userName}님</span> | {formatDate(item.regDt)}</div>
+                <div>{item.reqLogDesc}</div>
+              </li>
+            ))}
+          </ul>
+            {/* <ul>
                 <li>
                 <div className={styles.line}><span className={styles.name}>[처리자] 디아이웨어 김열정님</span> | 2024-07-30 15:00</div>
                 <div>❗ 정규 인력 요청 완료</div>
@@ -59,12 +87,16 @@ export default function DetailStatusPage({onClose}) {
                 <div className={styles.line}><span className={styles.name}>[요청자] 디아이웨어 김열정님</span> | 2024-07-30 15:00</div>
                 <div>❗ 정규 인력 요청 진행</div>
                 </li>
-            </ul>
+            </ul> */}
         </div>
-        <div className={styles.comment_section}>
-            <textarea placeholder="코멘트를 입력해 주세요." name="" id=""></textarea>
-            <button>comment</button>
-        </div>
+        {userInfo.authCd == 'approve' ? (
+          <div className={styles.comment_section}>
+              <textarea placeholder="코멘트를 입력해 주세요." name="" id=""></textarea>
+              <button>comment</button>
+          </div>
+        ) : (
+          ""
+        )}
     </div>
   );
 }

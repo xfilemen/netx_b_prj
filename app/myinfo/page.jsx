@@ -173,7 +173,7 @@ export default function myInfoPage() {
             </div>
             <div className={styles.item}>
               <span className={styles.tx}>CJ World 계정</span>
-              <span className={styles.p_tx}>gildong.hong@cj.net </span>
+              <span className={styles.p_tx}>{userInfo.userId}@cj.net </span>
             </div>
             <div className={styles.item_half1}>
               <span className={styles.tx}>그룹사</span>
