@@ -1,6 +1,6 @@
-import prisma from '/lib/prisma';
-import {getObjTrimAndNullProc} from '/utils/common-util';
-import {getSession} from '/utils/data-access';
+import prisma from "/lib/prisma";
+import { getObjTrimAndNullProc } from "/utils/common-util";
+import { getSession } from "/utils/data-access";
 /**
  * @swagger
  * /req/regist:
@@ -82,15 +82,26 @@ import {getSession} from '/utils/data-access';
  */
 export async function POST(req) {
   try {
-    const {params} = await req.json();
+    const { params } = await req.json();
     const data = params?.data || params;
-    const currentTime = await prisma.$queryRaw`SELECT CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Seoul'`;
+    const currentTime =
+      await prisma.$queryRaw`SELECT CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Seoul'`;
     const nowData = new Date(currentTime[0].timezone);
-    const {user} = await getSession();
+    const { user } = await getSession();
 
-    if(data){
+    if (data) {
       const procData = getObjTrimAndNullProc(data);
-      const { reqTitle, reqName, reqOrd, reqStatus, reqIntExtType, reqType, reqPurp, reqDet, reqHeadcount} = procData;
+      const {
+        reqTitle,
+        reqName,
+        reqOrd,
+        reqStatus,
+        reqIntExtType,
+        reqType,
+        reqPurp,
+        reqDet,
+        reqHeadcount,
+      } = procData;
 
       const tbReqMgt = await prisma.tbReqMgt.create({
         data: {
@@ -98,23 +109,34 @@ export async function POST(req) {
           reqName,
           reqOrd,
           reqStatus,
-          reqIntExtType : reqIntExtType || reqType,
+          reqIntExtType: reqIntExtType || reqType,
           reqPurp,
           reqHeadcount,
-          regId : user.userId,
-          regDt : nowData
+          regId: user.userId,
+          regDt: nowData,
         },
       });
 
       // 상세
-      for(let i in reqDet){
+      for (let i in reqDet) {
         const procData = getObjTrimAndNullProc(reqDet[i]);
-        let { reqType, reqHeadcount, reqJob, reqJobDet, reqGrade, 
-              reqInDt, reqOutDt, reqMm, reqLoc, reqSkill, reqPrefSkill } = procData;
+        let {
+          reqType,
+          reqHeadcount,
+          reqJob,
+          reqJobDet,
+          reqGrade,
+          reqInDt,
+          reqOutDt,
+          reqMm,
+          reqLoc,
+          reqSkill,
+          reqPrefSkill,
+        } = procData;
 
         let createdTbReqMgtDet = await prisma.tbReqMgtDet.create({
           data: {
-            reqId : tbReqMgt.reqId,
+            reqId: tbReqMgt.reqId,
             reqType,
             reqHeadcount,
             reqJob,
@@ -126,31 +148,45 @@ export async function POST(req) {
             reqLoc,
             reqSkill,
             reqPrefSkill,
-            regId : user.userId,
-            regDt : nowData
+            regId: user.userId,
+            regDt: nowData,
           },
         });
         reqDet[i].reqDetId = createdTbReqMgtDet.reqDetId;
       }
-      
+
+      // 이력
+      const tbReqMgtLog = await prisma.tbReqMgtLog.create({
+        data: {
+          reqId: tbReqMgt.reqId,
+          reqLogDesc: "정규 인력 요청 처리",
+          reqLogType: 1,
+          regId: user.userId,
+          regDt: nowData,
+        },
+      });
+
       tbReqMgt.reqDet = reqDet;
+      tbReqMgt.tbReqMgtLog = tbReqMgtLog;
 
-
-      return new Response(JSON.stringify({ message: '정상적으로 처리되었습니다.', data : tbReqMgt}), {
-        status: 200,
-      })
-
-    }else{
-      throw new Error('param null');
+      return new Response(
+        JSON.stringify({
+          message: "정상적으로 처리되었습니다.",
+          data: tbReqMgt,
+        }),
+        {
+          status: 200,
+        }
+      );
+    } else {
+      throw new Error("param null");
     }
-    
-  } catch(err){
+  } catch (err) {
     console.log(err);
-    return new Response(JSON.stringify({ message: '오류 발생' }), {
+    return new Response(JSON.stringify({ message: "오류 발생" }), {
       status: 401,
-    })
+    });
   } finally {
     await prisma.$disconnect();
   }
-
 }
