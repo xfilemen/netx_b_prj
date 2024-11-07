@@ -260,7 +260,7 @@ export default function AuthForm({ type,closeModal }) {
                 <input type="text" className={styles.txt_input} />
                 <span className={styles.certify_num}>{time}</span>
                 <span className={styles.certify_btn}>
-                  <button type="button" onClick={authCodeCheck}>인증</button>
+                  <button type="button" >인증</button>
                 </span>
               </div>
             </div>
