@@ -8,6 +8,9 @@ const swaggerDefinition = {
     },
     servers: [
       {
+        url: 'https://netx-b-prj.vercel.app/api', // 기본 서버 URL 설정
+      },
+      {
         url: 'http://localhost:3000/api', // 기본 서버 URL 설정
       },
     ],
