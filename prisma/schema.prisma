@@ -33,9 +33,10 @@ model tbUser {
   modDt      DateTime? @map("mod_dt")
   modId      String?   @map("mod_id")
 
-  comCode  tbComCode[] @relation("userCompCd")
-  post1     tbPost[] @relation("userPostReg")
-  post2     tbPost[] @relation("userPostMod")
+  comCode    tbComCode[] @relation("userCompCd")
+  post1      tbPost[] @relation("userPostReg")
+  post2      tbPost[] @relation("userPostMod")
+  reqLog     tbReqMgtLog[] @relation("userReqLogReg")
 
   @@map("tb_user")
 }
@@ -241,10 +242,13 @@ model tbReqMgtLog {
   reqLogId    Int      @default(autoincrement()) @map("req_log_id")   // 요청 진행 내역 순번
   reqId       Int      @map("req_id")                                  // 요청ID
   reqLogDesc  String?  @map("req_log_desc")                            // 요청 진행 내역 내용
+  reqLogType  Int      @map("req_log_type")                            // 요청 진행 입력 타입
   regDt       DateTime @default(now()) @map("reg_dt")                  // 등록일
   regId       String?  @map("reg_id")                                  // 등록ID
   modDt       DateTime? @map("mod_dt")                                 // 수정일
   modId       String?  @map("mod_id")                                  // 수정ID
+
+  tbUserReg   tbUser?  @relation("userReqLogReg",fields: [regId], references: [userId])
 
   @@id([reqLogId, reqId])                                              // 복합 Primary Key
   @@map("tb_req_mgt_log")                                              // 테이블 이름 매핑
