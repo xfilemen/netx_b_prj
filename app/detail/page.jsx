@@ -5,6 +5,7 @@ import RegDetail from '../detail/regReqDetail.jsx';
 import styles from '@styles/detail.module.css';
 import Image from 'next/image';
 import apiHandler from '../../utils/api-handler.js';
+import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function RegularPage({ item }) {
   const [listSelectIdx, setListSelectIdx] = useState(null); // li on 포커스
@@ -21,7 +22,14 @@ export default function RegularPage({ item }) {
     setListSelectIdx(index);
     setPageSelectItem(item);
     console.log(index, item);
+    setIsEditing(false);
   };
+
+  const { data: session } = useSession();
+  let userInfo = {};
+  userInfo = session?.user || {};
+  console.log(userInfo);
+  console.log('📢 [page.jsx:29]', session);
 
 
   const getData = async (url) => {
@@ -93,6 +101,27 @@ export default function RegularPage({ item }) {
     console.log('📢 [page.jsx:56]', data);
   }, [data]);
 
+  const handleEditClick = (param) => {
+    console.log('📢 [regReqDetail.jsx:56]', param);
+    if (param == 'Edit') {
+      setIsEditing(true);
+    } else {
+
+      modiApi(param);
+      
+    }
+  };
+
+  const [isEditing, setIsEditing] = useState(false);               // 수정 상태 변경
+
+  const modiApi = (data) => {
+    console.log('📢 [page.jsx:104]', data);
+    // const result =  apiHandler.postData('/api/req/modify',{
+    //   data:data
+    // }); // POST 요청
+    // console.log('reqRegist : ',result);
+  }
+
   return (
     <div className={styles.content}>
       <div className={styles.topbanner}>
@@ -146,7 +175,7 @@ export default function RegularPage({ item }) {
           </div>
         </div>
         <div className={styles.right_section}>
-            <RegDetail item={pageSelectItem} />
+            <RegDetail item={pageSelectItem} userInfo={userInfo} handleEditClick={handleEditClick} isEditing={isEditing}/>
         </div>
       </div>
     </div>

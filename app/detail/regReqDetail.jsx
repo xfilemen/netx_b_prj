@@ -1,20 +1,18 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import { useSession } from "next-auth/react"
 import styles from '@styles/detail.module.css';
 import Detailstatus from '@components/detailstatus';
 import Image from 'next/image';
 
-export default function RegDetail({ item, initialValue }) {  
+export default function RegDetail({ item, initialValue, userInfo, handleEditClick,isEditing }) {
+  
   const [isOpen, setIsOpen] = useState(false);
   const [detailsOpen, setDetailsOpen] = useState([true]);          // details 아코디언 상태 배열로 관리
   const [isStatusVisible, setStatusVisible] = useState(false);     // 토글 상태 관리
-  const [isEditing, setIsEditing] = useState(false);               // 수정 상태 변경
   const [value, setValue] = useState(initialValue);                // 입력 값 상태
-  const { data: session } = useSession();
-  let userInfo = {};
-  userInfo = session?.user || {};
+
+  console.log('📢 [regReqDetail.jsx:16]', userInfo);
 
   const getStatusText = (status) => {
     switch (status) {
@@ -51,17 +49,9 @@ export default function RegDetail({ item, initialValue }) {
     setStatusVisible(!isStatusVisible); // 클릭 시 토글
   };
 
-  const handleEditClick = () => {
-    setIsEditing(true);
-  };
-
   const handleInputChange = (e) => {
     setValue(e.target.value);
   };
-
-  useEffect(() => {
-    console.log(session);
-  }, [session]);
 
   return ( 
     item && (
@@ -382,12 +372,12 @@ export default function RegDetail({ item, initialValue }) {
         {userInfo.authCd == 'request' ? (
           item.reqStatus == 'register' ? (
             <div className={styles.btn_section}>
-              <button className={styles.cancel_btn}>요청취소</button>
-              <button className={styles.aply_btn} onClick={handleEditClick}>수정</button>
+              <button className={styles.cancel_btn} onClick={() => handleEditClick('cancel')}>요청취소</button>
+              <button className={styles.aply_btn} onClick={() => handleEditClick('Edit')}>수정</button>
             </div>
           ) : item.reqStatus == 'cancel' ? (
             <div className={styles.btn_section}>
-              <button className={styles.aply_btn}>요청재개</button>
+              <button className={styles.aply_btn} onClick={() => handleEditClick('register')}>요청재개</button>
             </div>
           ) : (
             <div></div>
@@ -395,12 +385,12 @@ export default function RegDetail({ item, initialValue }) {
         ):(
           item.reqStatus == 'register' ? (
             <div className={styles.btn_section}>
-              <button className={styles.aply_btn}>진행</button>
+              <button className={styles.aply_btn} onClick={() => handleEditClick('progress')}>진행</button>
             </div>
           ) : item.reqStatus == 'progress' ? (
             <div className={styles.btn_section}>
-              <button className={styles.cancel_btn}>반려</button>
-              <button className={styles.aply_btn}>완료</button>
+              <button className={styles.cancel_btn} onClick={() => handleEditClick('return')}>반려</button>
+              <button className={styles.aply_btn} onClick={() => handleEditClick('complete')}>완료</button>
             </div>
           ) : (
             <div></div>
