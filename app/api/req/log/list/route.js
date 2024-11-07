@@ -6,12 +6,20 @@ export async function POST(req) {
     if(params){
       const tbReqMgtLog = await prisma.tbReqMgtLog.findMany({
         where: { 
-            reqId : params.reqId
+            reqId : params.data.reqId
+        },
+        include: {
+          tbUserReg: {
+            select : {
+              userName : true
+            }
+          }
         },
         orderBy: {
           regDt: 'desc',
         },
       })
+
       return new Response(JSON.stringify({ message: '정상적으로 조회되었습니다.', data : tbReqMgtLog}), {
         status: 200,
       })

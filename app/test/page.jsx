@@ -273,6 +273,22 @@ const closeModal2 = () => {
   setModalType2(null); // 모달 타입 초기화
 };
 
+  // 그룹사 코드 호출
+  const tbReqMgtLog = async () => {
+    await apiHandler.fetchPostData('/api/req/log/list',{
+        data : {reqId : 4},
+      },
+      (result,error)=>{
+        if(result.data){
+          console.log('tbReqMgtLog',result);
+        }else{
+          console.log(result.data);
+        }
+      }
+    );
+  };
+
+
 
 // 컴포넌트가 마운트될 때 데이터 가져오기
 useEffect(function() {
@@ -282,6 +298,9 @@ useEffect(function() {
     submitData();
     brdPostData();
     codeSelect();
+    tbReqMgtLog();
+
+    
     console.log("API 호출 end",error);
 }, []);
 
