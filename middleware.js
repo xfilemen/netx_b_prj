@@ -74,5 +74,6 @@ export const config = {
 
     ,'/api/req/:path*'
     ,'/api/brd/:path*'
+    ,'/api/user/:path*'
   ]
 };
