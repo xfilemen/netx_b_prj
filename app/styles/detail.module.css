@@ -98,6 +98,7 @@
 .content .detail_prog .status_list .content li:first-child{margin-top:0}
 .content .detail_prog .status_list .content li .line{border-bottom:1px solid #DFDFDF;padding-bottom:14px;margin-bottom:14px;}
 .content .detail_prog .status_list .content li .name{font-weight:700;}
+.content .detail_prog .status_list .content li .emoji{vertical-align: bottom;}
 .content .detail_prog .status_list .comment_section{overflow:hidden;padding:30px;}
 .content .detail_prog .status_list .comment_section textarea{float:left;width:439px;height:92px;resize:none;padding:16px 20px;border:1px solid #dfdfdf;border-radius:10px;}
 .content .detail_prog .status_list .comment_section button{float:left;width:91px;height:92px;margin-left:10px;background-color:#40464f;color:#fff;}
