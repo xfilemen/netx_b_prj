@@ -167,7 +167,6 @@ export async function POST(req) {
       });
 
       tbReqMgt.reqDet = reqDet;
-      tbReqMgt.tbReqMgtLog = tbReqMgtLog;
 
       return new Response(
         JSON.stringify({

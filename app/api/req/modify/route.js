@@ -1,5 +1,5 @@
-import prisma from '/lib/prisma';
-import {getObjTrimAndNullProc} from '/utils/common-util';
+import prisma from "/lib/prisma";
+import { getObjTrimAndNullProc } from "/utils/common-util";
 /**
  * @swagger
  * /req/modify:
@@ -90,14 +90,28 @@ import {getObjTrimAndNullProc} from '/utils/common-util';
  */
 export async function POST(req) {
   try {
-    const {params} = await req.json();
+    const { params } = await req.json();
     const data = params?.data || params;
-    const currentTime = await prisma.$queryRaw`SELECT CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Seoul'`;
+    const currentTime =
+      await prisma.$queryRaw`SELECT CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Seoul'`;
     const nowData = new Date(currentTime[0].timezone);
 
-    if(data){
+    if (data) {
       const procData = getObjTrimAndNullProc(data);
-      const { reqId, reqTitle, reqName, reqOrd, reqStatus, reqIntExtType, reqType, reqPurp,reqDet, modId } = procData;
+      const {
+        reqId,
+        reqTitle,
+        reqName,
+        reqOrd,
+        reqStatus,
+        reqIntExtType,
+        reqType,
+        reqPurp,
+        reqDet,
+        modId,
+        reqLogDesc,
+        userId,
+      } = procData;
       const updatedTbReqMgt = await prisma.tbReqMgt.update({
         where: { reqId },
         data: {
@@ -105,7 +119,7 @@ export async function POST(req) {
           reqName,
           reqOrd,
           reqStatus,
-          reqIntExtType : reqIntExtType || reqType,
+          reqIntExtType: reqIntExtType || reqType,
           reqPurp,
           modId,
           modDt: nowData, // Set the modification date to now
@@ -113,10 +127,23 @@ export async function POST(req) {
       });
 
       // 상세
-      for(let i in reqDet){
+      for (let i in reqDet) {
         const procData = getObjTrimAndNullProc(reqDet[i]);
-        let { reqId, reqDetId, reqType, reqHeadcount, reqJob, reqJobDet, reqGrade, 
-              reqInDt, reqOutDt, reqMm, reqLoc, reqSkill, modId } = procData;
+        let {
+          reqId,
+          reqDetId,
+          reqType,
+          reqHeadcount,
+          reqJob,
+          reqJobDet,
+          reqGrade,
+          reqInDt,
+          reqOutDt,
+          reqMm,
+          reqLoc,
+          reqSkill,
+          modId,
+        } = procData;
 
         let updatedTbReqMgtDet = await prisma.tbReqMgtDet.update({
           where: { reqId_reqDetId: { reqId, reqDetId } },
@@ -131,27 +158,41 @@ export async function POST(req) {
             reqMm,
             reqLoc,
             reqSkill,
-            modId, 
+            modId,
             modDt: new Date(), // Set the modification date to now
           },
         });
       }
 
-      return new Response(JSON.stringify({ message: '정상적으로 처리되었습니다.', data : updatedTbReqMgt}), {
-        status: 200,
-      })
+      // 이력
+      const tbReqMgtLog = await prisma.tbReqMgtLog.create({
+        data: {
+          reqId,
+          reqLogDesc,
+          reqLogType: 1,
+          regId: userId,
+          regDt: nowData,
+        },
+      });
 
-    }else{
-      throw new Error('param null');
+      return new Response(
+        JSON.stringify({
+          message: "정상적으로 처리되었습니다.",
+          data: updatedTbReqMgt,
+        }),
+        {
+          status: 200,
+        }
+      );
+    } else {
+      throw new Error("param null");
     }
-    
-  } catch(err){
+  } catch (err) {
     console.log(err);
-    return new Response(JSON.stringify({ message: '오류 발생' }), {
+    return new Response(JSON.stringify({ message: "오류 발생" }), {
       status: 401,
-    })
+    });
   } finally {
     await prisma.$disconnect();
   }
-
 }
