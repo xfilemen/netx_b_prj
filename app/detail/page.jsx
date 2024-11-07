@@ -121,7 +121,7 @@ export default function RegularPage({ item }) {
     console.log('📢 [page.jsx:56]', data);
   }, [data]);
 
-  const handleEditClick = (param) => {
+  const handleEditClick = async (param) => {
     let msg = '';
     let logDesc = '';
     if (param == 'cancel') {
@@ -154,8 +154,8 @@ export default function RegularPage({ item }) {
           regId: pageSelectItem.regId,
         })
         console.log('📢 [page.jsx:141]logData:: ', logData);
-        modiApi();
-        addLog()
+        await modiApi();
+        // await addLog();
         forceRender(prev => prev + 1); // 상태 값을 변경하여 강제 렌더링
       }
       console.log('📢 [regReqDetail.jsx:56]', param);
@@ -176,8 +176,8 @@ export default function RegularPage({ item }) {
     console.log('reqRegist : ',result);
   }
 
-  const addLog = () => {
-    const result1 = apiHandler.postData('/api/req/log/regist', {
+  const addLog = async () => {
+    const result1 = await apiHandler.postData('/api/req/log/regist', {
       data: logData , // 로그 데이터 입력
     });
     console.log('📢 [page.jsx:175]', result1);
@@ -189,6 +189,7 @@ export default function RegularPage({ item }) {
 
   useEffect(() => {
     console.log('📢 [page.jsx:129]logData:: ', logData);
+    addLog();
   }, [logData]);
 
   return (
