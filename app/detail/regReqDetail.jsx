@@ -139,7 +139,7 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
         <div className={styles.detail_prog} ref={detailRef}>
           <button onClick={handleStatusToggle}>상세 진행 현황</button>
           {isStatusVisible && (
-            <Detailstatus reqInfo={item} onClose={handleStatusToggle}/>
+            <Detailstatus reqInfo={item} userInfo= {userInfo} onClose={handleStatusToggle}/>
           )}
         </div>
         {/* 기본 정보 아코디언 */}

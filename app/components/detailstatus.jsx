@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useSession } from "next-auth/react";
 import styles from '@styles/detail.module.css';
 import apiHandler from '../../utils/api-handler.js'; 
 import Image from 'next/image';
 
-export default function DetailStatusPage({reqInfo,onClose}) {
-  const { data: session } = useSession();
+export default function DetailStatusPage({reqInfo,onClose, userInfo}) {
   const [data, setData] = useState([]);
-  let userInfo = {};
-  userInfo = session?.user || {};
+
+  console.log('📢 [reqInfo.jsx:10]', reqInfo);
+  console.log('📢 [userInfo.jsx:12]', userInfo);
+  
 
   // 상태를 사용하여 comment 값 관리
   const [comment, setComment] = useState('');
@@ -100,6 +100,10 @@ export default function DetailStatusPage({reqInfo,onClose}) {
   useEffect(() => {
     tbReqMgtLog();
   }, []);
+
+  useEffect(() => {
+    console.log('📢 [detailstatus.jsx:105]', data);
+  }, [data]);
 
   return (
     <div className={styles.status_list}>
