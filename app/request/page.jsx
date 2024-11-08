@@ -661,14 +661,14 @@ export default function RegPage() {
                   </div>
                   <div className={styles.item}>
                     <span className={`${styles.tx} ${styles.v_t}`}>필수<br />요구기술</span>
-                    <textarea name="reqSkill" placeholder="요구 스킬 기재" className={styles.text_box} value={detFormData[index].reqSkill} onChange={handleDetChange(index)}></textarea>
+                    <textarea name="reqSkill" placeholder={`ex.\n- 개발언어 (java, Spring)\n- 운영체제 지식 (Linux, Windows)`} className={styles.text_box} value={detFormData[index].reqSkill} onChange={handleDetChange(index)}></textarea>
                   </div>
                   <div className={styles.item}>
                     <span className={`${styles.tx} ${styles.v_t}`}>우대<br />요구기술</span>
-                    <textarea name="reqPrefSkill" placeholder="요구 스킬 기재" className={styles.text_box} value={detFormData[index].reqPrefSkill} onChange={handleDetChange(index)}></textarea>
+                    <textarea name="reqPrefSkill" placeholder={`ex.\n- AI 서비스 기획/운영 경험 보유자\n- 금융기관 정보계 개발 및 운영 경험 보유자`} className={styles.text_box} value={detFormData[index].reqPrefSkill} onChange={handleDetChange(index)}></textarea>
                   </div>
                 </div>
-              )}
+              )}             
             </div>
           );
         })}

@@ -10,7 +10,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function RegularPage({ item }) {
   const [listSelectIdx, setListSelectIdx] = useState(0); // li on 포커스
-  const [pageSelectItem, setPageSelectItem] = useState(0); // 정규인력 요청·내역 상세페이지 연결
+  const [pageSelectItem, setPageSelectItem] = useState(null); // 정규인력 요청·내역 상세페이지 연결
 
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
@@ -205,6 +205,13 @@ export default function RegularPage({ item }) {
   //   addLog();
   // }, [logData]);
 
+  useEffect(() => {
+    if (data.length > 0) {
+      setListSelectIdx(0);
+      setPageSelectItem(data[0]); // 첫 번째 항목을 선택된 페이지로 설정
+    }
+  }, [data]);
+
   return (
     <div className={styles.content}>
       <div className={styles.topbanner}>
@@ -272,11 +279,11 @@ export default function RegularPage({ item }) {
         </div>
         <div className={styles.right_section}>
           <RegDetail
-            item={pageSelectItem || data[0]}
+            item={pageSelectItem}
             userInfo={userInfo}
             handleEditClick={handleEditClick}
             isEditing={isEditing}
-            initialValue={pageSelectItem || data[0]}
+            initialValue={pageSelectItem}
           />
         </div>
       </div>
