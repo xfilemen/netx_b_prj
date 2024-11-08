@@ -159,7 +159,7 @@ export async function POST(req) {
       const tbReqMgtLog = await prisma.tbReqMgtLog.create({
         data: {
           reqId: tbReqMgt.reqId,
-          reqLogDesc: "정규 인력 요청 처리",
+          reqLogDesc: "인력 요청",
           reqLogType: 1,
           regId: user.userId,
           regDt: nowData,
