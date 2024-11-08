@@ -9,8 +9,8 @@ import apiHandler from "../../utils/api-handler.js";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function RegularPage({ item }) {
-  const [listSelectIdx, setListSelectIdx] = useState(null); // li on 포커스
-  const [pageSelectItem, setPageSelectItem] = useState(null); // 정규인력 요청·내역 상세페이지 연결
+  const [listSelectIdx, setListSelectIdx] = useState(0); // li on 포커스
+  const [pageSelectItem, setPageSelectItem] = useState(0); // 정규인력 요청·내역 상세페이지 연결
 
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
@@ -272,11 +272,11 @@ export default function RegularPage({ item }) {
         </div>
         <div className={styles.right_section}>
           <RegDetail
-            item={pageSelectItem}
+            item={pageSelectItem || data[0]}
             userInfo={userInfo}
             handleEditClick={handleEditClick}
             isEditing={isEditing}
-            initialValue={pageSelectItem}
+            initialValue={pageSelectItem || data[0]}
           />
         </div>
       </div>
