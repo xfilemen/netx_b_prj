@@ -21,7 +21,7 @@ import prisma from '/lib/prisma';
  *                     description: 그룹 코드
  *     responses:
  *       200:
- *         description: 요청 내역 조회. 요청자일때는 본인 요청 내역만 가져오고 승인자일 경우 전체 내역 가져옴
+ *         description: 공통코드 조회
  *       401:
  *         description: 오류 코드
  */
