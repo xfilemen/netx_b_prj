@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState} from 'react';
+import { useRouter } from 'next/navigation';
 import styles from '@styles/main.module.css';
 import { signIn, signOut } from "next-auth/react";
 import Modal from '../login/modal';
@@ -12,6 +13,7 @@ export default function LoginPage() {
   const [modalType, setModalType] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -36,7 +38,7 @@ export default function LoginPage() {
         localStorage.removeItem('cj_id');
       }
 
-      window.location.href = "/main" 
+      router.push("/main"); 
     }
   }
 

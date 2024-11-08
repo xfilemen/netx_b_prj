@@ -36,9 +36,10 @@ export async function POST(req) {
             reqId : data.reqId
         },
         include: {
-          tbUserReg: {
-            select : {
-              userName : true
+          tbUserReg : true,
+          tbAuthReg: {
+            include : {
+              auth : true
             }
           }
         },
@@ -47,24 +48,18 @@ export async function POST(req) {
         },
       })
 
-      //권한 조회
-      const getAuth = await prisma.tbAuthUser.findMany({
-        where: {
-            userId: tbReqMgtLog.userId,
-        },
-        include: {
-            auth: {
-            where: {
-                authType: 'role',
-            },
-            }
-        }
+      const tbComCode = await prisma.tbComCode.findMany({
+        where : {codeGrp : 'G001'}
       })
+
       
       for(const i in tbReqMgtLog){
-        tbReqMgtLog[i].userName = tbReqMgtLog[i].tbUserReg.userName;
-        tbReqMgtLog[i].authCd = getAuth[0].authCd;
-        tbReqMgtLog[i].authName = getAuth[0]?.auth?.authName;
+        tbReqMgtLog[i].userName = tbReqMgtLog[i].tbUserReg?.userName;
+        const comp = tbComCode.filter(obj => obj.code === tbReqMgtLog[i].tbUserReg?.compCd);
+        console.log(comp,tbReqMgtLog[i].tbUserReg?.compCd);
+        tbReqMgtLog[i].compName = comp[0]?.codeName;
+        tbReqMgtLog[i].authCd = tbReqMgtLog[i].tbAuthReg?.authCd;
+        tbReqMgtLog[i].authName = tbReqMgtLog[i].tbAuthReg?.auth?.authName;
       }
 
 

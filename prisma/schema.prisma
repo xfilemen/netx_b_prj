@@ -142,7 +142,7 @@ model tbAuth {
 
 model tbAuthUser {
   authCd   String  @map("auth_cd") // 권한코드
-  userId   String  @map("user_id") // CJWORLD 계정
+  userId   String  @map("user_id") @unique // CJWORLD 계정
   useYn     String?   @map("use_yn")
   regDt    DateTime @default(now()) @map("reg_dt") // 등록일
   regId    String?  @map("reg_id") // 등록ID
@@ -150,6 +150,7 @@ model tbAuthUser {
   modId    String?  @map("mod_id") // 수정ID
 
   auth     tbAuth?     @relation("auth", fields: [authCd], references: [authCd])
+  reqLog   tbReqMgtLog[] @relation("authReqLogReg")
 
   @@id([authCd, userId])
   @@map("tb_auth_user")
@@ -250,6 +251,7 @@ model tbReqMgtLog {
   modId       String?  @map("mod_id")                                  // 수정ID
 
   tbUserReg   tbUser?  @relation("userReqLogReg",fields: [regId], references: [userId])
+  tbAuthReg   tbAuthUser?  @relation("authReqLogReg",fields: [regId], references: [userId], map: "tb_req_mgt_log_other_field_fkey")
 
   @@id([reqLogId, reqId])                                              // 복합 Primary Key
   @@map("tb_req_mgt_log")                                              // 테이블 이름 매핑

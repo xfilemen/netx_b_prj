@@ -46,7 +46,15 @@ export async function POST(req) {
     const nowData = new Date(currentTime[0].timezone);
 
     if(data){
-      const { reqId, reqLogDesc, reqLogType, regId } = data;
+      let { reqId, reqLogDesc, reqLogType, regId, reqStatus } = data;
+
+      // 시스템 메시지는 공통코드 G003에서 가져옴
+      if(reqLogType === 1){
+        const tbComCode = await prisma.tbComCode.findMany({
+          where : {codeGroup : 'G003', code : reqStatus}
+        })
+        reqLogDesc = tbComCode?.temp1;
+      }
 
       const tbReqMgtLog = await prisma.tbReqMgtLog.create({
         data: {

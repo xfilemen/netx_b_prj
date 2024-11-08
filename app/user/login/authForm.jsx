@@ -3,7 +3,7 @@ import styles from '@styles/modal.module.css';
 import React, { useEffect,useState } from 'react';
 import { useForm } from "react-hook-form";
 import {nameValid,passwordValid,mobNumValid,required,matchValid} from '@utils/user-validation';
-import {maxLength,timer} from '@utils/common-util';
+import {maxLength,timer,formErrorCheck} from '@utils/common-util';
 import apiHandler from '@utils/api-handler';
 
 export default function AuthForm({ type,closeModal }) {
@@ -15,6 +15,7 @@ export default function AuthForm({ type,closeModal }) {
   const [authData, setAuthData] = useState({});
   const [isAuthDisabled, setIsAuthDisabled] = useState(false);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
+  const [mobNum, setMobNum] = useState('');
 
   const [groupType, setGroupType] = useState([
     // { value: 'U001', label: '디아이웨어' },
@@ -31,24 +32,11 @@ export default function AuthForm({ type,closeModal }) {
   //인증번호 발송
   const authCodeSend = async () => {
     const mobileNum = watch("mobileNum");
-    // if(mobileNum.length === 0){
-    //   console.log(mobileNum.length);
-    //   alert("휴대폰번호를 입력하세요 ");
-    //   return;
-    // }
-    // if(mobileNum.length !== 11){
-    //   console.log(mobileNum.length);
-    //   alert("휴대폰번호는 11자리를 입력해야 합니다 ");
-    //   return;
-    // }
-
-
     const isPhoneNumberValid = await trigger("mobileNum");
     if(!isPhoneNumberValid){
       alert(errors.mobileNum?.message);
       return;
     }
-
 
     await apiHandler.fetchPostData('/api/user/auth/sms/send',{
       data :{
@@ -135,23 +123,10 @@ export default function AuthForm({ type,closeModal }) {
   //validation 체크
   const onError = () => {
     setIsSubmitDisabled(false);
+    const form = document.getElementById("form1");
     console.log(errors);
-    if (Object.keys(errors).length > 0) {
-      const form = document.getElementById("form1");
-      const formData = new FormData(form);
-      let itemKey = new Array();
-      formData.forEach((value, key) => {
-        itemKey.push(key);
-      });
-      itemKey.push('agrYn');
-      for(const item of itemKey){
-        const errror = errors[item];
-        if(errror?.message){
-          alert(errror.message);
-          return;
-        }
-      }
-    }
+    formErrorCheck(errors,form);
+
   };
 
   // 그룹사 코드 호출
@@ -173,6 +148,7 @@ export default function AuthForm({ type,closeModal }) {
     );
   };
 
+  //취소 버튼
   const canCelBtnClick = () => {
     if (window.confirm("입력하신 내용이 초기화됩니다. 그래도 취소하시겠습니까?")) {
       closeModal();
@@ -222,7 +198,8 @@ export default function AuthForm({ type,closeModal }) {
                   </div>
                   <div className={styles.item}>
                       <label>휴대폰번호</label>
-                      <input {...register("mobileNum", mobNumValid(11))} type="number" onKeyDown={(e) => maxLength(e,11)} className={styles.txt} disabled={isAuthDisabled} />
+                      <input {...register("mobileNum", mobNumValid(11))} type="text" value={mobNum} 
+                              onChange={(e) => maxLength(e,11,setMobNum,/[^0-9]/g)} className={styles.txt} disabled={isAuthDisabled} />                     
                       <span className={styles.certify_aply_btn}>
                         <button type="button" onClick={authCodeSend} disabled={isAuthDisabled}>인증번호 발송</button>
                       </span>

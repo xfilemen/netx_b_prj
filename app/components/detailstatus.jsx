@@ -132,7 +132,7 @@ export default function DetailStatusPage({ reqInfo, onClose, userInfo }) {
             <li key={index}>
               <div className={styles.line}>
                 <span className={styles.name}>
-                  [{item.authName}] 디아이웨어 {item.tbUserReg.userName}님
+                  [{item.authName}] {item.compName} {item.tbUserReg.userName}님
                 </span>{" "}
                 | {formatDate(item.regDt)}
               </div>
