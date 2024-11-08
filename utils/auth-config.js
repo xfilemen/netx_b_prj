@@ -8,7 +8,11 @@ export const authConfig = {
     strategy: "jwt",
     maxAge: 60 * 60 * 1, // (초 단위: 60초 * 60분 * 1시간)
   },
-  callbacks: {
+  callbacks: {    
+    async redirect({ url, baseUrl }) {
+
+      return baseUrl+'/main';
+    },
     async jwt({ token, user, account, trigger, session }) {
       if (trigger !== 'update' && user) {
         token.user = user;

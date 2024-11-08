@@ -103,40 +103,26 @@ export async function POST(req) {
         reqHeadcount,
       } = procData;
 
-      const tbReqMgt = await prisma.tbReqMgt.create({
-        data: {
-          reqTitle,
-          reqName,
-          reqOrd,
-          reqStatus,
-          reqIntExtType: reqIntExtType || reqType,
-          reqPurp,
-          reqHeadcount,
-          regId: user.userId,
-          regDt: nowData,
-        },
-      });
-
-      // 상세
-      for (let i in reqDet) {
-        const procData = getObjTrimAndNullProc(reqDet[i]);
-        let {
-          reqType,
-          reqHeadcount,
-          reqJob,
-          reqJobDet,
-          reqGrade,
-          reqInDt,
-          reqOutDt,
-          reqMm,
-          reqLoc,
-          reqSkill,
-          reqPrefSkill,
-        } = procData;
-
-        let createdTbReqMgtDet = await prisma.tbReqMgtDet.create({
+      let tbReqMgt;
+      await prisma.$transaction(async (prisma) => {
+         tbReqMgt = await prisma.tbReqMgt.create({
           data: {
-            reqId: tbReqMgt.reqId,
+            reqTitle,
+            reqName,
+            reqOrd,
+            reqStatus,
+            reqIntExtType: reqIntExtType || reqType,
+            reqPurp,
+            reqHeadcount,
+            regId: user.userId,
+            regDt: nowData,
+          },
+        });
+
+        // 상세
+        for (let i in reqDet) {
+          const procData = getObjTrimAndNullProc(reqDet[i]);
+          let {
             reqType,
             reqHeadcount,
             reqJob,
@@ -148,25 +134,42 @@ export async function POST(req) {
             reqLoc,
             reqSkill,
             reqPrefSkill,
+          } = procData;
+
+          let createdTbReqMgtDet = await prisma.tbReqMgtDet.create({
+            data: {
+              reqId: tbReqMgt.reqId,
+              reqType,
+              reqHeadcount,
+              reqJob,
+              reqJobDet,
+              reqGrade,
+              reqInDt,
+              reqOutDt,
+              reqMm,
+              reqLoc,
+              reqSkill,
+              reqPrefSkill,
+              regId: user.userId,
+              regDt: nowData,
+            },
+          });
+          reqDet[i].reqDetId = createdTbReqMgtDet.reqDetId;
+        }
+
+        // 이력
+        const tbReqMgtLog = await prisma.tbReqMgtLog.create({
+          data: {
+            reqId: tbReqMgt.reqId,
+            reqLogDesc: "인력 요청",
+            reqLogType: 1,
             regId: user.userId,
             regDt: nowData,
           },
         });
-        reqDet[i].reqDetId = createdTbReqMgtDet.reqDetId;
-      }
 
-      // 이력
-      const tbReqMgtLog = await prisma.tbReqMgtLog.create({
-        data: {
-          reqId: tbReqMgt.reqId,
-          reqLogDesc: "인력 요청",
-          reqLogType: 1,
-          regId: user.userId,
-          regDt: nowData,
-        },
-      });
-
-      tbReqMgt.reqDet = reqDet;
+        tbReqMgt.reqDet = reqDet;
+      })
 
       return new Response(
         JSON.stringify({
