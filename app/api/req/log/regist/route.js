@@ -51,7 +51,7 @@ export async function POST(req) {
       // 시스템 메시지는 공통코드 G003에서 가져옴
       if(reqLogType === 1){
         const tbComCode = await prisma.tbComCode.findMany({
-          where : {codeGroup : 'G003', code : reqStatus}
+          where : {codeGrp : 'G003', code : reqStatus}
         })
         reqLogDesc = tbComCode?.temp1;
       }

@@ -172,7 +172,6 @@ export async function POST(req) {
         const tbComCode = await prisma.tbComCode.findMany({
           where : {codeGrp : 'G003', code : reqStatus}
         })
-        console.log('tbComCode : ',tbComCode);
         // 이력
         const tbReqMgtLog = await prisma.tbReqMgtLog.create({
           data: {

@@ -56,7 +56,6 @@ export async function POST(req) {
       for(const i in tbReqMgtLog){
         tbReqMgtLog[i].userName = tbReqMgtLog[i].tbUserReg?.userName;
         const comp = tbComCode.filter(obj => obj.code === tbReqMgtLog[i].tbUserReg?.compCd);
-        console.log(comp,tbReqMgtLog[i].tbUserReg?.compCd);
         tbReqMgtLog[i].compName = comp[0]?.codeName;
         tbReqMgtLog[i].authCd = tbReqMgtLog[i].tbAuthReg?.authCd;
         tbReqMgtLog[i].authName = tbReqMgtLog[i].tbAuthReg?.auth?.authName;
