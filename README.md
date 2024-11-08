@@ -14,7 +14,7 @@
    - npx next build
    - npx next start (수정 작업중에는 npm run dev 입력)
 7. 브라우저에서 기본 주소 http://localhost:3000/ 실행
-8. git에서 pull 받고 변경 내용 있을 시 개발 전 아래 커맨드 입력 상시 반복 (최초 세팅 이후)
+8. git에서 pull 받고 package.json , schema.prisma 변경 내용 있을 시 개발 전 아래 커맨드 입력 상시 반복 (최초 세팅 이후)
    - npm ci
    - npx prisma generate
    - npx next build
