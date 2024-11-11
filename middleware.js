@@ -6,8 +6,8 @@ export async function middleware(request) {
   const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET || 'pmds-bteam' }) || {};
   const { pathname } = request.nextUrl;
   // 인증이 필요한 페이지 경로
-  const protectedPages = ['/detail', '/test', '/main','/board']; // 접근 제한 화면
-  const ignoreApi = ['/api/req', 'api/detail']; // 접근 제한 api
+  const protectedPages = ['/detail', '/test', '/main','/board','/request','/notice','/myinfo']; // 접근 제한 화면
+  const ignoreApi = ['/api/req', 'api/brd','/api/swagger','/api/modify']; // 접근 제한 api
 
   // 게시물 list , regist
   const match1 = pathname.match(/^\/board\/([^\/]+)\/(list|regist)$/);  
