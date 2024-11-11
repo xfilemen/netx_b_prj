@@ -77,7 +77,7 @@ export default function RegPage() {
     // 유효성 체크 로직
     console.log('📢 [page.jsx:126]formData :: ', formData);
     if (formData.reqTitle.trim() == '') {
-      alert('요청명을 입력하지 않았습니다.')
+      alert('업무명을 입력하지 않았습니다.')
       return true;
     } else if (formData.reqType.trim() == '') {
       alert('대내/외 구분을 선택하지 않았습니다.')
@@ -114,7 +114,7 @@ export default function RegPage() {
 
         // 유효성 체크 로직
         console.log('📢 [page.jsx:126]detFormData[index]:: ', detFormData[index]);
-        const checkNum = "요청 상세 정보 " + (index + 1);
+        const checkNum = "상세 정보 " + (index + 1);
         if (detFormData[index].reqJob.trim() == '') {
           alert((checkNum) + '번째 직무 구분이 입력되지 않았습니다.');
           return true;
@@ -222,7 +222,7 @@ export default function RegPage() {
   useEffect(() => {
     console.log('📢 [page.jsx:364]888', formData);
 
-    // 요청명 유효성체크
+    // 업무명 유효성체크
     if (formData.reqName.length > 10) {
 
     }
@@ -245,11 +245,11 @@ export default function RegPage() {
             <h3>
               <Image
                 src="/images/detail/ico_info.png"
-                alt="요청 기본 정보"
+                alt="기본 정보"
                 width={46}
                 height={46}
               />
-              요청 기본 정보
+              기본 정보
             </h3>
             <span>
               <Image
@@ -264,7 +264,7 @@ export default function RegPage() {
           {!isOpen && (
             <div className={styles.content}>
               <div className={styles.item}>
-                <span className={styles.tx}>요청명</span>
+                <span className={styles.tx}>업무명</span>
                 <input type="text" placeholder="ex. CJ PAY Back-End 개발 or CJ ENM 차세대 K-POP 플랫폼 구축" 
                 className={styles.txt} name="reqTitle" value={formData.reqTitle} onChange={handleChange}/>
               </div>

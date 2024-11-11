@@ -148,11 +148,11 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
             <h3>
               <Image
                 src="/images/detail/ico_info.png"
-                alt="요청 기본 정보"
+                alt="기본 정보"
                 width={46}
                 height={46}
               />
-              요청 기본 정보
+              기본 정보
             </h3>
             <span>
               <Image
@@ -167,7 +167,7 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
           {!isOpen && (
             <div className={styles.content}>
               <ul>
-                <li><span className={styles.tit_tx}>요청명</span><span className={styles.p_tx}>{item.reqName}</span></li>
+                <li><span className={styles.tit_tx}>업무명</span><span className={styles.p_tx}>{item.reqName}</span></li>
                 <li><span className={styles.tit_tx}>대내·외 구분</span><span className={styles.p_tx}>{item.reqType == 1 ? '대내' : '대외'}</span></li>
                 {/* <li className={styles.half_line2}><span className={styles.tit_tx}>인원</span><span className={styles.p_tx}>{item.reqHeadcount}명</span></li> */}
                 <li><span className={styles.tit_tx}>목적</span><span className={styles.p_tx}>{item.reqPurp == 1 ? '구축' : item.reqPurp == 2 ? '운영' : item.reqPurp == 3 ? '개선/개발' : '기타'}</span></li>
@@ -184,11 +184,11 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
                 <h3>
                   <Image
                     src="/images/detail/ico_partners.png"
-                    alt="요청 기본 정보"
+                    alt="기본 정보"
                     width={46}
                     height={46}
                   />
-                  요청 인력 정보 <span className={styles.acc_num}>{index + 1}</span>
+                  상세 정보 <span className={styles.acc_num}>{index + 1}</span>
                 </h3>
                 <span>
                   <Image
