@@ -60,20 +60,6 @@ export default function RegPage() {
     { label: 'BP', name: '2' },
   ];
 
-  const deploymentTime = [
-    { value: 'mm', label: 'm/m' },
-    { value: 'md', label: 'm/d' },
-    { value: 'mh', label: 'm/h' },
-  ]
-
-  const endTimeChk = [
-    { label: '미정', name: 'N' },
-  ]
-
-  const workplace = [
-    { label: '미정', name: 'N' },
-  ]
-
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
@@ -515,16 +501,16 @@ export default function RegPage() {
           {!isOpen && (
             <div className={styles.content}>
               <div className={styles.item}>
-                <span className={styles.tx}>업무명</span>
+                <span className={styles.tx}><span className={styles.essential_blt}>✓</span> 업무명</span>
                 <input type="text" placeholder="ex. CJ PAY Back-End 개발 or CJ ENM 차세대 K-POP 플랫폼 구축" 
                 className={styles.txt} name="reqTitle" value={formData.reqTitle} onChange={handleChange}/>
               </div>
               <div className={styles.item_half}>
-                <label>대내외 구분</label>
+                <label><span className={styles.essential_blt}>✓</span> 대내외 구분</label>
                 <SelectBox options={reqType} name="reqType" onChange={handleChange}/>
               </div>
               <div className={styles.item_half}>
-                <label>인원</label>
+                <label><span className={styles.essential_blt}>✓</span> 인원</label>
                 <select name="reqHeadcount" onChange={handleHeadcountChange} className={styles.custom_select}>
                   {reqHeadcount.map(option => (
                     <option key={option.value} value={option.value}>
@@ -534,7 +520,7 @@ export default function RegPage() {
                 </select>
               </div>
               <div className={styles.item}>
-                <label>목적</label>
+                <label><span className={styles.essential_blt}>✓</span> 목적</label>
                 <SelectBox options={reqPurp} name="reqPurp" onChange={handleChange}/>
               </div>
             </div>
@@ -568,7 +554,7 @@ export default function RegPage() {
               {isDetailOpen && (
                 <div className={styles.content}>
                   <div className={styles.item}>
-                    <label>직무 구분</label>
+                    <label><span className={styles.essential_blt}>✓</span> 직무 구분</label>
                     <SelectBox
                       options={jobData.categories}
                       name={`reqCategory-${index}`}
@@ -583,7 +569,7 @@ export default function RegPage() {
                     />
                   </div>
                   <div className={styles.item}>
-                    <span className={styles.tx}>유형</span>
+                    <span className={styles.tx}><span className={styles.essential_blt}>✓</span> 유형</span>
                     {typeChk.map((item) => (
                       <CheckBox
                         key={item.name}
@@ -595,13 +581,13 @@ export default function RegPage() {
                     ))}
                   </div>
                   <div className={styles.item}>
-                    <span className={styles.tx}>등급</span>
+                    <span className={styles.tx}><span className={styles.essential_blt}>✓</span> 등급</span>
                     <input type="text" placeholder="ex. 초초/초중/초상" className={`${styles.txt} ${styles.w_txt}`} name='reqGrade' onChange={handleDetChange(index)}/>
                   </div>
                   <div className={styles.item_half}>
-                    <span className={styles.tx}>투입 예정일</span>
+                    <span className={styles.tx}><span className={styles.essential_blt}>✓</span> 투입 예정일</span>
                     <DatePicker 
-                      dateFormat='yyyy.MM.dd'
+                      dateFormat='yyyy-MM-dd'
                       locale={ko}
                       placeholderText="시작일"
                       selected={startDates[index]}
@@ -613,7 +599,7 @@ export default function RegPage() {
                   <div className={styles.item_half}>
                     <span className={styles.tx}>투입 종료일</span>
                     <DatePicker
-                      dateFormat='yyyy.MM.dd'
+                      dateFormat='yyyy-MM-dd'
                       locale={ko}
                       placeholderText="종료일"
                       selected={lastDates[index]}
@@ -622,49 +608,26 @@ export default function RegPage() {
                       value={detFormData[index].reqOutDt}
                       onChange={handleLastDateChange(index)}
                     />
-                    <span className={styles.end_chk}>
-                      {endTimeChk.map((item) => (
-                        // <CheckBox
-                        //   key={item.name}
-                        //   label={item.label}
-                        //   name='reqOutDtNul'
-                        //   checked={checkState[item.name]}
-                        //   onChange={handleCheckboxChange("reqOutDtNull", index)}
-                        // />
-                        <CheckBox
-                          key={item.name}
-                          label={item.label}
-                          name='reqOutDt'
-                          checked={detFormData[index]["reqOutDtNull"]}
-                          onChange={handleNullCheckboxChange("reqOutDtNull", index)}
-                        />
-                      ))}
-                    </span>
                   </div>
                   <div className={styles.item}>
-                    <span className={styles.tx}>투입 공수</span>
+                    <span className={styles.tx}><span className={styles.essential_blt}>✓</span> 투입 공수</span>
                     <input type="number" placeholder="ex. 1 or 0.5" className={styles.mm_tx} name='reqMm' value={detFormData[index].reqMm} onChange={handleDetChange(index)}/>
                     <span className={styles.tx}>M/M</span>
                   </div>
                   <div className={styles.item}>
                     <span className={styles.tx}>근무지</span>
                     <input type="text" placeholder="ex. 지역명 + 빌딩명 or 본사명" className={`${styles.txt} ${styles.w_txt}` } name="reqLoc" value={detFormData[index].reqLoc} onChange={handleDetChange(index)}/>
-                    {workplace.map((item) => (
-                      <CheckBox
-                        key={item.name}
-                        label={item.label}
-                        name='reqLoc'
-                        checked={detFormData[index]["reqLocNull"]}
-                        onChange={handleNullCheckboxChange("reqLocNull", index)}
-                      />
-                    ))}
                   </div>
                   <div className={styles.item}>
-                    <span className={`${styles.tx} ${styles.v_t}`}>필수<br />요구기술</span>
+                    <span className={`${styles.tx} ${styles.v_t}`}><span className={styles.essential_blt}>✓</span> 자격요건</span>
                     <textarea name="reqSkill" placeholder={`ex.\n- 개발언어 (java, Spring)\n- 운영체제 지식 (Linux, Windows)`} className={styles.text_box} value={detFormData[index].reqSkill} onChange={handleDetChange(index)}></textarea>
                   </div>
                   <div className={styles.item}>
-                    <span className={`${styles.tx} ${styles.v_t}`}>우대<br />요구기술</span>
+                    <span className={`${styles.tx} ${styles.v_t}`}><span className={styles.essential_blt}>✓</span> 기술</span>
+                    <textarea name="reqPrefSkill" placeholder={`ex.\n- AI 서비스 기획/운영 경험 보유자\n- 금융기관 정보계 개발 및 운영 경험 보유자`} className={styles.text_box} value={detFormData[index].reqPrefSkill} onChange={handleDetChange(index)}></textarea>
+                  </div>
+                  <div className={styles.item}>
+                    <span className={`${styles.tx} ${styles.v_t}`}>우대사항</span>
                     <textarea name="reqPrefSkill" placeholder={`ex.\n- AI 서비스 기획/운영 경험 보유자\n- 금융기관 정보계 개발 및 운영 경험 보유자`} className={styles.text_box} value={detFormData[index].reqPrefSkill} onChange={handleDetChange(index)}></textarea>
                   </div>
                 </div>

@@ -16,10 +16,10 @@
 .content .wrap .accordion .content{position:relative;overflow:hidden;border-top:1px solid #DFDFDF;padding:30px;}
 .content .wrap .accordion .content .item{overflow:hidden;margin-bottom:30px;clear:both;}
 .content .wrap .accordion .content .item:last-child{margin-bottom:0}
-.content .wrap .accordion .content .tx{display:inline-block;color:#888;font-size:14px;width:70px;margin-right:40px}
+.content .wrap .accordion .content .tx{display:inline-block;color:#888;font-size:14px;width:81px;margin-right:30px}
 .content .wrap .accordion .content .item input.txt{width:1000px;border:1px solid #ebebeb;padding:12px;font-size:14px;color:#888;border-radius:4px;}
 .content .wrap .accordion .content .item_half{float:left;margin-right:50px;margin-bottom:30px;}
-.content .wrap .accordion .content label{display:inline-block;color:#888;font-size:14px;width:70px;margin-right:40px;}
+.content .wrap .accordion .content label{display:inline-block;color:#888;font-size:14px;width:81px;margin-right:30px;}
 .content .wrap .accordion .content .select_box{display:inline-block}
 .content .wrap .accordion .content .custom_select{border:1px solid #ebebeb;padding:12px;width:200px;border-radius:4px;appearance:none;background: url('../../public/images/detail/ico_ac_down.png') no-repeat right 10px center;background-size:12px 6px;}
 .content .wrap .accordion .content .blt{margin:0 20px;}
@@ -42,3 +42,4 @@
 .content .add_btn_section{width:100%}
 .content .add_btn_section .add_btn{width:100%;;background-color:#006FCD;color:#fff;margin-top:24px;font-size:16px;border-radius:12px;}
 .content .add_btn_section .add_btn .addIcon{vertical-align:bottom;}
+.content .essential_blt{color:#f31818;font-weight:700}
