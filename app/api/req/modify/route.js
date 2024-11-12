@@ -73,12 +73,15 @@ import { getObjTrimAndNullProc } from "/utils/common-util";
  *                     reqLoc:
  *                       type: string
  *                       description: 근무지
+ *                     reqQualSkill:
+ *                       type: string
+ *                       description: 자격요건
  *                     reqSkill:
  *                       type: string
- *                       description: 필수 요구기술
+ *                       description: 기술
  *                     reqPrefSkill:
  *                       type: string
- *                       description: 우대 요구기술
+ *                       description: 우대사항
  *                     reqType:
  *                       type: string
  *                       description: 유형
@@ -145,7 +148,9 @@ export async function POST(req) {
             reqOutDt,
             reqMm,
             reqLoc,
+            reqQualSkill,
             reqSkill,
+            reqPrefSkill,
             modId,
           } = procData;
 
@@ -161,7 +166,9 @@ export async function POST(req) {
               reqOutDt,
               reqMm,
               reqLoc,
+              reqQualSkill,
               reqSkill,
+              reqPrefSkill,
               modId,
               modDt: new Date(), // Set the modification date to now
             },

@@ -10,11 +10,11 @@ export default function AuthForm({ type,closeModal }) {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const { register, handleSubmit, watch , reset, getValues, trigger, setValue, control, formState: { errors }} = useForm();
-  const [isVisible, setIsVisible] = useState(false);
-  const { time, start, stop, resetTimer, remove, isActive } = timer("03:00");
-  const [authData, setAuthData] = useState({});
-  const [isAuthDisabled, setIsAuthDisabled] = useState(false);
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);              // 인증번호 입력 항목 view 제어
+  const { time, start, stop, resetTimer, remove, isActive } = timer("03:00"); // 타이머 util 
+  const [authData, setAuthData] = useState({});                    // 인증 정보 DATA
+  const [isAuthDisabled, setIsAuthDisabled] = useState(false);     // 인증 완료 시 비활성화 처리
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false); // 중복 송신 방지
   const [mobNum, setMobNum] = useState('');
 
   const [groupType, setGroupType] = useState([

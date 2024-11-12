@@ -91,8 +91,9 @@ model tbReqMgtDet {
   reqOutDt        String?   @map("req_out_dt")        // 투입 종료일
   reqMm           Int?      @map("req_mm")            // M/M
   reqLoc          String?   @map("req_loc")           // 근무지
-  reqSkill        String?   @map("req_skill")         // 필수 요구기술
-  reqPrefSkill    String?   @map("req_pref_skill")    // 우대 요구기술
+  reqQualSkill    String?   @map("req_qual_skill")    // 자격요건
+  reqSkill        String?   @map("req_skill")         // 기술
+  reqPrefSkill    String?   @map("req_pref_skill")    // 우대사항
   useYn           String?   @map("use_yn")
   regDt           DateTime? @default(now()) @map("reg_dt") // 등록일
   regId           String?   @map("reg_id")            // 등록ID
