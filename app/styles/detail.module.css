@@ -88,7 +88,7 @@
 /* 상세 진행 현황 */
 .content .detail_prog{text-align:right;margin-right:36px;}
 .content .detail_prog button{border:1px solid #000}
-.content .detail_prog .status_list{position:fixed;top:30px;right:615px;width:600px;overflow:hidden;text-align:left;background-color:#fff;border-radius:12px;box-shadow: 0px 8px 8px 0px #0000001F;z-index:11;}
+.content .detail_prog .status_list{position:fixed;top:30px;left:50%;margin-left:-300px;width:600px;overflow:hidden;text-align:left;background-color:#fff;border-radius:12px;box-shadow: 0px 8px 8px 0px #0000001F;z-index:11;}
 .content .detail_prog .status_list .header{position:relative;;background-color:#006DCD;color:#fff;border-radius:12px 12px 0 0;padding:17px 30px;font-size:14px}
 .content .detail_prog .status_list .header .close_btn{position:absolute;top:15px;right:30px}
 .content .detail_prog .status_list .header .close_btn a{cursor:pointer;}
