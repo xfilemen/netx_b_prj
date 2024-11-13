@@ -403,7 +403,10 @@ export default function RegPage() {
     console.log('📢 [page.jsx:370]', date);
     const newDate = formatDate(date);
     console.log('📢 [page.jsx:372]', newDate);
-    if (newDate < detFormData[index].reqInDt) {
+    if (detFormData[index].reqInDt == null) {
+      alert("투입 예정일을 먼저 선택해주세요.");
+      return true;
+    } else if (newDate < detFormData[index].reqInDt) {
       alert("투입 종료일은 투입 예정일보다 이후이어야 합니다.");
       return true;
     }
@@ -692,7 +695,7 @@ export default function RegPage() {
                   </div>
                   <div className={styles.item}>
                     <span className={`${styles.tx} ${styles.v_t}`}><span className={styles.essential_blt}>✓</span> 기술</span>
-                    <textarea name="reqPrefSkill" placeholder={`ex.\n- Java Spring Framework 기반의 개발 역량 보유\n- Vue, Ajax, Javascript 기반의 프론트엔드 개발 역량 보유\n- Oracle 쿼리 작성 역량 보유`} className={styles.text_box} value={detFormData[index].reqPrefSkill} onChange={handleDetChange(index)}></textarea>
+                    <textarea name="reqQualSkill" placeholder={`ex.\n- Java Spring Framework 기반의 개발 역량 보유\n- Vue, Ajax, Javascript 기반의 프론트엔드 개발 역량 보유\n- Oracle 쿼리 작성 역량 보유`} className={styles.text_box} value={detFormData[index].reqQualSkill} onChange={handleDetChange(index)}></textarea>
                   </div>
                   <div className={styles.item}>
                     <span className={`${styles.tx} ${styles.v_t}`}>우대사항</span>
