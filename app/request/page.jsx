@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import '@styles/datepicker-custom.css'; 
 import styles from '@styles/request.module.css';
 import SelectBox from '@components/select';
-import CheckBox from '@components/checkbox';
+import CheckBox from '@components/checkbox2';
 import Image from 'next/image';
 import apiCall from '../../utils/api-call';
 
@@ -163,11 +163,12 @@ export default function RegPage() {
         } else if (detFormData[index].reqInDt == '' || detFormData[index].reqInDt == null) {
           alert((checkNum) + '번째 투입 예정일을 입력하지 않았습니다.');
           return true;
-        } else if ((detFormData[index].reqOutDt != null) && detFormData[index].reqMm == '') {
+        } else if (false && (detFormData[index].reqOutDt != null) && (detFormData[index].reqMm == '' && detFormData[index].reqMm != 0)) {
+          // 투입공수는 필수 아님
           console.log('📢 [page.jsx:167]', detFormData[index].reqOutDt);
           console.log('📢 [page.jsx:167]', detFormData[index].reqOutDt != '');
-            alert((checkNum) + '번째 투입 공수를 입력하지 않았습니다.');
-            return true;
+            // alert((checkNum) + '번째 투입 공수를 입력하지 않았습니다.');
+            // return true;
         } else if (detFormData[index].reqSkill.trim() == '') {
           alert((checkNum) + '번째 자격요건을 입력하지 않았습니다.');
           return true;
