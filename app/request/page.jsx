@@ -403,7 +403,10 @@ export default function RegPage() {
     console.log('📢 [page.jsx:370]', date);
     const newDate = formatDate(date);
     console.log('📢 [page.jsx:372]', newDate);
-    if (newDate < detFormData[index].reqInDt) {
+    if (detFormData[index].reqInDt == null) {
+      alert("투입 예정일을 먼저 선택해주세요.");
+      return true;
+    } else if (newDate < detFormData[index].reqInDt) {
       alert("투입 종료일은 투입 예정일보다 이후이어야 합니다.");
       return true;
     }
