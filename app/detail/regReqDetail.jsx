@@ -321,7 +321,7 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
                           <span className={styles.tit_tx_edit}>투입 공수</span>
                           <input
                             type="text"
-                            placeholder={`${detail.reqMm}`}
+                            placeholder={`${detail.reqMm ? detail.reqMm + ' M/M': '미정'}`}
                             onChange={handleInputChange}
                             className={styles.txt}
                           />
@@ -330,7 +330,7 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
                       ) : (
                         <div>
                           <span className={styles.tit_tx}>투입 공수</span>
-                          <span className={styles.p_tx}>{detail.reqMm} M/M</span>
+                          <span className={styles.p_tx}>{detail.reqMm ? detail.reqMm + ' M/M' : '미정'} </span>
                         </div>
                       )}
                     </li>
