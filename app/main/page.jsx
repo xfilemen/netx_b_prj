@@ -5,7 +5,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import styles from '@styles/main.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
-import apiHandler from '../../utils/api-handler';
+import apiCall from '../../utils/api-call';
 
 export default function MainPage() {
     const { data: session } = useSession();
@@ -28,7 +28,7 @@ export default function MainPage() {
     
     const submitData = async () => {
         try {
-          const result = await apiHandler.postData('/api/req/status'); // POST 요청
+          const result = await apiCall.postData('/api/req/status'); // POST 요청
 
           if(result.data === undefined){
             setError(error);

@@ -60,10 +60,20 @@ export async function POST(req) {
               userName : true
             }
           },
+        },
+        orderBy: {
+          regDt: 'desc'
         }
       })
+
+      const totalCnt = await prisma.tbPost.count({
+        where: {
+          brdId
+        }
+      });
+
       console.log(tbPost);
-      return new Response(JSON.stringify({ message: '정상적으로 조회되었습니다.', data : tbPost}), {
+      return new Response(JSON.stringify({ message: '정상적으로 조회되었습니다.', data : { tbPost, totalCnt } }), {
         status: 200,
       })
     }else{

@@ -9,6 +9,13 @@ export async function POST(req) {
         where: {
           pstId_brdId: { pstId: parseInt(pstId), brdId: 3 },
         },
+        include: {
+          tbUserReg: {
+            select : {
+              userName : true
+            }
+          },
+        },
       });
 
       return new Response(

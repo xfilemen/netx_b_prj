@@ -4,7 +4,7 @@ import React, { useEffect,useState } from 'react';
 import { useForm } from "react-hook-form";
 import {nameValid,passwordValid,mobNumValid,required,matchValid} from '@utils/user-validation';
 import {maxLength,timer,formErrorCheck} from '@utils/common-util';
-import apiHandler from '@utils/api-handler';
+import apiCall from '@utils/api-call';
 
 export default function AuthForm({ type,closeModal }) {
   const [data, setData] = useState([]);
@@ -38,7 +38,7 @@ export default function AuthForm({ type,closeModal }) {
       return;
     }
 
-    await apiHandler.fetchPostData('/api/user/auth/sms/send',{
+    await apiCall.fetchPostData('/api/user/auth/sms/send',{
       data :{
         serialnum : '',
         status : '',
@@ -64,7 +64,7 @@ export default function AuthForm({ type,closeModal }) {
   //인증번호 확인
   const authCodeVerify = async () => {
     const authSmsCd = watch("authSmsCd");
-    await apiHandler.fetchPostData('/api/user/auth/sms/verify',{
+    await apiCall.fetchPostData('/api/user/auth/sms/verify',{
        data :{
           ...authData,
           authSmsCd
@@ -88,7 +88,7 @@ export default function AuthForm({ type,closeModal }) {
     let userCount = 1;
     const userId = watch("userId");
     //계정 중복 여부
-    await apiHandler.fetchPostData('/api/user/find/id',{
+    await apiCall.fetchPostData('/api/user/find/id',{
       data : {userId}
       },
       (result,error)=>{
@@ -102,7 +102,7 @@ export default function AuthForm({ type,closeModal }) {
     
     if (userCount === 0 && window.confirm("계정 생성을 요청하시겠습니까?")) {
       console.log("폼 데이터:", data);
-      await apiHandler.fetchPostData('/api/user/regist',{
+      await apiCall.fetchPostData('/api/user/regist',{
         data : data
         },
         (result,error)=>{
@@ -131,7 +131,7 @@ export default function AuthForm({ type,closeModal }) {
 
   // 그룹사 코드 호출
   const codeSelect = async () => {
-    await apiHandler.fetchPostData('/api/common/code/select',{
+    await apiCall.fetchPostData('/api/common/code/select',{
         codeGrp : 'G001',
       },
       (result,error)=>{

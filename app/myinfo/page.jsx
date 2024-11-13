@@ -5,7 +5,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import styles from "@styles/myinfo.module.css";
 import SelectBox from "@components/select";
 import Image from "next/image";
-import apiHandler from "../../utils/api-handler.js";
+import apiCall from "../../utils/api-call";
 import { useRouter } from "next/navigation";
 
 export default function myInfoPage() {
@@ -78,7 +78,7 @@ export default function myInfoPage() {
 
   const submitData = async (formData) => {
     try {
-      const result = await apiHandler.postData("/api/user/modify", formData); // POST 요청
+      const result = await apiCall.postData("/api/user/modify", formData); // POST 요청
 
       if (result.data === undefined) {
         console.log("실패", result.data);

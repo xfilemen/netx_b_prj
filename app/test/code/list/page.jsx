@@ -3,7 +3,7 @@
 import React, { useEffect,useState } from 'react';
 import styles from '@styles/detail.module.css';
 import Image from 'next/image';
-import apiHandler from '@utils/api-handler';
+import apiCall from '@utils/api-call';
 
 export default function RegularPage({ item }) { 
   const [data, setData] = useState([]);
@@ -12,7 +12,7 @@ export default function RegularPage({ item }) {
   
 const codeSelect = async () => {
   try {
-    const result = await apiHandler.postData('/api/common/code/select',{
+    const result = await apiCall.postData('/api/common/code/select',{
     }); // POST 요청
     console.log('codeSelect : ',result);
     if(result.data){

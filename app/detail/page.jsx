@@ -6,7 +6,7 @@ import RegDetail from "../detail/regReqDetail.jsx";
 import Filter from '@components/filter';
 import styles from "@styles/detail.module.css";
 import Image from "next/image";
-import apiHandler from "../../utils/api-handler.js";
+import apiCall from "../../utils/api-call";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function RegularPage({ item }) {
@@ -48,7 +48,7 @@ export default function RegularPage({ item }) {
 
   const getData = async (url) => {
     console.log("📢 [page.jsx:26]", url);
-    const result = await apiHandler.postData(url); // POST 요청
+    const result = await apiCall.postData(url); // POST 요청
     console.log("요청 전체 조회 : ", result.data);
     for (let index = 0; index < result.data.length; index++) {
       let typeData2 = "";
@@ -185,14 +185,14 @@ export default function RegularPage({ item }) {
 
   const modiApi = async () => {
     console.log("📢 [page.jsx:104]", pageSelectItem);
-    const result = await apiHandler.postData("/api/req/modify", {
+    const result = await apiCall.postData("/api/req/modify", {
       data: pageSelectItem,
     }); // POST 요청
     console.log("reqRegist : ", result);
   };
 
   // const addLog = async () => {
-  //   const result1 = await apiHandler.postData("/api/req/log/regist", {
+  //   const result1 = await apiCall.postData("/api/req/log/regist", {
   //     data: logData, // 로그 데이터 입력
   //   });
   //   console.log("📢 [page.jsx:175]", result1);
