@@ -4,6 +4,7 @@ import { it, ko } from 'date-fns/locale';
 import "react-datepicker/dist/react-datepicker.css";
 import '@styles/datepicker-custom.css';
 import CheckBox from '@components/checkbox';
+import SelectBox from '@components/select';
 import styles from '@styles/detail.module.css';
 import Image from "next/image";
 
@@ -17,11 +18,20 @@ export default function FilterPage({onClose}) {
       { label: '반려', name: '5', id: 'return' },
       { label: '완료', name: '6', id: 'complete' },
   ];
+
   const typeChk = [
     { label: '전체 ', name: '7', id: 'typeall' },
     { label: '정규', name: '8', id: 'regular' },
     { label: 'BP', name: '9', id: 'BP' },
-];
+  ];
+
+  const reqType = [
+    { value: '11', label: '전체' },
+    { value: '22', label: '요청명' },
+    { value: '33', label: '내용' },
+    { value: '44', label: '처리자명' },
+  ];
+
   const handleCheckboxChange = (label) => {
     setCheckedValues((prevState) => {
       if (prevState.includes(label)) {
@@ -79,7 +89,7 @@ export default function FilterPage({onClose}) {
             </div>
             <div className={styles.item}>
                 <p className={styles.tx}>기간 <span>요청일 기준</span></p>
-                <div className={styles.item_half}>
+                <div className={styles.picker}>
                     <DatePicker 
                       dateFormat='yyyy-MM-dd'
                       locale={ko}
@@ -96,6 +106,21 @@ export default function FilterPage({onClose}) {
                       name="reqOutDt"
                     />
                 </div>
+            </div>
+            <div className={styles.item}>
+                <p className={styles.tx}>내용</p>
+                <div className={styles.select_box}>
+                    <SelectBox options={reqType} name="reqType"/>
+                    <input
+                        type="text"
+                        placeholder={`전체`}
+                        className={styles.txt}
+                    />
+                </div>
+            </div>
+            <div className={styles.btn_section}>
+              <button className={styles.reset_btn}>초기화</button>
+              <button className={styles.search_btn}>검색</button>
             </div>
         </div>
     </div>
