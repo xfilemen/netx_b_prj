@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import styles from "@styles/notice.module.css";
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
 
 import dynamic from "next/dynamic";
 import apiCall from "@utils/api-call";
@@ -13,40 +14,76 @@ const CustomEditor = dynamic(() => import("../../components/ckeditor"), {
 });
 
 const NoticeCreatePage = () => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  //   const [file, setFile] = useState(null);
+  const router = useRouter();
+
+  // 유저 정보
   const { data: session } = useSession();
   let userInfo = {};
   userInfo = session?.user || {};
 
-  const [formData, setFormData] = useState({
-    brdId: 3,
-    pstTitle: "",
-    pstContents: "",
-    viewYn: "Y",
-    regId: userInfo.userId,
-  });
+  // 제목
+  const [title, setTitle] = useState("");
+  // 내용
+  const [content, setContent] = useState("");
+  //   const [file, setFile] = useState(null);
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
+  // const handleFileChange = (e) => {
+  //   setFile(e.target.files[0]);
+  // };
+
+  // const triggerFileSelect = () => {
+  //   document.getElementById("fileInput").click();
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(content);
+
+    if(!title || !title.trim) {
+      alert('제목을 입력해주세요.');
+      return;
+    }
+
+    if(!content || !content.trim) {
+      alert('내용을 입력해주세요.');
+      return;
+    }
+      
+    if(!confirm('등록 하시겠습니까?')) return;
+
+    const formData = {
+      brdId: 3,
+      pstTitle: title,
+      pstContents: content,
+      viewYn: "Y",
+      regId: userInfo.userId,
+    }
+    
+    await submitPost(formData);
   };
 
-  const triggerFileSelect = () => {
-    document.getElementById("fileInput").click();
-  };
 
+  const submitPost = async(data) => {
+    try{
+      const result = await apiCall.postData("/api/brd/post/regist", data);
+
+      if(result.data) {
+        alert('등록되었습니다.');
+        router.push('/notice'); // 이동할 경로
+      }
+    }
+    catch(e){
+      console.log("error: ", e);
+    }
+
+  };
+  
   const handleChildDataChange = (data) => {
-    console.log(data);
     setContent(data);
   };
 
-  useEffect(function () {}, []);
+  useEffect(()=>{
+
+  }, []);
 
   return (
     <div className={styles.content}>
@@ -113,7 +150,6 @@ const NoticeCreatePage = () => {
                 목록
               </a>
               <button
-                onClick={handleSubmit}
                 type="submit"
                 className={styles.regisit_btn}
               >

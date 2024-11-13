@@ -51,7 +51,7 @@ import {
 import 'ckeditor5/ckeditor5.css';
 import '../styles/ckeditorStyles.css';
 
-export default function App() {
+export default function App({ onDataChange, content }) {
 	const editorContainerRef = useRef(null);
 	const editorRef = useRef(null);
 	const [isLayoutReady, setIsLayoutReady] = useState(false);
@@ -218,12 +218,24 @@ export default function App() {
 
 	configUpdateAlert(editorConfig);
 
+	const handleChangeContents = (e, editor) => {
+		// onDataChange 콜백을 호출하여 부모에게 이벤트 전달
+		const data = editor.getData(); // CKEditor에서 데이터 가져오기
+		onDataChange(data); // 부모로 데이터 전달
+	  };
+
+	const handleSetContents  = (editor) => {
+		if (content) {
+			editor.setData(content); // 전달받은 content를 에디터에 설정
+		  }
+	}
+
 	return (
 		<div>
 			<div className="main-container">
 				<div className="editor-container editor-container_classic-editor" ref={editorContainerRef}>
 					<div className="editor-container__editor">
-						<div ref={editorRef}>{isLayoutReady && <CKEditor editor={ClassicEditor} config={editorConfig} />}</div>
+						<div ref={editorRef}>{isLayoutReady && <CKEditor editor={ClassicEditor} config={editorConfig} onChange={handleChangeContents} onReady={(editor) => handleSetContents(editor)}/>}</div>
 					</div>
 				</div>
 			</div>

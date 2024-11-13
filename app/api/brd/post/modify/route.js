@@ -3,23 +3,26 @@ export async function POST(req) {
   try {
 
     const data = await req.json();
+    const currentTime =
+      await prisma.$queryRaw`SELECT CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Seoul'`;
+    const nowData = new Date(currentTime[0].timezone);
     if(data.params){
 
       const { pstId, brdId, pstTitle, pstContents, viewYn, modId } = data.params;
 
       const updatedTbPost = await prisma.tbPost.update({
-        where: { pstId_brdId: { pstId, brdId } },
+        where: { pstId_brdId: { pstId: parseInt(pstId), brdId } },
         data: {
           pstTitle,
           pstContents,
           viewYn,
           modId,
+          modDt: nowData
         },
       });
 
 
-      console.log('📢 [route.js:16]', post);
-      return new Response(JSON.stringify({ message: '정상적으로 처리되었습니다.', data : post}), {
+      return new Response(JSON.stringify({ message: '정상적으로 처리되었습니다.', data : updatedTbPost}), {
         status: 200,
       })
 

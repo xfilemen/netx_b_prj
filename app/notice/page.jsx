@@ -6,18 +6,31 @@ import Image from "next/image";
 import Link from "next/link";
 import apiCall from "@utils/api-call";
 
-const NoticeItem = ({ notice, no }) => (
-  <div className={styles.noticeItem}>
-    <div>{no + 1}</div>
-    <div className={styles.tit_tx}>
-      <Link href={`/notice/${notice.pstId}`}>{notice.pstTitle}</Link>
-    </div>
-    <div>{notice.regDt}</div>
-    <div>{notice.regId}</div>
-  </div>
-);
+const NoticeItem = ({ notice, no }) => {
 
-const NoticeBoard = ({ currentPage, noticesPerPage, notices }) => {
+  let formattedDate = '';
+  let userName = '';
+
+  if(notice.regDt){
+    formattedDate = notice.regDt.substring(0, 10)
+  }
+  if(notice.tbUserReg) {
+    userName = notice.tbUserReg.userName;
+  }
+  
+  return (
+    <div className={styles.noticeItem}>
+      <div>{no + 1}</div>
+      <div className={styles.tit_tx}>
+        <Link href={`/notice/${notice.pstId}`}>{notice.pstTitle}</Link>
+      </div>
+      <div>{formattedDate}</div>
+      <div>{userName}님</div>
+    </div>
+  ); 
+}
+
+const NoticeBoard = ({ currentPage, noticesPerPage, notices, totalCnt }) => {
   const indexOfLastNotice = currentPage * noticesPerPage;
   const indexOfFirstNotice = indexOfLastNotice - noticesPerPage;
   const currentNotices = notices.slice(indexOfFirstNotice, indexOfLastNotice);
@@ -32,7 +45,7 @@ const NoticeBoard = ({ currentPage, noticesPerPage, notices }) => {
       </div>
       {currentNotices.length > 0 ? (
         currentNotices.map((notice, i) => (
-          <NoticeItem key={notice.pstId} notice={notice} no={i} />
+          <NoticeItem key={`${notice.pstId}-${i}`} notice={notice} no={parseInt(totalCnt)-(i+1)} />
         ))
       ) : (
         <div className={styles.noNotices}>등록된 게시물이 없습니다.</div>
@@ -46,24 +59,46 @@ export default function NotiPage() {
   const noticesPerPage = 10;
   const [notices, setNotices] = useState([{}]);
   const [totalPages, setTotalPages] = useState(1);
+  const [totalCnt, setTotalCnt] = useState(0);
 
   useEffect(() => {
     getNotices();
+    // apiHandler
+    //   .postData("/api/brd/post/list", {
+    //     page: currentPage,
+    //     pageSize: noticesPerPage,
+    //     brdId: 3
+    //   })
+    //   .then((res) => {
+    //     if (res.data) {
+    //       setNotices(res.data.tbPost);
+    //       setTotalCnt(res.data.totalCnt);
+    //       setTotalPages(Math.ceil(res.data.totalCnt / noticesPerPage));
+    //     }
+    //   });
   }, []);
 
-  const getNotices = async () => {
+  const getNotices = async() =>{
     await apiCall
-      .postData("/api/brd/post/list", {
-        page: currentPage,
-        pageSize: noticesPerPage,
-      })
-      .then((res) => {
-        if (res.data) {
-          setNotices(res.data);
-          setTotalPages(Math.ceil(res.data.length / noticesPerPage));
-        }
-      });
-  };
+    .postData("/api/brd/post/list", {
+      page: currentPage,
+      pageSize: noticesPerPage,
+      brdId: 3
+    })
+    .then((res) => {
+      if (res.data) {
+        setNotices(res.data.tbPost);
+        setTotalCnt(res.data.totalCnt);
+        setTotalPages(Math.ceil(res.data.totalCnt / noticesPerPage));
+      }
+    });
+  }
+
+
+  // useEffect(() => {
+  //   console.log('totalCnt:: ', totalCnt);
+  // }, [totalCnt])
+  
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -93,6 +128,7 @@ export default function NotiPage() {
           currentPage={currentPage}
           noticesPerPage={noticesPerPage}
           notices={notices}
+          totalCnt={totalCnt}
         />
         {notices.length > 0 ? (
           <div className={styles.pagination}>

@@ -2,9 +2,12 @@ import prisma from "/lib/prisma";
 export async function POST(req) {
   try {
     const data = await req.json();
-    if (data.params.data) {
-      const { brdId, pstTitle, pstContents, viewYn, regId, regDt } =
-        data.params.data;
+    const currentTime =
+      await prisma.$queryRaw`SELECT CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Seoul'`;
+    const nowData = new Date(currentTime[0].timezone);
+    if (data.params) {
+
+      const { brdId, pstTitle, pstContents, viewYn, regId, regDt } = data.params;
       const post = await prisma.tbPost.create({
         data: {
           brdId,
@@ -12,7 +15,7 @@ export async function POST(req) {
           pstContents,
           viewYn,
           regId,
-          regDt,
+          regDt: nowData,
         },
       });
 
