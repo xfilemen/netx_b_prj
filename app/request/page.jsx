@@ -692,11 +692,7 @@ export default function RegPage() {
                   </div>
                   <div className={styles.item}>
                     <span className={`${styles.tx} ${styles.v_t}`}><span className={styles.essential_blt}>✓</span> 기술</span>
-<<<<<<< HEAD
                     <textarea name="reqPrefSkill" placeholder={`ex.\n- Java Spring Framework 기반의 개발 역량 보유\n- Vue, Ajax, Javascript 기반의 프론트엔드 개발 역량 보유\n- Oracle 쿼리 작성 역량 보유`} className={styles.text_box} value={detFormData[index].reqPrefSkill} onChange={handleDetChange(index)}></textarea>
-=======
-                    <textarea name="reqQualSkill" placeholder={`ex.\n- AI 서비스 기획/운영 경험 보유자\n- 금융기관 정보계 개발 및 운영 경험 보유자`} className={styles.text_box} value={detFormData[index].reqQualSkill} onChange={handleDetChange(index)}></textarea>
->>>>>>> c6c673d01c704eef7867be5044757c97d2b62bc6
                   </div>
                   <div className={styles.item}>
                     <span className={`${styles.tx} ${styles.v_t}`}>우대사항</span>
