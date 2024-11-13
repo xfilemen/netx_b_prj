@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import RegDetail from "../detail/regReqDetail.jsx";
 import styles from "@styles/detail.module.css";
 import Image from "next/image";
-import apiCall from "../../utils/api-call.js/index.js";
+import apiCall from "../../utils/api-call";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function RegularPage({ item }) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "@styles/detail.module.css";
-import apiCall from "../../utils/api-call.js/index.js";
+import apiCall from "../../utils/api-call";
 import Image from "next/image";
 
 export default function DetailStatusPage({ reqInfo, onClose, userInfo }) {

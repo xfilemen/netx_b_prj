@@ -5,7 +5,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import styles from "@styles/myinfo.module.css";
 import SelectBox from "@components/select";
 import Image from "next/image";
-import apiCall from "../../utils/api-call.js/index.js";
+import apiCall from "../../utils/api-call";
 import { useRouter } from "next/navigation";
 
 export default function myInfoPage() {
