@@ -375,8 +375,8 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
                         <div>
                           <span className={styles.tit_tx_edit_line}>기술</span>
                           <textarea
-                            name="reqPrefSkill"
-                            placeholder={`${detail.reqPrefSkill}`}
+                            name="reqQualSkill"
+                            placeholder={`${detail.reqQualSkill}`}
                             className={styles.text_box}
                             onChange={handleInputChange}
                           ></textarea>
@@ -384,7 +384,7 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
                       ) : (
                         <div>
                           <span className={styles.tit_tx}>기술</span>
-                          <span className={styles.p_tx} style={{ whiteSpace: 'pre-wrap' }}>{detail.reqPrefSkill}</span>
+                          <span className={styles.p_tx} style={{ whiteSpace: 'pre-wrap' }}>{detail.reqQualSkill}</span>
                         </div>
                       )}
                     </li>
