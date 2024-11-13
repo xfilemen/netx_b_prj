@@ -1,8 +1,8 @@
 "use client";
 
-import styles from '@styles/header.module.css';
-import React, { Component } from 'react';
-import Link from 'next/link';
+import styles from "@styles/header.module.css";
+import React, { Component } from "react";
+import Link from "next/link";
 
 class NaviList extends Component {
   constructor(props) {
@@ -19,13 +19,15 @@ class NaviList extends Component {
   }
 
   getIndexFromPath = (path) => {
+    if (path.includes("/notice")) {
+      return 2;
+    }
+
     switch (path) {
-      case '/request':
+      case "/request":
         return 0;
-      case '/detail':
+      case "/detail":
         return 1;
-      case '/notice':
-        return 2;
       default:
         return 0;
     }
@@ -37,18 +39,24 @@ class NaviList extends Component {
 
   render() {
     const items = [
-      { text: '인력 요청', link: '/request' },
-      { text: '인력 요청 내역', link: '/detail' },
-      { text: '공지사항', link: '/notice' },
+      { text: "인력 요청", link: "/request" },
+      { text: "인력 요청 내역", link: "/detail" },
+      { text: "공지사항", link: "/notice" },
     ];
 
     return (
       <ul>
         {items.map((item, index) => (
-          <li key={index} onClick={() => this.handleToggle(index)} className={`${styles.listItem} ${this.state.selectedIdx === index ? styles.on : ''}`}>
+          <li
+            key={index}
+            onClick={() => this.handleToggle(index)}
+            className={`${styles.listItem} ${
+              this.state.selectedIdx === index ? styles.on : ""
+            }`}
+          >
             <Link href={item.link}>{item.text}</Link>
           </li>
-        ))}        
+        ))}
       </ul>
     );
   }

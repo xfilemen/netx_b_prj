@@ -7,17 +7,16 @@ import Link from "next/link";
 import apiCall from "@utils/api-call";
 
 const NoticeItem = ({ notice, no }) => {
+  let formattedDate = "";
+  let userName = "";
 
-  let formattedDate = '';
-  let userName = '';
-
-  if(notice.regDt){
-    formattedDate = notice.regDt.substring(0, 10)
+  if (notice.regDt) {
+    formattedDate = notice.regDt.substring(0, 10);
   }
-  if(notice.tbUserReg) {
+  if (notice.tbUserReg) {
     userName = notice.tbUserReg.userName;
   }
-  
+
   return (
     <div className={styles.noticeItem}>
       <div>{no + 1}</div>
@@ -27,14 +26,10 @@ const NoticeItem = ({ notice, no }) => {
       <div>{formattedDate}</div>
       <div>{userName}님</div>
     </div>
-  ); 
-}
+  );
+};
 
-const NoticeBoard = ({ currentPage, noticesPerPage, notices, totalCnt }) => {
-  const indexOfLastNotice = currentPage * noticesPerPage;
-  const indexOfFirstNotice = indexOfLastNotice - noticesPerPage;
-  const currentNotices = notices.slice(indexOfFirstNotice, indexOfLastNotice);
-
+const NoticeBoard = ({ notices, totalCnt, currentPage, noticesPerPage }) => {
   return (
     <div className={styles.noticeBoard}>
       <div className={styles.noticeHeader}>
@@ -43,9 +38,13 @@ const NoticeBoard = ({ currentPage, noticesPerPage, notices, totalCnt }) => {
         <div>게시일</div>
         <div>등록자</div>
       </div>
-      {currentNotices.length > 0 ? (
-        currentNotices.map((notice, i) => (
-          <NoticeItem key={`${notice.pstId}-${i}`} notice={notice} no={parseInt(totalCnt)-(i+1)} />
+      {notices.length > 0 ? (
+        notices.map((notice, i) => (
+          <NoticeItem
+            key={`${notice.pstId}-${i}`}
+            notice={notice}
+            no={totalCnt - (currentPage - 1) * noticesPerPage - (i + 1)}
+          />
         ))
       ) : (
         <div className={styles.noNotices}>등록된 게시물이 없습니다.</div>
@@ -57,56 +56,37 @@ const NoticeBoard = ({ currentPage, noticesPerPage, notices, totalCnt }) => {
 export default function NotiPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const noticesPerPage = 10;
-  const [notices, setNotices] = useState([{}]);
+  const [notices, setNotices] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [totalCnt, setTotalCnt] = useState(0);
 
   useEffect(() => {
     getNotices();
-    // apiHandler
-    //   .postData("/api/brd/post/list", {
-    //     page: currentPage,
-    //     pageSize: noticesPerPage,
-    //     brdId: 3
-    //   })
-    //   .then((res) => {
-    //     if (res.data) {
-    //       setNotices(res.data.tbPost);
-    //       setTotalCnt(res.data.totalCnt);
-    //       setTotalPages(Math.ceil(res.data.totalCnt / noticesPerPage));
-    //     }
-    //   });
-  }, []);
+  }, [currentPage]);
 
-  const getNotices = async() =>{
+  const getNotices = async () => {
     await apiCall
-    .postData("/api/brd/post/list", {
-      page: currentPage,
-      pageSize: noticesPerPage,
-      brdId: 3
-    })
-    .then((res) => {
-      if (res.data) {
-        setNotices(res.data.tbPost);
-        setTotalCnt(res.data.totalCnt);
-        setTotalPages(Math.ceil(res.data.totalCnt / noticesPerPage));
-      }
-    });
-  }
+      .postData("/api/brd/post/list", {
+        page: currentPage,
+        pageSize: noticesPerPage,
+        brdId: 3,
+      })
+      .then((res) => {
+        if (res.data) {
+          setNotices(res.data.tbPost);
+          setTotalCnt(res.data.totalCnt);
+          setTotalPages(Math.ceil(res.data.totalCnt / noticesPerPage));
+        }
+      });
+  };
 
-
-  // useEffect(() => {
-  //   console.log('totalCnt:: ', totalCnt);
-  // }, [totalCnt])
-  
-
-  const handleNextPage = () => {
+  const handleNextPage = async () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
     }
   };
 
-  const handlePrevPage = () => {
+  const handlePrevPage = async () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
@@ -125,6 +105,7 @@ export default function NotiPage() {
       <div className={styles.wrap}>
         <h2>공지사항</h2>
         <NoticeBoard
+          key={`${currentPage}-${notices.length}`}
           currentPage={currentPage}
           noticesPerPage={noticesPerPage}
           notices={notices}

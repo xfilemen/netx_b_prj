@@ -1,4 +1,4 @@
-import prisma from '/lib/prisma';
+import prisma from "/lib/prisma";
 /**
  * @swagger
  * /brd/post/list:
@@ -33,59 +33,61 @@ import prisma from '/lib/prisma';
  */
 export async function POST(req) {
   try {
-    
-
-    const {params} = await req.json();
+    const { params } = await req.json();
     const data = params?.data || params;
 
-    if(data){
-      const {page,pageSize,brdId} = data;
+    if (data) {
+      const { page, pageSize, brdId } = data;
       const skip = (page - 1) * pageSize; // 가져올 게시물 시작 번호
-      const take = pageSize;  // 가져올 항목 수
-    
+      const take = pageSize; // 가져올 항목 수
+
       const tbPost = await prisma.tbPost.findMany({
-        skip: skip,   // 가져올 게시물 시작 번호
-        take: take,   // 가져올 항목 수
-        where : {
-          brdId
+        skip: skip, // 가져올 게시물 시작 번호
+        take: take, // 가져올 항목 수
+        where: {
+          brdId,
         },
         include: {
           tbUserReg: {
-            select : {
-              userName : true
-            }
+            select: {
+              userName: true,
+            },
           },
           tbUserMod: {
-            select : {
-              userName : true
-            }
+            select: {
+              userName: true,
+            },
           },
         },
         orderBy: {
-          regDt: 'desc'
-        }
-      })
+          regDt: "desc",
+        },
+      });
 
       const totalCnt = await prisma.tbPost.count({
         where: {
-          brdId
-        }
+          brdId,
+        },
       });
 
-      console.log(tbPost);
-      return new Response(JSON.stringify({ message: '정상적으로 조회되었습니다.', data : { tbPost, totalCnt } }), {
-        status: 200,
-      })
-    }else{
-      throw new Error('param null');
+      return new Response(
+        JSON.stringify({
+          message: "정상적으로 조회되었습니다.",
+          data: { tbPost, totalCnt },
+        }),
+        {
+          status: 200,
+        }
+      );
+    } else {
+      throw new Error("param null");
     }
-  } catch(err){
+  } catch (err) {
     console.log(err);
-    return new Response(JSON.stringify({ message: '오류 발생' }), {
+    return new Response(JSON.stringify({ message: "오류 발생" }), {
       status: 401,
-    })
+    });
   } finally {
     await prisma.$disconnect();
   }
-
 }
