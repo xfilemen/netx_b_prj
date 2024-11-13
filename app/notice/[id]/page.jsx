@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import styles from "@styles/notice.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import apiHandler from "@utils/api-handler";
+import apiCall from "@utils/api-call";
 
 const NoticeDetail = ({ params }) => {
   const { id } = params;
@@ -17,7 +17,7 @@ const NoticeDetail = ({ params }) => {
   }, []);
 
   const getNotice = async () => {
-    await apiHandler
+    await apiCall
       .postData("/api/brd/post/detail", {
         pstId: id,
       })

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "@styles/detail.module.css";
-import apiHandler from "../../utils/api-handler.js";
+import apiCall from "../../utils/api-call.js/index.js";
 import Image from "next/image";
 
 export default function DetailStatusPage({ reqInfo, onClose, userInfo }) {
@@ -53,7 +53,7 @@ export default function DetailStatusPage({ reqInfo, onClose, userInfo }) {
 
   const handleSubmit = async () => {
     try {
-      await apiHandler.fetchPostData(
+      await apiCall.fetchPostData(
         "/api/req/log/regist",
         {
           data: commentData, // 요청내역 reqId 변수
@@ -83,7 +83,7 @@ export default function DetailStatusPage({ reqInfo, onClose, userInfo }) {
 
   const tbReqMgtLog = async () => {
     try {
-      await apiHandler.fetchPostData(
+      await apiCall.fetchPostData(
         "/api/req/log/list",
         {
           data: { reqId: reqInfo.reqId }, // 요청내역 reqId 변수

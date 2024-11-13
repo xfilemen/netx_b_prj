@@ -6,7 +6,7 @@ import styles from "@styles/notice.module.css";
 import Image from "next/image";
 
 import dynamic from "next/dynamic";
-import apiHandler from "@utils/api-handler";
+import apiCall from "@utils/api-call";
 
 const CustomEditor = dynamic(() => import("../../components/ckeditor"), {
   ssr: false,

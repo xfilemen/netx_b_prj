@@ -3,7 +3,7 @@
 import React, { useEffect,useState } from 'react';
 import styles from '../styles/detail.module.css';
 import Image from 'next/image';
-import apiHandler from '../../utils/api-handler';
+import apiCall from '../../utils/api-call';
 import Modal from '../test/modal';
 import Modal2 from '../test/modal2';
 
@@ -137,7 +137,7 @@ export default function RegularPage({ item }) {
 
   const submitData = async () => {
     try {
-      const result = await apiHandler.postData('/api/req/list'); // POST 요청
+      const result = await apiCall.postData('/api/req/list'); // POST 요청
       console.log('요청 전체 조회 : ',result);
       if(result.data === undefined){
         setError(error);
@@ -156,7 +156,7 @@ export default function RegularPage({ item }) {
 
   const brdPostData = async () => {
     try {
-      const result = await apiHandler.postData('/api/brd/post/list'); // POST 요청
+      const result = await apiCall.postData('/api/brd/post/list'); // POST 요청
       console.log('게시물 전체 조회 : ',result);
       if(result.data === undefined){
 
@@ -174,7 +174,7 @@ const reqRegist = async () => {
       console.log({params:{
         data
       }});
-      const result = await apiHandler.postData('/api/req/regist',{
+      const result = await apiCall.postData('/api/req/regist',{
         data:data
       }); // POST 요청
       console.log('reqRegist : ',result);
@@ -196,7 +196,7 @@ const reqModify = async () => {
     console.log({params:{
       main
     }});
-    const result = await apiHandler.postData('/api/req/modify',{
+    const result = await apiCall.postData('/api/req/modify',{
       data:main
     }); // POST 요청
     console.log('reqRegist : ',result);
@@ -213,7 +213,7 @@ const reqModify = async () => {
 
 const boardRegist = async () => {
   try {
-    const result = await apiHandler.postData('/api/brd/post/regist',{data : {
+    const result = await apiCall.postData('/api/brd/post/regist',{data : {
       brdId : 3,
       pstTitle : '공지사항 제목 test',
       pstContents : '공지사항 내용 test',
@@ -235,7 +235,7 @@ const boardRegist = async () => {
 };
 const codeSelect = async () => {
   try {
-    const result = await apiHandler.postData('/api/common/code/select',{
+    const result = await apiCall.postData('/api/common/code/select',{
       codeGrp : 'G001',
       
     }); // POST 요청
@@ -275,7 +275,7 @@ const closeModal2 = () => {
 
   // 그룹사 코드 호출
   const tbReqMgtLog = async () => {
-    await apiHandler.fetchPostData('/api/req/log/list',{
+    await apiCall.fetchPostData('/api/req/log/list',{
         data : {reqId : 4},
       },
       (result,error)=>{

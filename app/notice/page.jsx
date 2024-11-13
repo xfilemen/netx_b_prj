@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import styles from "@styles/notice.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import apiHandler from "@utils/api-handler";
+import apiCall from "@utils/api-call";
 
 const NoticeItem = ({ notice, no }) => (
   <div className={styles.noticeItem}>
@@ -52,7 +52,7 @@ export default function NotiPage() {
   }, []);
 
   const getNotices = async () => {
-    await apiHandler
+    await apiCall
       .postData("/api/brd/post/list", {
         page: currentPage,
         pageSize: noticesPerPage,

@@ -9,7 +9,7 @@ import styles from '@styles/request.module.css';
 import SelectBox from '@components/select';
 import CheckBox from '@components/checkbox';
 import Image from 'next/image';
-import apiHandler from '../../utils/api-handler';
+import apiCall from '../../utils/api-call';
 
 export default function RegPage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -126,7 +126,7 @@ export default function RegPage() {
       console.log('📢 [page.jsx:81] insertData:: ', API_URL1);
 
       // 시퀀스 조회
-      const seq = await apiHandler.postData(GET_SEQ_URL1);
+      const seq = await apiCall.postData(GET_SEQ_URL1);
       console.log('📢 [page.jsx:105]', seq.data);
       formData.reqId = parseInt(seq.data);
       detFormData.reqType = [...checkState];
@@ -181,7 +181,7 @@ export default function RegPage() {
       formData.reqName = formData.reqTitle;
       
       console.log('📢 [page.jsx:151]', data);
-      const result = await apiHandler.postData(API_URL1, { data: formData });
+      const result = await apiCall.postData(API_URL1, { data: formData });
 
       console.log('📢 [page.jsx:95]', result);
 
