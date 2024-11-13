@@ -355,7 +355,7 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
                     <li>
                       {isEditing ? (
                         <div>
-                          <span className={styles.tit_tx_edit_line}>필수<br />요구기술</span>
+                          <span className={styles.tit_tx_edit_line}>자격 조건</span>
                           <textarea
                             name="reqSkill"
                             placeholder={`${detail.reqSkill}`}
@@ -365,7 +365,7 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
                         </div>
                       ) : (
                         <div>
-                          <span className={styles.tit_tx}>필수<br />요구기술</span>
+                          <span className={styles.tit_tx}>자격 조건</span>
                           <span className={styles.p_tx} style={{ whiteSpace: 'pre-wrap' }}>{detail.reqSkill}</span>
                         </div>
                       )}
@@ -373,7 +373,7 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
                     <li>
                       {isEditing ? (
                         <div>
-                          <span className={styles.tit_tx_edit_line}>우대기술</span>
+                          <span className={styles.tit_tx_edit_line}>기술</span>
                           <textarea
                             name="reqPrefSkill"
                             placeholder={`${detail.reqPrefSkill}`}
@@ -383,7 +383,25 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
                         </div>
                       ) : (
                         <div>
-                          <span className={styles.tit_tx}>우대기술</span>
+                          <span className={styles.tit_tx}>기술</span>
+                          <span className={styles.p_tx} style={{ whiteSpace: 'pre-wrap' }}>{detail.reqPrefSkill}</span>
+                        </div>
+                      )}
+                    </li>
+                    <li>
+                      {isEditing ? (
+                        <div>
+                          <span className={styles.tit_tx_edit_line}>우대사항</span>
+                          <textarea
+                            name="reqPrefSkill"
+                            placeholder={`${detail.reqPrefSkill}`}
+                            className={styles.text_box}
+                            onChange={handleInputChange}
+                          ></textarea>
+                        </div>
+                      ) : (
+                        <div>
+                          <span className={styles.tit_tx}>우대사항</span>
                           <span className={styles.p_tx} style={{ whiteSpace: 'pre-wrap' }}>{detail.reqPrefSkill}</span>
                         </div>
                       )}

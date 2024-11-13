@@ -3,14 +3,16 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import RegDetail from "../detail/regReqDetail.jsx";
+import Filter from '@components/filter';
 import styles from "@styles/detail.module.css";
 import Image from "next/image";
 import apiHandler from "../../utils/api-handler.js";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function RegularPage({ item }) {
-  const [listSelectIdx, setListSelectIdx] = useState(0); // li on 포커스
-  const [pageSelectItem, setPageSelectItem] = useState(null); // 정규인력 요청·내역 상세페이지 연결
+  const [listSelectIdx, setListSelectIdx] = useState(0);          // li on 포커스
+  const [pageSelectItem, setPageSelectItem] = useState(null);     // 정규인력 요청·내역 상세페이지 연결
+  const [isFilterVisible, setFilterVisible] = useState(false);    // 토글 상태 관리
 
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
@@ -212,6 +214,10 @@ export default function RegularPage({ item }) {
     }
   }, [data]);
 
+  const handleFilterToggle = () => {
+    setFilterVisible(!isFilterVisible); // 클릭 시 토글
+  };
+
   return (
     <div className={styles.content}>
       <div className={styles.topbanner}>
@@ -225,13 +231,20 @@ export default function RegularPage({ item }) {
       <div className={styles.wrap}>
         <div className={styles.left_section}>
           <div className={styles.title}>
-            <h2>인력 요청·내역</h2>
-            <p className={styles.tit_tx}>요청 내역을 확인하실 수 있습니다.</p>
+            <div className={styles.tx}>
+              <h2>인력 요청·내역</h2>
+              <p className={styles.tit_tx}>요청 내역을 확인하실 수 있습니다.</p>
+            </div>
             {isGetData.current}
-            {/* {isGetData} */}
-            {/* <div className={styles.btn}>
-              <button>Filter</button>
-            </div> */}
+            <div className={styles.btn}>
+              <button onClick={handleFilterToggle}>Filter</button>
+            </div>
+            {isFilterVisible && (
+              <div>
+                 <Filter onClose={handleFilterToggle}/>
+                <div className={styles.dim}></div>
+              </div>
+            )}
           </div>
           <div className={styles.item_list}>
             <div className={styles.list_items}>

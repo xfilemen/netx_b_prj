@@ -43,3 +43,10 @@
 .content .add_btn_section .add_btn{width:100%;;background-color:#006FCD;color:#fff;margin-top:24px;font-size:16px;border-radius:12px;}
 .content .add_btn_section .add_btn .addIcon{vertical-align:bottom;}
 .content .essential_blt{color:#f31818;font-weight:700}
+
+
+
+.checkbox{display:inline-block;margin-right:12px;margin-bottom:10px;width:69px;height:36px;background-color:#fff;border:1px solid #DADADA;border-radius:12px;font-size:13px;font-weight:bold;color:#888;text-align:center;line-height:33px;cursor:pointer;transition:background-color 0.3s, color 0.3s; }
+.check_box[type="checkbox"]:checked + .checkbox{background-color:#F9FBFF;color:#006DCA;border-color:#006DCA;}
+.check_box[type="checkbox"]:checked + .checkbox::before{content: "✔ ";}
+.checkbox::before{content: "✔ ";}
