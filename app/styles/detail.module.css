@@ -117,7 +117,7 @@
 .content .wrap .right_section .detail_content .accordion .content input.txt{width:150px;border:1px solid #ebebeb;padding:12px;font-size:14px;color:#888;border-radius:4px;}
 .content .wrap .right_section .detail_content .accordion .content .text_box{border:1px solid #EBEBEB;width:553px;height:80px;padding:12px;border-radius:4px;resize:none;}
 
-
+ 
 /* 필터 화면 */
 .pop_content{position:absolute;top:40%;left:22.5%;width:430px;z-index:111;box-shadow: 0px 8px 8px 0px #0000001F;border-radius:12px;}
 .pop_content .header{background-color:#F6F6F6;padding:15px 30px;border-radius:12px 12px 0 0;font-weight:600;font-size:14px;}

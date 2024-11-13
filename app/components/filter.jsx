@@ -106,7 +106,7 @@ export default function FilterPage({onClose}) {
                       name="reqOutDt"
                     />
                 </div>
-            </div>
+            </div> 
             <div className={styles.item}>
                 <p className={styles.tx}>내용</p>
                 <div className={styles.select_box}>
