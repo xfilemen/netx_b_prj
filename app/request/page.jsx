@@ -94,6 +94,7 @@ export default function RegPage() {
       reqLocNull: false,
       reqJobCategory: '',
       reqPrefSkill: '',
+      reqQualSkill: '',
       // reqJobDet: '',
       // 필요한 다른 필드들도 추가하세요
     })
@@ -162,14 +163,16 @@ export default function RegPage() {
         } else if (detFormData[index].reqInDt == '' || detFormData[index].reqInDt == null) {
           alert((checkNum) + '번째 투입 예정일을 입력하지 않았습니다.');
           return true;
-        } else if (detFormData[index].reqMm == '') {
+        } else if ((detFormData[index].reqOutDt != null) && detFormData[index].reqMm == '') {
+          console.log('📢 [page.jsx:167]', detFormData[index].reqOutDt);
+          console.log('📢 [page.jsx:167]', detFormData[index].reqOutDt != '');
             alert((checkNum) + '번째 투입 공수를 입력하지 않았습니다.');
             return true;
-        } else if (!detFormData[index].reqLocNull && detFormData[index].reqLoc.trim() == '') {
-          alert((checkNum) + '번째 근무지를 입력하지 않았습니다.');
-          return true;
         } else if (detFormData[index].reqSkill.trim() == '') {
-          alert((checkNum) + '번째 필수 요구기술을 입력하지 않았습니다.');
+          alert((checkNum) + '번째 자격요건을 입력하지 않았습니다.');
+          return true;
+        } else if (detFormData[index].reqQualSkill.trim() == '') {
+          alert((checkNum) + '번째 기술을 입력하지 않았습니다.');
           return true;
         }
 
@@ -411,8 +414,72 @@ export default function RegPage() {
         i === index ? { ...item, ["reqOutDt"]: newDate, ["reqOutDtNull"]: false, } : item
       )
     );
+
+    // 투입공수 계산
+    const {totalDays, workdaysOnly} = calculateDateDifference(detFormData[index].reqInDt, newDate);
+
+    console.log(`총 날짜 차이 (주말 포함): ${totalDays}일`);
+    console.log(`총 근무일 차이 (주말 제외): ${workdaysOnly}일`);
+
+    if (totalDays >= 30) {
+      detFormData[index].reqMm = Math.floor(totalDays / 30);
+      console.log('📢 [page.jsx:372]totalDays / 30 ', (totalDays / 30));
+    } else {
+      detFormData[index].reqMm = 0;
+    }
+    console.log('📢 [page.jsx:417]', totalDays, workdaysOnly);
     console.log('📢 [page.jsx:189]', detFormData);
   };
+
+  // 날짜계산 함수
+  const calculateDateDifference = (startDate, endDate, includeWeekends = false) => {
+
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    if (isNaN(start) || isNaN(end)) {
+      throw new Error("유효하지 않은 날짜 형식입니다.");
+    }
+
+    if (start > end) {
+      throw new Error("시작일은 종료일보다 이전이어야 합니다.");
+    }
+
+    // 시작일과 종료일이 동일할 경우 0 반환
+    if (start.getTime() === end.getTime()) {
+      return { totalDays: 0, workdaysOnly: 0 };
+    }
+
+    let totalDays = 0;
+    let workdayCount = 0;
+
+    let currentDate = new Date(start);
+
+    totalDays / 30
+
+    // 시작일과 종료일을 포함하여 하루씩 증가
+    while (currentDate <= end) {
+      const dayOfWeek = currentDate.getDay(); // 0: 일요일, 6: 토요일
+
+      // 주말을 포함하지 않는 경우 주말을 제외하고 계산
+      if (includeWeekends || (dayOfWeek !== 0 && dayOfWeek !== 6)) {
+        workdayCount++;
+      }
+
+      totalDays++;
+      currentDate.setDate(currentDate.getDate() + 1); // 하루씩 증가
+    }
+
+    return {
+      totalDays: totalDays -1,
+      workdaysOnly: workdayCount -1
+    };
+  };
+
+  const formatCalcDate = (dateStr) => {
+    console.log('📢 [page.jsx:454]', dateStr);
+    return dateStr.replace(/-/g, '/'); // 'YYYY-MM-DD' -> 'YYYY/MM/DD' 형식으로 변환
+  }
 
   const formatDate = (date) => {
     const year = date.getFullYear(); // 년도
@@ -441,6 +508,7 @@ export default function RegPage() {
             reqLoc: '',
             reqSkill: '',
             reqMm: '',
+            reqQualSkill: '',
             // 필요한 다른 필드들도 추가
           })),
         ];
@@ -610,8 +678,8 @@ export default function RegPage() {
                     />
                   </div>
                   <div className={styles.item}>
-                    <span className={styles.tx}><span className={styles.essential_blt}>✓</span> 투입 공수</span>
-                    <input type="number" placeholder="ex. 1 or 0.5" className={styles.mm_tx} name='reqMm' value={detFormData[index].reqMm} onChange={handleDetChange(index)}/>
+                    <span className={styles.tx}><span className={styles.tx}></span> 투입 공수</span>
+                    <input type="number" placeholder="ex. 1 or 0.5" className={styles.mm_tx} readOnly="true" name='reqMm' value={detFormData[index].reqMm} onChange={handleDetChange(index)}/>
                     <span className={styles.tx}>M/M</span>
                   </div>
                   <div className={styles.item}>
@@ -624,7 +692,7 @@ export default function RegPage() {
                   </div>
                   <div className={styles.item}>
                     <span className={`${styles.tx} ${styles.v_t}`}><span className={styles.essential_blt}>✓</span> 기술</span>
-                    <textarea name="reqPrefSkill" placeholder={`ex.\n- AI 서비스 기획/운영 경험 보유자\n- 금융기관 정보계 개발 및 운영 경험 보유자`} className={styles.text_box} value={detFormData[index].reqPrefSkill} onChange={handleDetChange(index)}></textarea>
+                    <textarea name="reqQualSkill" placeholder={`ex.\n- AI 서비스 기획/운영 경험 보유자\n- 금융기관 정보계 개발 및 운영 경험 보유자`} className={styles.text_box} value={detFormData[index].reqQualSkill} onChange={handleDetChange(index)}></textarea>
                   </div>
                   <div className={styles.item}>
                     <span className={`${styles.tx} ${styles.v_t}`}>우대사항</span>
