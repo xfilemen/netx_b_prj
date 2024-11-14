@@ -420,17 +420,19 @@ export default function RegPage() {
     );
 
     // 투입공수 계산
-    const {totalDays, workdaysOnly} = calculateDateDifference(detFormData[index].reqInDt, newDate);
-
+    const {totalDays, workdaysOnly, monthDifference} = calculateDateDifference(detFormData[index].reqInDt, newDate);
+    
     console.log(`총 날짜 차이 (주말 포함): ${totalDays}일`);
     console.log(`총 근무일 차이 (주말 제외): ${workdaysOnly}일`);
+    console.log(`월 차이 : ${monthDifference}월`);
 
-    if (totalDays >= 30) {
-      detFormData[index].reqMm = Math.floor(totalDays / 30);
-      console.log('📢 [page.jsx:372]totalDays / 30 ', (totalDays / 30));
-    } else {
-      detFormData[index].reqMm = 0;
-    }
+    detFormData[index].reqMm = monthDifference;
+    // if (totalDays >= 30) {
+    //   detFormData[index].reqMm = Math.floor(totalDays / 30);
+    //   console.log('📢 [page.jsx:372]totalDays / 30 ', (totalDays / 30));
+    // } else {
+    //   detFormData[index].reqMm = 0;
+    // }
     console.log('📢 [page.jsx:417]', totalDays, workdaysOnly);
     console.log('📢 [page.jsx:189]', detFormData);
   };
@@ -474,9 +476,14 @@ export default function RegPage() {
       currentDate.setDate(currentDate.getDate() + 1); // 하루씩 증가
     }
 
+    // 월 차이 계산
+    const monthDifference = end.getMonth() - start.getMonth() + (12 * (end.getFullYear() - start.getFullYear()));
+    console.log('📢 [page.jsx:479]', monthDifference);
+
     return {
       totalDays: totalDays -1,
-      workdaysOnly: workdayCount -1
+      workdaysOnly: workdayCount -1,
+      monthDifference: monthDifference > 0 ? monthDifference : 1
     };
   };
 
