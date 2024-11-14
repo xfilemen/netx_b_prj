@@ -1,4 +1,5 @@
 import prisma from "/lib/prisma";
+import { sanitizeContent } from '@lib/dompurify';
 /**
  * @swagger
  * /brd/post/list:

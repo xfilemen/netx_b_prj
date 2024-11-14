@@ -1,5 +1,6 @@
-import prisma from "/lib/prisma";
-import { getSession } from "/utils/data-access";
+import prisma from "@lib/prisma";
+import { getSession } from "@utils/data-access";
+import { sanitizeContent } from '@lib/dompurify';
 /**
  * @swagger
  * /brd/post/regist:
@@ -14,21 +15,24 @@ import { getSession } from "/utils/data-access";
  *           schema:
  *             type: object
  *             properties:
- *               brdId:
- *                 type: integer
- *                 description: 게시판 id
- *               pstTitle:
- *                 type: string
- *                 description: 제목
- *               pstContents:
- *                 type: string
- *                 description: 내용
- *               regId:
- *                 type: string
- *                 description: 작성자 id
- *               viewYn:
- *                 type: string
- *                 description: 노출 여부
+ *               params:
+ *                 type: object
+ *                 properties:
+ *                    brdId:
+ *                      type: integer
+ *                      description: 게시판 id
+ *                    pstTitle:
+ *                      type: string
+ *                      description: 제목
+ *                    pstContents:
+ *                      type: string
+ *                      description: 내용
+ *                    regId:
+ *                      type: string
+ *                      description: 작성자 id
+ *                    viewYn:
+ *                      type: string
+ *                      description: 노출 여부
  *     responses:
  *       200:
  *         description: 게시판 등록
@@ -37,20 +41,27 @@ import { getSession } from "/utils/data-access";
  */
 export async function POST(req) {
   try {
-    const data = await req.json();
+    const { params } = await req.json();
+    const data = params?.data || params;
+    console.log('상세진행 내역: req', data);
     const currentTime =
       await prisma.$queryRaw`SELECT CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Seoul'`;
     const nowData = new Date(currentTime[0].timezone);
     const { user } = await getSession();
 
-    if (data.params) {
+    if (data) {
 
-      const { brdId, pstTitle, pstContents, viewYn, regId, regDt } = data.params;
+      const { brdId, pstTitle, pstContents, viewYn, regId, regDt } = data;
+
+      const contentVerify = await sanitizeContent(pstContents);
+      console.log(pstContents)
+      console.log(contentVerify)
+
       const post = await prisma.tbPost.create({
         data: {
           brdId,
           pstTitle,
-          pstContents,
+          pstContents: contentVerify,
           viewYn,
           regId: user.userId,
           regDt: nowData,
