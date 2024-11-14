@@ -58,7 +58,7 @@ export async function POST(req) {
           userId: true,
         }
       })
-      
+
       if(getUser.length > 0) {
         const ids = getUser.map(user => user.userId);
 
