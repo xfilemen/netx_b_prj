@@ -1,5 +1,5 @@
-import prisma from '/lib/prisma';
-import {getSession} from '/utils/data-access';
+import prisma from "/lib/prisma";
+import { getSession } from "/utils/data-access";
 /**
  * @swagger
  * /req/list:
@@ -25,88 +25,78 @@ export async function POST(req) {
   try {
     const { params } = await req.json();
     const data = params?.data || params;
-    const {user} = await getSession();
+    const { user } = await getSession();
 
-    let whereReq = {}       // 요청 마스터 조회 조건
-    let whereReqDet = {}    // 요청 상세 조회 조건
+    let { reqStatus, startRegDt, endRegDt, reqType, selectType, reqTypeText } =
+      data;
+
+    // 필터 정보
+    let where = {};
+
+    // 진행 상태
+    if (reqStatus.length > 0 && !reqStatus.includes("all")) {
+      where.reqStatus = {
+        in: reqStatus, // reqStatus 리스트 내의 값 중 하나와 일치하는 데이터 조회
+      };
+    }
+
+    // 기간
+    if (startRegDt && endRegDt) {
+      let nextEndRegDt = new Date(endRegDt);
+      nextEndRegDt.setDate(nextEndRegDt.getDate() + 1);
+
+      where.regDt = {
+        gte: new Date(startRegDt), // startRegDt와 같거나 이후 날짜
+        lte: nextEndRegDt, // endRegDt와 같거나 이전 날짜
+      };
+    }
+
+    // 유형
+    if (reqType.length > 0 && !reqType.includes("all")) {
+      where.reqDet = {
+        some: {
+          OR: reqType.map((type) => ({
+            reqType: { contains: type },
+          })),
+        },
+      };
+    }
+
+    // 선택 내용
+    if (selectType && selectType.trim()) {
+      if (selectType == "reqName") {
+        where.reqTitle = {
+          contains: reqTypeText, // reqTitle의 LIKE 검색
+        };
+      }
+    }
 
     //요청자일 때는 본인 요청내역만 조회
-    if(user.authCd == 'request'){
-      whereReq = { 
-          regId : user.userId,
-
-      }
-    }
-
-    whereReq = {
-      ...whereReq,
-      ...(data.reqStatus !== undefined ? { reqStatus: { in: data.reqStatus } } : {}), //요청현황
-    }
-
-    whereReqDet = {
-      ...(data.reqType !== undefined ? { reqType: { in: data.reqType } } : {}),  //요청유형
-      ...(data.reqInDt !== undefined ? { reqInDt: { gte: data.reqInDt  } } : {}),  //투입 시작일
-      ...(data.reqOutDt !== undefined ? { reqOutDt: { lte: data.reqOutDt  } } : {}),  //투입 종료일
-    }
-
-    if( data.confName || data.regName ){
-      const getUser = await prisma.tbUser.findMany({
-        where: {
-          userName: data.confName || data.regName ,
-        },
-        select: {
-          userId: true,
-        }
-      })
-
-      if(getUser.length > 0) {
-        const ids = getUser.map(user => user.userId);
-
-        whereReq = {
-          ...whereReq,
-          ...(data.confName !== undefined ? { confId: { in: ids } } : {}),  // 담당자
-          ...(data.regName !== undefined ? { regId: { in: ids } } : {}),    // 요청자
-        }
-      }else{
-        // 결과값 없으면 조회 안되게
-        whereReq = {
-          ...whereReq,
-          ...(data.confName !== undefined ? { confId: data.confName } : {}),
-          ...(data.regName !== undefined ? { regId: data.regName } : {}),
-        }
-      }
-    }
-
-    whereReq = {
-      ...whereReq,
-      reqDet: {
-        some: whereReqDet
-      }
+    if (user.authCd == "request") {
+      where.regId = user.userId;
     }
 
     const tbReqMgt = await prisma.tbReqMgt.findMany({
-      where: whereReq,
+      where,
       include: {
         reqDet: true,
-        reqDet: {
-          where: whereReqDet
-        }
       },
       orderBy: {
-        regDt: 'desc',
+        regDt: "desc",
       },
-    })
-
-    return new Response(JSON.stringify({ message: '정상적으로 조회되었습니다.', data : tbReqMgt}), {
-      status: 200,
-    })
-  } catch(err){
+    });
+    return new Response(
+      JSON.stringify({ message: "정상적으로 조회되었습니다.", data: tbReqMgt }),
+      {
+        status: 200,
+      }
+    );
+  } catch (err) {
     console.log(err);
-    return new Response(JSON.stringify({ message: '오류 발생' }), {
+    return new Response(JSON.stringify({ message: "오류 발생" }), {
       status: 401,
-    })
+    });
   } finally {
     await prisma.$disconnect();
   }
-
 }

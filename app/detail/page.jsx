@@ -3,16 +3,33 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import RegDetail from "../detail/regReqDetail.jsx";
-import Filter from '@components/filter';
+import Filter from "@components/filter";
 import styles from "@styles/detail.module.css";
 import Image from "next/image";
 import apiCall from "../../utils/api-call";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function RegularPage({ item }) {
-  const [listSelectIdx, setListSelectIdx] = useState(0);          // li on 포커스
-  const [pageSelectItem, setPageSelectItem] = useState(null);     // 정규인력 요청·내역 상세페이지 연결
-  const [isFilterVisible, setFilterVisible] = useState(false);    // 토글 상태 관리
+  const [listSelectIdx, setListSelectIdx] = useState(0); // li on 포커스
+  const [pageSelectItem, setPageSelectItem] = useState(null); // 정규인력 요청·내역 상세페이지 연결
+  const [isFilterVisible, setFilterVisible] = useState(false); // 토글 상태 관리
+  // 필터 데이터
+  const [filterData, setFilterData] = useState({
+    reqStatus: [],
+    startRegDt: "",
+    endRegDt: "",
+    reqType: [],
+    selectType: "",
+    reqTypeText: "",
+  });
+
+  const handleSearch = (searchPram) => {
+    setFilterData({
+      ...searchPram,
+    });
+    // 목록 조회
+    getData("/api/req/list", searchPram);
+  };
 
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
@@ -34,66 +51,67 @@ export default function RegularPage({ item }) {
   let userInfo = {};
   userInfo = session?.user || {};
 
-  // const [logData, setLogData] = useState([
-  //   {
-  //     reqId: 0,
-  //     reqLogDesc: "",
-  //     reqLogType: 0,
-  //     regId: userInfo.userId,
-  //   },
-  // ]);
-
   console.log(userInfo);
   console.log("📢 [page.jsx:29]", session);
 
-  const getData = async (url) => {
-    console.log("📢 [page.jsx:26]", url);
-    const result = await apiCall.postData(url); // POST 요청
-    console.log("요청 전체 조회 : ", result.data);
-    for (let index = 0; index < result.data.length; index++) {
-      let typeData2 = "";
-      if (result.data[index].reqDet.length > 0) {
-        for (
-          let index2 = 0;
-          index2 < result.data[index].reqDet.length;
-          index2++
-        ) {
-          console.log(
-            "📢 [page.jsx:37]** 확인 :: ",
-            result.data[index].reqDet[index2].reqType
-          );
-          if (
-            result.data[index].reqDet[index2].reqType.includes("BP") &&
-            result.data[index].reqDet[index2].reqType.includes("정규직")
-          ) {
-            result.data[index].reqDet[index2].reqType = "정규직, BP";
+  const getData = async (url, search) => {
+    // 필터 추가
+    const reqFilterData = {
+      ...search,
+    };
 
-            typeData2 = typeData2 + "정규직, BP";
-          } else if (result.data[index].reqDet[index2].reqType.includes("BP")) {
-            typeData2 = typeData2 + "BP";
-          } else if (
-            result.data[index].reqDet[index2].reqType.includes("정규직")
+    console.log("📢 [page.jsx:26]", url);
+    const result = await apiCall.postData(url, reqFilterData); // POST 요청
+    console.log("요청 전체 조회 : ", result.data);
+
+    if (result.data) {
+      for (let index = 0; index < result.data.length; index++) {
+        let typeData2 = "";
+        if (result.data[index].reqDet.length > 0) {
+          for (
+            let index2 = 0;
+            index2 < result.data[index].reqDet.length;
+            index2++
           ) {
-            typeData2 = typeData2 + "정규직";
+            console.log(
+              "📢 [page.jsx:37]** 확인 :: ",
+              result.data[index].reqDet[index2].reqType
+            );
+            if (
+              result.data[index].reqDet[index2].reqType.includes("BP") &&
+              result.data[index].reqDet[index2].reqType.includes("정규직")
+            ) {
+              result.data[index].reqDet[index2].reqType = "정규직, BP";
+
+              typeData2 = typeData2 + "정규직, BP";
+            } else if (
+              result.data[index].reqDet[index2].reqType.includes("BP")
+            ) {
+              typeData2 = typeData2 + "BP";
+            } else if (
+              result.data[index].reqDet[index2].reqType.includes("정규직")
+            ) {
+              typeData2 = typeData2 + "정규직";
+            }
+            console.log(
+              "📢 [page.jsx:37]** 확인2 :: ",
+              result.data[index].reqDet[index2].reqType
+            );
           }
-          console.log(
-            "📢 [page.jsx:37]** 확인2 :: ",
-            result.data[index].reqDet[index2].reqType
-          );
+        }
+
+        if (typeData2.includes("BP") && typeData2.includes("정규직")) {
+          result.data[index].reqType2 = "정규직, BP";
+        } else if (typeData2.includes("BP")) {
+          result.data[index].reqType2 = "BP";
+        } else if (typeData2.includes("정규직")) {
+          result.data[index].reqType2 = "정규직";
         }
       }
-
-      if (typeData2.includes("BP") && typeData2.includes("정규직")) {
-        result.data[index].reqType2 = "정규직, BP";
-      } else if (typeData2.includes("BP")) {
-        result.data[index].reqType2 = "BP";
-      } else if (typeData2.includes("정규직")) {
-        result.data[index].reqType2 = "정규직";
-      }
+      setData(result.data);
+      isGetData.current = true;
     }
 
-    setData(result.data);
-    isGetData.current = true;
     // ++isGetData.current;
   };
 
@@ -121,7 +139,7 @@ export default function RegularPage({ item }) {
   // 컴포넌트가 마운트될 때 데이터 가져오기
   useEffect(function () {
     console.log("API 호출");
-    getData("/api/req/list");
+    getData("/api/req/list", filterData);
   }, []);
 
   useEffect(
@@ -129,6 +147,13 @@ export default function RegularPage({ item }) {
       console.log("📢 [page.jsx:56]", data);
     },
     [data]
+  );
+
+  useEffect(
+    function () {
+      console.log("📢 ", filterData);
+    },
+    [filterData]
   );
 
   const handleEditClick = async (param) => {
@@ -241,7 +266,7 @@ export default function RegularPage({ item }) {
             </div>
             {isFilterVisible && (
               <div>
-                 <Filter onClose={handleFilterToggle}/>
+                <Filter onSearch={handleSearch} onClose={handleFilterToggle} />
                 <div className={styles.dim}></div>
               </div>
             )}
