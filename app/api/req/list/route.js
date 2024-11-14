@@ -58,17 +58,17 @@ export async function POST(req) {
           userId: true,
         }
       })
-      console.log('data.confName', data.confName)
-      console.log('data.regName', data.regName)
+
       if(getUser.length > 0) {
         const ids = getUser.map(user => user.userId);
 
         whereReq = {
           ...whereReq,
-          ...(data.confName !== undefined ? { confId: { in: ids } } : {}),
-          ...(data.regName !== undefined ? { regId: { in: ids } } : {}),
+          ...(data.confName !== undefined ? { confId: { in: ids } } : {}),  // 담당자
+          ...(data.regName !== undefined ? { regId: { in: ids } } : {}),    // 요청자
         }
       }else{
+        // 결과값 없으면 조회 안되게
         whereReq = {
           ...whereReq,
           ...(data.confName !== undefined ? { confId: data.confName } : {}),
