@@ -6,43 +6,44 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import {
 	ClassicEditor,
 	AccessibilityHelp,
-	Autoformat,
-	AutoImage,
+	Alignment,
+	AutoLink,
 	Autosave,
 	BlockQuote,
 	Bold,
-	CloudServices,
 	Essentials,
+	FontBackgroundColor,
+	FontColor,
+	FontFamily,
+	FontSize,
+	GeneralHtmlSupport,
 	Heading,
-	ImageBlock,
-	ImageCaption,
-	ImageInline,
-	ImageInsert,
-	ImageInsertViaUrl,
-	ImageResize,
-	ImageStyle,
-	ImageTextAlternative,
-	ImageToolbar,
-	ImageUpload,
+	Highlight,
+	HorizontalLine,
 	Indent,
 	IndentBlock,
 	Italic,
 	Link,
-	LinkImage,
 	List,
 	ListProperties,
-	MediaEmbed,
 	Paragraph,
-	PasteFromOffice,
-	PictureEditing,
+	RemoveFormat,
 	SelectAll,
+	SpecialCharacters,
+	SpecialCharactersArrows,
+	SpecialCharactersCurrency,
+	SpecialCharactersEssentials,
+	SpecialCharactersLatin,
+	SpecialCharactersMathematical,
+	SpecialCharactersText,
+	Strikethrough,
+	Style,
 	Table,
 	TableCaption,
 	TableCellProperties,
 	TableColumnResize,
 	TableProperties,
 	TableToolbar,
-	TextTransformation,
 	TodoList,
 	Underline,
 	Undo
@@ -69,16 +70,25 @@ export default function App({ onDataChange, content }) {
 				'redo',
 				'|',
 				'heading',
+				'fontSize',
+				'fontFamily',
+				'fontColor',
+				'fontBackgroundColor',
 				'|',
 				'bold',
 				'italic',
 				'underline',
+				'strikethrough',
+				'removeFormat',
 				'|',
+				'specialCharacters',
+				'horizontalLine',
 				'link',
-				'insertImage',
-				'mediaEmbed',
 				'insertTable',
+				'highlight',
 				'blockQuote',
+				'|',
+				'alignment',
 				'|',
 				'bulletedList',
 				'numberedList',
@@ -86,51 +96,59 @@ export default function App({ onDataChange, content }) {
 				'outdent',
 				'indent'
 			],
-			shouldNotGroupWhenFull: false
+			shouldNotGroupWhenFull: true
 		},
 		plugins: [
 			AccessibilityHelp,
-			Autoformat,
-			AutoImage,
+			Alignment,
+			AutoLink,
 			Autosave,
 			BlockQuote,
 			Bold,
-			CloudServices,
 			Essentials,
+			FontBackgroundColor,
+			FontColor,
+			FontFamily,
+			FontSize,
+			GeneralHtmlSupport,
 			Heading,
-			ImageBlock,
-			ImageCaption,
-			ImageInline,
-			ImageInsert,
-			ImageInsertViaUrl,
-			ImageResize,
-			ImageStyle,
-			ImageTextAlternative,
-			ImageToolbar,
-			ImageUpload,
+			Highlight,
+			HorizontalLine,
 			Indent,
 			IndentBlock,
 			Italic,
 			Link,
-			LinkImage,
 			List,
 			ListProperties,
-			MediaEmbed,
 			Paragraph,
-			PasteFromOffice,
-			PictureEditing,
+			RemoveFormat,
 			SelectAll,
+			SpecialCharacters,
+			SpecialCharactersArrows,
+			SpecialCharactersCurrency,
+			SpecialCharactersEssentials,
+			SpecialCharactersLatin,
+			SpecialCharactersMathematical,
+			SpecialCharactersText,
+			Strikethrough,
+			Style,
 			Table,
 			TableCaption,
 			TableCellProperties,
 			TableColumnResize,
 			TableProperties,
 			TableToolbar,
-			TextTransformation,
 			TodoList,
 			Underline,
 			Undo
 		],
+		fontFamily: {
+			supportAllValues: true
+		},
+		fontSize: {
+			options: [10, 12, 14, 'default', 18, 20, 22],
+			supportAllValues: true
+		},
 		heading: {
 			options: [
 				{
@@ -176,16 +194,14 @@ export default function App({ onDataChange, content }) {
 				}
 			]
 		},
-		image: {
-			toolbar: [
-				'toggleImageCaption',
-				'imageTextAlternative',
-				'|',
-				'imageStyle:inline',
-				'imageStyle:wrapText',
-				'imageStyle:breakText',
-				'|',
-				'resizeImage',
+		htmlSupport: {
+			allow: [
+				{
+					name: /^.*$/,
+					styles: true,
+					attributes: true,
+					classes: true
+				}
 			]
 		},
 		initialData:
@@ -211,6 +227,55 @@ export default function App({ onDataChange, content }) {
 			}
 		},
 		placeholder: '내용을 입력해주세요.',
+		style: {
+			definitions: [
+				{
+					name: 'Article category',
+					element: 'h3',
+					classes: ['category']
+				},
+				{
+					name: 'Title',
+					element: 'h2',
+					classes: ['document-title']
+				},
+				{
+					name: 'Subtitle',
+					element: 'h3',
+					classes: ['document-subtitle']
+				},
+				{
+					name: 'Info box',
+					element: 'p',
+					classes: ['info-box']
+				},
+				{
+					name: 'Side quote',
+					element: 'blockquote',
+					classes: ['side-quote']
+				},
+				{
+					name: 'Marker',
+					element: 'span',
+					classes: ['marker']
+				},
+				{
+					name: 'Spoiler',
+					element: 'span',
+					classes: ['spoiler']
+				},
+				{
+					name: 'Code (dark)',
+					element: 'pre',
+					classes: ['fancy-code', 'fancy-code-dark']
+				},
+				{
+					name: 'Code (bright)',
+					element: 'pre',
+					classes: ['fancy-code', 'fancy-code-bright']
+				}
+			]
+		},
 		table: {
 			contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
 		}

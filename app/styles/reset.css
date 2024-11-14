@@ -7,7 +7,7 @@ a {color:inherit; text-decoration:none;}
 a:active, a:hover, a:focus {text-decoration:none;}
 ol, ul, li{list-style:none;-webkit-padding-start:0;}
 label{vertical-align:middle;}
-i, em{font-style:normal;}
+em{font-style:normal;}
 xmp, pre {display: inline;}
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section{display:block;}
 table{width:100%;border-collapse:collapse;table-layout:fixed;border-spacing:0;}
@@ -15,10 +15,14 @@ table caption{width:100%;height:0;overflow:hidden;font-size:medium;line-height:n
 table th, table td{font-size:14px;font-family:'Malgun Gothic', sans-serif;letter-spacing:-1px;word-break:break-all;word-wrap:break-word;}
 button{padding:0;border:none;background:none;letter-spacing:-1px;cursor:pointer;}
 button::-moz-focus-inner{border:0;padding:0;}
-::placeholder {color:#8c8c8c !important;} /* 2022 상반기 웹접근성 작업 */
-input::-webkit-input-placeholder {color:#8c8c8c !important;} /* 2022 상반기 웹접근성 작업 */
+::placeholder {color:#8c8c8c !important;}
+input::-webkit-input-placeholder {color:#8c8c8c !important;}
 input::-webkit-search-cancel-button {-moz-appearance:none; -webkit-appearance:none; appearance:none;}
 input::-webkit-clear-button, input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {display:none; -moz-appearance:none; -webkit-appearance:none; appearance:none;}
 input::-webkit-datetime-edit-fields-wrapper {padding:0;}
 fieldset{border:0;}
 legend{width:0;height:0;overflow:hidden;font-size:medium;line-height:normal;word-break:break-all;opacity:0;filter:alpha(opacity=0);-ms-filter:'progid:DXImageTransform.Microsoft.Alpha(opacity=0)';}
+
+.table table{border-top:1px solid #ddd;border-right:1px solid #ddd;margin-top:10px;}
+.table table th{padding:10px 0;border-left:1px solid #ddd;border-bottom:1px solid #ddd;background-color:#f8f8f8;}
+.table table td{border-left:1px solid #ddd;border-bottom:1px solid #ddd}

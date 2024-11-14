@@ -417,7 +417,7 @@ export default function RegDetail({ item, initialValue, userInfo, handleEditClic
           item.reqStatus == 'register' ? (
             <div className={styles.btn_section}>
               <button className={styles.cancel_btn} onClick={() => handleEditClick('cancel')}>요청취소</button>
-              <button className={styles.aply_btn} onClick={() => handleEditClick('Edit')}>수정</button>
+              {/* <button className={styles.aply_btn} onClick={() => handleEditClick('Edit')}>수정</button> */}
             </div>
           ) : item.reqStatus == 'cancel' ? (
             <div className={styles.btn_section}>
