@@ -1,4 +1,40 @@
 import prisma from '/lib/prisma';
+import { getSession } from "/utils/data-access";
+/**
+ * @swagger
+ * /brd/post/regist:
+ *   post:
+ *     tags:
+ *       - request
+ *     summary: 게시판 수정
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               brdId:
+ *                 type: integer
+ *                 description: 게시판 id
+ *               pstTitle:
+ *                 type: string
+ *                 description: 제목
+ *               pstContents:
+ *                 type: string
+ *                 description: 내용
+ *               modId:
+ *                 type: string
+ *                 description: 작성자 id
+ *               viewYn:
+ *                 type: string
+ *                 description: 노출 여부
+ *     responses:
+ *       200:
+ *         description: 게시판 수정
+ *       401:
+ *         description: 오류 코드
+ */
 export async function POST(req) {
   try {
 
@@ -6,6 +42,7 @@ export async function POST(req) {
     const currentTime =
       await prisma.$queryRaw`SELECT CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Seoul'`;
     const nowData = new Date(currentTime[0].timezone);
+    const { user } = await getSession();
     if(data.params){
 
       const { pstId, brdId, pstTitle, pstContents, viewYn, modId } = data.params;
@@ -16,7 +53,7 @@ export async function POST(req) {
           pstTitle,
           pstContents,
           viewYn,
-          modId,
+          modId: user.userId,
           modDt: nowData
         },
       });
