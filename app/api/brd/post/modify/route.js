@@ -2,10 +2,10 @@ import prisma from '/lib/prisma';
 import { getSession } from "/utils/data-access";
 /**
  * @swagger
- * /brd/post/regist:
+ * /brd/post/modify:
  *   post:
  *     tags:
- *       - request
+ *       - board
  *     summary: 게시판 수정
  *     requestBody:
  *       required: true

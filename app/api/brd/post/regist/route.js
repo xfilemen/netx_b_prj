@@ -5,7 +5,7 @@ import { getSession } from "/utils/data-access";
  * /brd/post/regist:
  *   post:
  *     tags:
- *       - request
+ *       - board
  *     summary: 게시판 등록
  *     requestBody:
  *       required: true
