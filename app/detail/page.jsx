@@ -51,7 +51,7 @@ export default function RegularPage({ item }) {
   let userInfo = {};
   userInfo = session?.user || {};
 
-  console.log(userInfo);
+  console.log("userInfo: ", userInfo);
   console.log("📢 [page.jsx:29]", session);
 
   const getData = async (url, search) => {
@@ -185,15 +185,8 @@ export default function RegularPage({ item }) {
         pageSelectItem.reqStatus = param;
         pageSelectItem.reqLogDesc = logDesc;
         pageSelectItem.userId = userInfo.userId;
-
-        // setLogData({
-        //   reqId: parseInt(pageSelectItem.reqId),
-        //   reqLogDesc: logDesc,
-        //   reqLogType: parseInt(1),
-        //   regId: userInfo.userId,
-        // });
-
-        // console.log("📢 [page.jsx:141]logData:: ", logData);
+        if (userInfo.authCd === "approve")
+          pageSelectItem.confId = userInfo.userId;
         await modiApi();
         //await addLog();
         forceRender((prev) => prev + 1); // 상태 값을 변경하여 강제 렌더링

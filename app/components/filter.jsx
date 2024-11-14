@@ -28,7 +28,7 @@ export default function FilterPage({ onClose, onSearch }) {
   const handelSearch = () => {
     if (selectType && selectType.trim()) {
       if (!reqTypeText || !reqTypeText.trim()) {
-        alert("업무명을 입력해주세요.");
+        alert(selectType + "을 입력해주세요.");
         return;
       }
     }
@@ -62,10 +62,9 @@ export default function FilterPage({ onClose, onSearch }) {
   ];
 
   const reqType = [
-    { label: "업무명", value: "reqName" },
-    // { value: "11", label: "전체" },
-    // { value: "33", label: "내용" },
-    // { value: "44", label: "처리자명" },
+    { label: "업무명", value: "업무명" },
+    { label: "요청자명", value: "요청자명" },
+    { label: "담당자명", value: "담당자명" },
   ];
 
   useEffect(() => {}, [

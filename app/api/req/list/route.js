@@ -64,11 +64,44 @@ export async function POST(req) {
 
     // 선택 내용
     if (selectType && selectType.trim()) {
-      if (selectType == "reqName") {
+      if (selectType == "업무명") {
         where.reqTitle = {
           contains: reqTypeText, // reqTitle의 LIKE 검색
         };
       }
+
+      if (selectType == "요청자명" || selectType == "담당자명") {
+        const getUser = await prisma.tbUser.findMany({
+          where: {
+            userName: reqTypeText,
+          },
+          select: {
+            userId: true,
+          },
+        });
+
+        if (getUser.length > 0) {
+          const ids = getUser.map((user) => user.userId);
+
+          if (selectType == "요청자명") where.regId = { in: ids };
+          if (selectType == "담당자명") where.confId = { in: ids };
+        } else {
+          // 결과값 없으면 조회 안되게
+          if (selectType == "요청자명") where.regId = reqTypeText;
+          if (selectType == "담당자명") where.confId = reqTypeText;
+        }
+      }
+
+      // if (selectType == "요청자명") {
+      //   where.reqTitle = {
+      //     contains: reqTypeText, // reqTitle의 LIKE 검색
+      //   };
+      // }
+      // if (selectType == "담당자명") {
+      //   where.reqTitle = {
+      //     contains: reqTypeText, // reqTitle의 LIKE 검색
+      //   };
+      // }
     }
 
     //요청자일 때는 본인 요청내역만 조회

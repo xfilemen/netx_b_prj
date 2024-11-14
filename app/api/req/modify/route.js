@@ -101,7 +101,7 @@ export async function POST(req) {
 
     if (data) {
       const procData = getObjTrimAndNullProc(data);
-      const {
+      let {
         reqId,
         reqTitle,
         reqName,
@@ -114,23 +114,29 @@ export async function POST(req) {
         modId,
         reqLogDesc,
         userId,
+        regId,
+        confId,
       } = procData;
+
+      let updateParam = {
+        reqTitle,
+        reqName,
+        reqOrd,
+        reqStatus,
+        reqIntExtType: reqIntExtType || reqType,
+        reqPurp,
+        regId,
+        modId: userId,
+        modDt: nowData, // Set the modification date to now
+      };
+
+      if (confId) updateParam.confId = confId;
 
       let updatedTbReqMgt;
       await prisma.$transaction(async (prisma) => {
-
-          updatedTbReqMgt = await prisma.tbReqMgt.update({
+        updatedTbReqMgt = await prisma.tbReqMgt.update({
           where: { reqId },
-          data: {
-            reqTitle,
-            reqName,
-            reqOrd,
-            reqStatus,
-            reqIntExtType: reqIntExtType || reqType,
-            reqPurp,
-            modId,
-            modDt: nowData, // Set the modification date to now
-          },
+          data: updateParam,
         });
 
         // 상세
@@ -151,7 +157,6 @@ export async function POST(req) {
             reqQualSkill,
             reqSkill,
             reqPrefSkill,
-            modId,
           } = procData;
 
           let updatedTbReqMgtDet = await prisma.tbReqMgtDet.update({
@@ -169,7 +174,7 @@ export async function POST(req) {
               reqQualSkill,
               reqSkill,
               reqPrefSkill,
-              modId,
+              modId: userId,
               modDt: new Date(), // Set the modification date to now
             },
           });
@@ -177,21 +182,20 @@ export async function POST(req) {
 
         // 시스템 메시지는 공통코드 G003에서 가져옴
         const tbComCode = await prisma.tbComCode.findMany({
-          where : {codeGrp : 'G003', code : reqStatus}
-        })
+          where: { codeGrp: "G003", code: reqStatus },
+        });
         // 이력
         const tbReqMgtLog = await prisma.tbReqMgtLog.create({
           data: {
             reqId,
-            reqLogType : 1,
-            reqLogDesc : tbComCode[0]?.temp1,
+            reqLogType: 1,
+            reqLogDesc: tbComCode[0]?.temp1,
             regId: userId,
             regDt: nowData,
           },
         });
+      });
 
-      })  
-      
       return new Response(
         JSON.stringify({
           message: "정상적으로 처리되었습니다.",
