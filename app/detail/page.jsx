@@ -108,6 +108,16 @@ export default function RegularPage({ item }) {
           result.data[index].reqType2 = "정규직";
         }
       }
+
+      if (
+        reqFilterData.reqType.length > 0 &&
+        !reqFilterData.reqType.includes("all")
+      ) {
+        result.data = result.data.filter(
+          (item) => item.reqType2 == reqFilterData.reqType[0]
+        );
+      }
+
       setData(result.data);
       isGetData.current = true;
     }

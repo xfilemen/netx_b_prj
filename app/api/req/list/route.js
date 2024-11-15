@@ -53,11 +53,22 @@ export async function POST(req) {
 
     // 유형
     if (reqType.length > 0 && !reqType.includes("all")) {
+      const orConditions = reqType.map((type) => ({
+        reqType: type,
+      }));
       where.reqDet = {
         some: {
-          OR: reqType.map((type) => ({
-            reqType: { contains: type },
-          })),
+          OR: orConditions,
+        },
+      };
+    }
+    if (reqType.length > 0 && reqType.includes("all")) {
+      where.reqDet = {
+        some: {
+          reqType: reqType
+            .filter((type) => type !== "all")
+            .sort((type) => (type === "정규직" ? -1 : 1))
+            .join(", "),
         },
       };
     }
@@ -91,17 +102,6 @@ export async function POST(req) {
           if (selectType == "담당자명") where.confId = reqTypeText;
         }
       }
-
-      // if (selectType == "요청자명") {
-      //   where.reqTitle = {
-      //     contains: reqTypeText, // reqTitle의 LIKE 검색
-      //   };
-      // }
-      // if (selectType == "담당자명") {
-      //   where.reqTitle = {
-      //     contains: reqTypeText, // reqTitle의 LIKE 검색
-      //   };
-      // }
     }
 
     //요청자일 때는 본인 요청내역만 조회
