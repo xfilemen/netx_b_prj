@@ -150,9 +150,7 @@ export default function AuthForm({ type,closeModal }) {
 
   //취소 버튼
   const canCelBtnClick = () => {
-    if (window.confirm("입력하신 내용이 초기화됩니다. 그래도 취소하시겠습니까?")) {
-      closeModal();
-    };
+    closeModal();
   }
   
   
