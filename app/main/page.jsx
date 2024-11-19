@@ -1,66 +1,46 @@
-'use client'
 
-import { useEffect, useState } from 'react';
-import { useSession, signIn, signOut } from "next-auth/react";
+import prisma from '/lib/prisma';
+import {getSession} from '@utils/data-access';
 import styles from '@styles/main.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
-import apiCall from '../../utils/api-call';
 
-export default function MainPage() {
-    const { data: session } = useSession();
-    const [error, setError] = useState(null);
+export default async function MainPage() {
 
-     // useState를 사용하여 하나의 객체로 상태 관리
-    const [data, setData] = useState({
-        requstData: [],
-        registerCount: 0,
-        progressCount: 0,
-        cancelCount: 0,
-        completeCount: 0,
-    });
-    
-    let userInfo = {};
-    userInfo = session?.user || {};
-    console.log(userInfo);
-    console.log('📢 [page.jsx:29]', session);
-
-    
-    const submitData = async () => {
-        try {
-          const result = await apiCall.postData('/api/req/status'); // POST 요청
-
-          if(result.data === undefined){
-            setError(error);
-    
-          }else{
-            console.log(result.data);
-            const rowdata = result.data;
-
-            // 새로운 요청 데이터를 기반으로 카운트 업데이트
-            setData({
-                requstData: rowdata,
-                registerCount: rowdata.filter(item => item.reqStatus === 'register').length,
-                progressCount: rowdata.filter(item => item.reqStatus === 'progress').length,
-                cancelCount: rowdata.filter(item => item.reqStatus === 'cancel'|| item.reqStatus === 'return').length,
-                completeCount: rowdata.filter(item => item.reqStatus === 'complete').length,
-            });
-    
-          }
-        } catch (error) {
-          console.log('error',error);
-          setError(error);
+    const {user} = await getSession();
+    let data = {}
+    let where = {}
+    try {
+        //요청자일 때는 본인 요청내역만 조회
+        if(user.authCd == 'request'){
+        where = { 
+            regId : user.userId
         }
-    };
+        }
+        const rowdata = await prisma.tbReqMgt.findMany({
+        where,
+        select: {
+            reqStatus: true,
+        },
+        })
 
-     useEffect(() => {
-        submitData();
-     }, []);
+        
+        data = {
+            requstData: rowdata,
+            registerCount: rowdata.filter(item => item.reqStatus === 'register').length,
+            progressCount: rowdata.filter(item => item.reqStatus === 'progress').length,
+            cancelCount: rowdata.filter(item => item.reqStatus === 'cancel'|| item.reqStatus === 'return').length,
+            completeCount: rowdata.filter(item => item.reqStatus === 'complete').length,
+        };
+    } catch(error){
+        console.log(error)
+    }
+
 
     return (
         <div className={styles.wrap}>
             <div className={styles.main_content}>
-                <h2>{userInfo.compName} {userInfo.deptName}<br/><span className={styles.name}>{userInfo.userName}</span>님, 반갑습니다 :)</h2>
+                <h2>{user.compName} {user.deptName}<br/><span className={styles.name}>{user.userName}</span>님, 반갑습니다 :)</h2>
                 <div className={styles.status_list}>
                     <ul>
                         <li>전체 현황 <span className={`${styles.num} ${styles.blue_color}`}>{data.requstData.length}</span></li>
@@ -111,4 +91,3 @@ export default function MainPage() {
         </div>
     )
 }
-
