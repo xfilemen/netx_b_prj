@@ -4,7 +4,7 @@ const swaggerDefinition = {
     info: {
       title: '인력 요청 시스템 API 명세서',
       version: '1.0.0',
-      description: 'next.js 기반 API ',
+      description: 'next.js 기반 API - 세션 정보가 필요한 API는 홈페이지에서 로그인 후 테스트가 가능합니다.',
     },
     servers: [
       {
